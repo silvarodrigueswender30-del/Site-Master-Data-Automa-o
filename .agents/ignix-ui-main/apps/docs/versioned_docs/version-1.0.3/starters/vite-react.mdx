@@ -1,0 +1,142 @@
+---
+id: vite-react
+title: Vite + React Starter
+description: Scaffold a ultra-fast Vite + React 18 project with Tailwind CSS, Ignix ThemeProvider, ESLint, Prettier, and opinionated HMR defaults.
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+The **Vite + React Starter** sets up a lean, instantly ready React workspace optimized for Ignix UI:
+
+-  Vite 5 with esbuild bundling + instant HMR (&lt;100 ms cold start)
+-  React 18 + TypeScript + strict compiler options
+-  Tailwind CSS pre-wired with Ignix theme tokens and plugin globs
+-  `ThemeProvider` wrapping the root component for light/dark + theme persistence
+-  ESLint (`@typescript-eslint`, `react-hooks`, `react-refresh`) + Prettier (Tailwind plugin)
+-  Git-friendly `.gitignore`, PostCSS, and Ignix config out of the box
+-  Minimal dependencies so components stay tree-shakeable
+
+Use it whenever you need a fast SPA baseline that already understands Ignix theming.
+
+### Installation Methods
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm" label="npm" default>
+
+```bash
+npm install -g @mindfiredigital/ignix-cli
+```
+
+  </TabItem>
+  <TabItem value="yarn" label="Yarn">
+
+```bash
+yarn global add @mindfiredigital/ignix-cli
+```
+
+  </TabItem>
+  <TabItem value="npx" label="npx">
+
+```bash
+npx @mindfiredigital/ignix-cli
+```
+
+  </TabItem>
+</Tabs>
+
+### Usage Modes
+
+
+<Tabs>
+  <TabItem value="interactive" label="Interactive">
+
+Run the CLI and choose **Starters Template → Vite + React (TypeScript + Tailwind + HMR)**:
+
+```bash
+ignix
+```
+The interactive mode provides a beautiful, guided interface with the following options:
+- 🚀 **Initialize Ignix UI** - Set up your project
+- ➕ **Add components** - Add components to your project
+- 📋 **List components** - View available components
+- 🎨 **Manage themes** - Configure and manage themes
+- 📦 **Starters Template** - Generate a new starter template
+- 🚪 **Exit** - Close the CLI
+
+Choose the option **Starters Template** and press Enter. 
+<div className="border border-gray-300 rounded-lg inline-block p-2">
+![Ignix CLI](/img/ignix-cli.png)
+</div>
+Then select **Vite + React (TypeScript + Tailwind + HMR)** from the list of available starters.
+<div className="border border-gray-300 rounded-lg inline-block p-2">
+![Ignix CLI vite react](/img/ignix-cli-vite-react.png)
+</div>
+  </TabItem>
+  <TabItem value="direct" label="Direct">
+
+Skip the menu and scaffold immediately:
+
+```bash
+ignix vite-react
+```
+
+  </TabItem>
+</Tabs>
+
+### What the CLI does
+
+1. Warns if the target directory is not empty
+2. Writes `package.json`, `tsconfig.json`, `tsconfig.node.json`, and `vite.config.ts`
+3. Configures Tailwind, PostCSS, ESLint (CJS), Prettier, and Ignix registry defaults
+4. Generates `src/` with `main.tsx`, `App.tsx`, `index.css`, and `components/ui`
+5. Injects `ThemeProvider` inside `App.tsx` for theme persistence + OS sync
+6. Creates `ignix.config.js`, `.gitignore`, and Vite's `vite-env.d.ts`
+7. Initializes git and installs dependencies via your detected package manager
+
+## Generated Structure
+
+```text
+.
+├─ src/
+│  ├─ main.tsx          # Entry point mounting <App />
+│  ├─ App.tsx           # ThemeProvider + welcome checklist
+│  ├─ index.css         # Tailwind layers + CSS variables
+│  ├─ vite-env.d.ts     # Vite client types
+│  └─ components/ui/    # Ignix components land here
+├─ index.html           # Vite HTML shell
+├─ vite.config.ts       # React plugin, alias '@/*', tuned HMR(Hot Module Replacement)
+├─ tailwind.config.js   # Ignix-aware tokens + content globs
+├─ postcss.config.js    # Tailwind + autoprefixer
+├─ tsconfig.json        # Strict TS + '@/*' alias
+├─ tsconfig.node.json   # Node types for Vite config
+├─ .eslintrc.cjs        # TS + react-hooks + react-refresh rules
+├─ .prettierrc / .prettierignore
+└─ .gitignore
+```
+
+## Key Integrations
+
+- **ThemeProvider**: `App.tsx` wraps the UI, enabling theme persistence, OS-aware mode switching, and plug-and-play `ThemeSwitcher`.
+- **Tailwind CSS**: ships with Ignix CSS variables (e.g., `--primary`) and globs that include `node_modules/@mindfiredigital/ignix-ui`.
+- **TypeScript**: strict compiler options, `@/*` alias, isolated modules, and Vite-specific `tsconfig.node.json` with Node types.
+- **Tooling**: ESLint + Prettier + PostCSS configured so `npm run lint` / `npm run format` work day one.
+- **Performance**: Vite dev server boots in under a second, uses optimized dependency pre-bundling, and tree-shakes unused Ignix components.
+
+## Scripts
+
+| Script | Description |
+| --- | --- |
+| `npm run dev` | Starts Vite dev server with fast HMR |
+| `npm run build` | Type-checks and builds the app |
+| `npm run preview` | Serves the production build locally |
+| `npm run lint` | Runs ESLint with the bundled config |
+| `npm run format` | Formats files using Prettier + Tailwind plugin |
+
+## Next Steps
+
+1. `cd your-app && npm run dev`
+2. Add UI primitives via `npx ignix add button`
+3. Browse/install themes using `npx ignix themes list`
+4. Deploy to your preferred platform (Netlify, Vercel, Render, etc.)
+

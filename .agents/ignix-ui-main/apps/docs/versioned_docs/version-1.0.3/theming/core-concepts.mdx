@@ -1,0 +1,169 @@
+---
+sidebar_position: 2
+title: Core Concepts
+description: Understand the foundational principles of the Ignix UI theming system, including CSS Custom Properties, the theme object, and our accessibility-first approach.
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import Admonition from '@theme/Admonition';
+
+# Core Concepts
+
+The Quick Start guide showed you how easy it is to get up and running. Now, let's explore the foundational concepts that make Ignix UI's theming system so powerful and flexible.
+
+## CSS Custom Properties
+
+The entire theming system is built on CSS Custom Properties (CSS Variables). When you use the `ThemeProvider`, it injects a set of global CSS variables into the `:root` element of your document.
+
+```css title="/styles/theme.css"
+:root {
+  --primary: string;
+  --primaryHover: string;
+  --primaryActive: string;
+  --secondary: string;
+  --secondaryHover: string;
+  --secondaryActive: string;
+  --accent: string;
+  --accentHover: string;
+  --accentActive: string;
+  --background: string;
+  --backgroundAlt: string;
+  --surface: string;
+  --surfaceAlt: string;
+  --text: string;
+  --textSecondary: string;
+  --textMuted: string;
+  --textInverse: string;
+  --border: string;
+  --borderLight: string;
+  --borderHover: string;
+  --success: string;
+  --warning: string;
+  --error: string;
+  --info: string;
+}
+```
+
+<Admonition type="success" title="Framework Agnostic">
+  Because we use standard CSS, this system works with any component library or custom CSS. You're not locked into using only Ignix UI components.
+</Admonition>
+
+## Theme Configuration
+
+Every theme follows a structured `ThemeConfig` object that defines its identity, colors, and metadata.
+
+```tsx title="themeconfig.ts"
+interface ThemeConfig {
+    id: string;
+    name: string;
+    category: string;
+    description?: string;
+    colors: {
+      primary: string;
+      primaryHover: string;
+      primaryActive: string;
+      secondary: string;
+      secondaryHover: string;
+      secondaryActive: string;
+      accent: string;
+      accentHover: string;
+      accentActive: string;
+      background: string;
+      backgroundAlt: string;
+      surface: string;
+      surfaceAlt: string;
+      text: string;
+      textSecondary: string;
+      textMuted: string;
+      textInverse: string;
+      border: string;
+      borderLight: string;
+      borderHover: string;
+      success: string;
+      warning: string;
+      error: string;
+      info: string;
+    };
+
+    dark?: {
+      primary: string;
+      primaryHover: string;
+      primaryActive: string;
+      secondary: string;
+      secondaryHover: string;
+      secondaryActive: string;
+      accent: string;
+      accentHover: string;
+      accentActive: string;
+      background: string;
+      backgroundAlt: string;
+      surface: string;
+      surfaceAlt: string;
+      text: string;
+      textSecondary: string;
+      textMuted: string;
+      textInverse: string;
+      border: string;
+      borderLight: string;
+      borderHover: string;
+      success: string;
+      warning: string;
+      error: string;
+      info: string;
+    };
+    metadata?: {
+      accessibility: 'AA' | 'AAA';
+      contrastRatio: number;
+      mood: string[];
+      tags: string[];
+      industry?: string[];
+      author?: string;
+      version?: string;
+      created?: string;
+      updated?: string;
+    };
+}
+```
+
+## Light & Dark Modes
+
+Ignix UI provides first-class support for both light and dark color schemes.
+
+### System Preferences
+
+Respects the user's OS preference by default:
+
+```tsx
+<ThemeProvider defaultTheme={cyberpunkNeonTheme}>
+```
+
+### Manual Control
+
+Use the `useTheme` hook to toggle modes programmatically:
+
+```tsx
+import { useTheme } from '@mindfiredigital/ignix-ui';
+
+function ThemeToggle() {
+  const { toggleMode, mode } = useTheme();
+  
+  return (
+    <button onClick={toggleMode}>
+      Toggle {mode === 'dark' ? 'Light' : 'Dark'} Mode
+    </button>
+  );
+}
+```
+
+### Semantic Tokens
+
+Use semantic color tokens for consistent theming:
+
+```css
+.button {
+  background: var(--primary);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+```

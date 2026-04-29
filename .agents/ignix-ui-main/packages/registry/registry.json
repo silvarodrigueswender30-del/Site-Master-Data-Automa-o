@@ -1,0 +1,1455 @@
+{
+  "components": {
+    "slide": {
+      "name": "Slide",
+      "description": "A slide animation component with configurable direction",
+      "dependencies": ["framer-motion"],
+      "files": {
+        "main": {
+          "path": "components/slide/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "accordion": {
+      "name": "Accordion",
+      "description": "An animated accordion component",
+      "dependencies": ["@radix-ui/react-accordion", "lucide-react", "framer-motion"],
+      "files": {
+        "main": {
+          "path": "components/accordion/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "aspectRatio": {
+      "name": "AspectRatio",
+      "description": "A responsive container that maintains a consistent aspect ratio for its content",
+      "dependencies": [],
+      "files": {
+        "main": {
+          "path": "components/aspectratio/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "box": {
+      "name": "Box",
+      "description": "A versatile container component",
+      "dependencies": ["framer-motion"],
+      "files": {
+        "main": {
+          "path": "components/layouts/box/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "button": {
+      "name": "Button",
+      "description": "An animated button component",
+      "dependencies": ["@radix-ui/react-slot", "class-variance-authority", "framer-motion"],
+      "files": {
+        "main": {
+          "path": "components/button/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "button-with-icon": {
+      "name": "ButtonWithIcon",
+      "description": "An enhanced button component with icon support, multiple icon positions, and loading states",
+      "dependencies": [
+        "@radix-ui/react-slot", 
+        "class-variance-authority", 
+        "framer-motion"
+      ],
+      "componentDependencies": [
+        "button", 
+        "spinner"
+      ],
+      "files": {
+        "main": {
+          "path": "components/buttonwithicon/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "button-with-spinner": {
+      "name": "ButtonWithSpinner",
+      "description": "A button component with integrated loading spinner that displays during async operations. Automatically adjusts spinner colors based on button variant for optimal visibility.",
+      "dependencies": ["@radix-ui/react-slot", "class-variance-authority", "framer-motion"],
+      "componentDependencies": ["button", "spinner"],
+      "files": {
+        "main": {
+          "path": "components/button-with-spinner/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "button-group": {
+      "name": "ButtonGroup",
+      "description": "A component that groups multiple buttons together with consistent spacing, clear active states, and responsive wrapping. Supports both single and multiple selection modes.",
+      "dependencies": ["class-variance-authority"],
+      "componentDependencies": ["button"],
+      "files": {
+        "main": {
+          "path": "components/button-group/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "center": {
+      "name": "Center",
+      "description": "A layout utility component for centering content",
+      "dependencies": ["clsx"],
+      "files": {
+        "main": {
+          "path": "components/layouts/center/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "carousel": {
+      "name": "Carousel",
+      "description": " A flexible carousel component with navigation controls, dots indicators, thumbnails, animations, and responsive support.",
+      "dependencies": ["framer-motion", "lucide-react"],
+      "files": {
+        "main": {
+          "path": "components/carousel/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "dynamicForm": {
+      "name": "DynamicForm",
+      "description": "A dynamic form component that generates form fields based on a JSON schema, enabling easy form creation and validation.",
+      "dependencies": [
+        "lucide-react", 
+        "class-variance-authority",
+        "framer-motion"
+      ],
+      "componentDependencies": [
+        "typography",
+        "button"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/pages/dynamic-form/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "errorPage": {
+      "name": "ErrorPage",
+      "description": "A customizable error page template with multiple animation variants, designed to display clear messaging, illustration/icons.",
+      "dependencies": ["lucide-react", "framer-motion", "class-variance-authority"],
+      "componentDependencies": ["button", "typography"],
+      "files": {
+        "main": {
+          "path": "templates/pages/error-page/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "pin": {
+      "name": "Pin",
+      "description": "A layout utility component for Pin content",
+      "dependencies": ["@radix-ui/react-slot", "clsx"],
+      "files": {
+        "main": {
+          "path": "components/layouts/pin/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "responsive-grid": {
+      "name": "ResponsiveGrid",
+      "description": "A flexible grid layout component with responsive columns, gaps, equal-height option, and animations (fade, stagger, scale).",
+      "dependencies": ["framer-motion"],
+      "files": {
+        "main": {
+          "path": "components/layouts/responsive-grid/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "statsGrid" :{
+      "name": "StatsGrid",
+      "description": "A responsive grid layout for displaying statistics with animated count-up and staggered entrance effects.",
+      "dependencies": [
+        "lucide-react", 
+        "class-variance-authority",
+        "framer-motion"
+      ],
+      "componentDependencies": [      ],
+      "files": {
+        "main": {
+          "path": "templates/sections/stats-grid/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "auto-grid": {
+      "name": "AutoGrid",
+      "description": "A self-calculating grid layout that automatically determines columns based on available space and minimum item width, with support for max columns, gap, and balanced heights.",
+      "dependencies": [],
+      "files": {
+        "main": {
+          "path": "components/layouts/auto-grid/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "masonry": {
+      "name": "Masonry",
+      "description": "A Pinterest-style layout component that arranges items of varying heights in multiple responsive columns, with support for balanced layout and entrance animations.",
+      "dependencies": ["framer-motion"],
+      "files": {
+        "main": {
+          "path": "components/layouts/masonry/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "maintenance-page": {
+      "name": "MaintenancePage ",
+      "description": "A customizable maintenance page template with multiple animation variants, designed to display clear messaging, ETA.",
+      "dependencies": ["lucide-react", "framer-motion", "class-variance-authority"],
+      "componentDependencies": ["button", "typography"],
+      "files": {
+        "main": {
+          "path": "templates/pages/maintenance-page/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "app-shell": {
+      "name": "AppShell",
+      "description": "A high-level layout component that structures the entire application frame, providing responsive navigation (side, top, or drawer), brand placement, user profile integration, and optional footer support.",
+      "dependencies": ["clsx"],
+      "files": {
+        "main": {
+          "path": "components/layouts/app-shell/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "fieldGroup": {
+      "name": "FieldGroup",
+      "description": "A form utility component that groups related form fields together with an optional label, description, and error message, ensuring consistent spacing and accessibility.",
+      "dependencies": ["clsx"],
+      "files": {
+        "main": {
+          "path": "components/layouts/field-group/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "responsive": {
+      "name": "Responsive",
+      "description": "A layout component that renders completely different components or layouts depending on the current device breakpoint (mobile, tablet, desktop), enabling fully adaptive user interfaces.",
+      "dependencies": [],
+      "files": {
+        "main": {
+          "path": "components/layouts/responsive/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "slider": {
+      "name": "Slider",
+      "description": "An animated slider component",
+      "dependencies": ["@radix-ui/react-slider", "framer-motion"],
+      "files": {
+        "main": {
+          "path": "components/slider/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "switch": {
+      "name": "Switch",
+      "description": "An animated switch component",
+      "dependencies": ["@radix-ui/react-switch", "framer-motion"],
+      "files": {
+        "main": {
+          "path": "components/switch/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "dialogBox": {
+      "name": "DialogBox",
+      "description": "A dialog-box component with animation and different variants",
+      "dependencies": ["framer-motion"],
+      "files": {
+        "main": {
+          "path": "components/dialogbox/index.tsx",
+          "type": "component"
+        },
+        "hook": {
+          "path": "components/dialogbox/use-dialog.ts",
+          "type": "hook"
+        }
+      }
+    },
+    "badge": {
+      "name": "Badge",
+      "description": "A badge component with animation and different variants",
+      "dependencies": ["framer-motion"],
+      "files": {
+        "main": {
+          "path": "components/badge/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "toast": {
+      "name": "Toast",
+      "description": "A toast notification component with animation and different variants",
+      "dependencies": ["@radix-ui/react-icons", "framer-motion"],
+      "files": {
+        "main": {
+          "path": "components/toast/index.tsx",
+          "type": "component"
+        },
+        "types": {
+          "path": "components/toast/types.ts",
+          "type": "types"
+        },
+        "hook": {
+          "path": "components/toast/use-toast.ts",
+          "type": "hook"
+        }
+      }
+    },
+    "navbar": {
+      "name": "Navbar",
+      "description": "A responsive navigation bar with animation",
+      "dependencies": ["lucide-react", "framer-motion", "class-variance-authority"],
+      "files": {
+        "main": {
+          "path": "components/navbar/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "tabs": {
+      "name": "Tabs",
+      "description": "A tab component with animation and different variants",
+      "dependencies": ["framer-motion", "lucide-react", "class-variance-authority"],
+      "files": {
+        "main": {
+          "path": "components/tab/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "breadcrumbs": {
+      "name": "Breadcrumbs",
+      "description": "A breadcrumb navigation component with animation",
+      "dependencies": ["framer-motion", "lucide-react", "class-variance-authority"],
+      "files": {
+        "main": {
+          "path": "components/breadcrumbs/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "sidebar": {
+      "name": "Sidebar",
+      "description": "A collapsible sidebar component with animation",
+      "dependencies": ["framer-motion", "@radix-ui/react-icons", "class-variance-authority"],
+      "files": {
+        "main": {
+          "path": "components/sidebar/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "input": {
+      "name": "Input",
+      "description": "An animated input component with different variants",
+      "dependencies": ["framer-motion", "lucide-react", "class-variance-authority"],
+      "files": {
+        "main": {
+          "path": "components/input/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "list-basic": {
+      "name": "list-basic",
+      "description": "A flexible list component that supports both unordered (bullet points) and ordered (numbered) lists with consistent spacing between items. Optimized with React.memo, useMemo, and useCallback for performance.",
+      "dependencies": [],
+      "files": {
+        "main": {
+          "path": "components/list-basic/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "list-with-actions": {
+      "name": "List-With-Actions",
+      "description": "A list component that extends ListBasic functionality by adding contextual action buttons (like Edit, Delete, View) to each list item. Actions appear on hover/focus on desktop and remain always visible on mobile. Optimized with React.memo, useMemo, and useCallback for performance.",
+      "dependencies": [],
+      "componentDependencies": ["list-basic"],
+      "files": {
+        "main": {
+          "path": "components/list-with-actions/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "list-with-avatars": {
+      "name": "List-With-Avatars",
+      "description": "A list component that extends ListBasic functionality by displaying avatars on the left side of each item, with names and descriptions on the right. Items can optionally link to profile pages and support custom click handlers. Optimized with React.memo, useMemo, and useCallback for performance.",
+      "dependencies": [],
+      "componentDependencies": ["list-basic", "avatar"],
+      "files": {
+        "main": {
+          "path": "components/list-with-avatars/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "list-with-status": {
+      "name": "List-With-Status",
+      "description": "A list component that extends ListBasic by adding status badges (success, error, warning, info, pending) to each item, with titles, descriptions, and optional click handlers. Optimized with React.memo, useMemo, and useCallback for performance.",
+      "dependencies": [],
+      "componentDependencies": ["list-basic"],
+      "files": {
+        "main": {
+          "path": "components/list-with-status/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "modal": {
+      "name": "Modal",
+      "description": "A modern, animated modal component with overlay, header, body, footer, color schemes, and optional header icon support. Includes Escape and overlay close behavior plus customizable color overrides.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "componentDependencies": [],
+      "files": {
+        "main": {
+          "path": "components/modals/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "multiStepForm": {
+      "name": "MultiStepForm",
+      "description": "A multi-step form component to guide users through complex processes with step indicators, navigation controls, validation, and review screens. Supports linear and non-linear flows, customizable button labels, and optional cancel functionality.",
+      "dependencies": ["framer-motion", "lucide-react", "class-variance-authority"],
+      "componentDependencies": [
+        "button",
+        "input",
+        "typography"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/pages/multi-step-form/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "textarea": {
+      "name": "Textarea",
+      "description": "An animated textarea component with different variants",
+      "dependencies": ["framer-motion", "lucide-react", "class-variance-authority"],
+      "files": {
+        "main": {
+          "path": "components/textarea/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "tooltip": {
+      "name": "Tooltip",
+      "description": "An animated tooltip component with different variants",
+      "dependencies": [
+        "@radix-ui/react-tooltip",
+        "framer-motion",
+        "lucide-react",
+        "class-variance-authority"
+      ],
+      "files": {
+        "main": {
+          "path": "components/tooltip/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "dropdown": {
+      "name": "Dropdown",
+      "description": "An animated dropdown component with different variants",
+      "dependencies": [
+        "@radix-ui/react-dropdown-menu",
+        "framer-motion",
+        "lucide-react",
+        "class-variance-authority"
+      ],
+      "files": {
+        "main": {
+          "path": "components/dropdown/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "spinner": {
+      "name": "Spinner",
+      "description": "An animated spinner component with different variants",
+      "dependencies": ["framer-motion", "lucide-react"],
+      "files": {
+        "main": {
+          "path": "components/spinner/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "spacer": {
+      "name": "Spacer",
+      "description": "A utility component that provides adjustable spacing between elements without adding extra visual content.",
+      "dependencies": ["class-variance-authority"],
+      "files": {
+        "main": {
+          "path": "components/layouts/spacer/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "form": {
+      "name": "Form",
+      "description": "A utility component that provides adjustable spacing between elements without adding extra visual content.",
+      "dependencies": ["class-variance-authority"],
+      "files": {
+        "main": {
+          "path": "components/layouts/form/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "stepper": {
+      "name": "stepper",
+      "description": "An animated stepper component with different variants",
+      "dependencies": ["framer-motion", "class-variance-authority"],
+      "files": {
+        "main": {
+          "path": "components/stepper/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "table": {
+      "name": "Table",
+      "description": "An animated table component with different variants",
+      "dependencies": ["@radix-ui/themes", "@radix-ui/react-icons", "framer-motion"],
+      "files": {
+        "main": {
+          "path": "components/table/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "advanced-table": {
+      "name": "Advanced-Table",
+      "description": "A configurable data-table component with sorting, filtering, and pagination. Data and columns are required props; behavior is controlled via flags. Supports numeric column sorting, real-time filtering with highlighted matches, and customizable pagination.",
+      "dependencies": ["lucide-react"],
+      "componentDependencies": ["button", "input"],
+      "files": {
+        "main": {
+          "path": "components/advanced-table/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "pagination": {
+      "name": "Pagination",
+      "description": "An animated pagination component with different variants",
+      "dependencies": ["@radix-ui/themes", "@radix-ui/react-icons", "react-responsive"],
+      "files": {
+        "main": {
+          "path": "components/pagination/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "card": {
+      "name": "Card",
+      "description": "An animated card component with different variants",
+      "dependencies": ["framer-motion", "lucide-react", "class-variance-authority"],
+      "files": {
+        "main": {
+          "path": "components/card/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "checkbox": {
+      "name":"Checkbox",
+      "description":"An animated checkbox component with different variants and animation options",
+      "dependencies":[
+        "framer-motion",
+        "lucide-react",
+        "class-variance-authority"
+      ],
+      "files":{
+        "main":{
+          "path":"components/checkbox/index.tsx",
+          "type":"component"
+        }
+      }
+    },
+    "progress-indicator": {
+      "name": "progress-indicator",
+      "description": "A versatile progress indicator with linear and circular types, optional percentage label, multiple animation variants, and flexible label positions. Supports determinate and indeterminate states. Styled with Tailwind CSS only; optimized with React.memo, useMemo, and useCallback.",
+      "dependencies": [
+        "framer-motion"
+      ],
+      "files": {
+        "main": {
+          "path": "components/progress-indicator/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "radio": {
+      "name":"Radio",
+      "description":"An animated radio component with different variants and animation options",
+      "dependencies":[
+        "framer-motion",
+        "class-variance-authority",
+        "@radix-ui/react-radio-group"
+      ],
+      "files":{
+        "main":{
+          "path":"components/radio/index.tsx",
+          "type":"component"
+        }
+      }
+    },
+    "typography": {
+      "name":"Typography",
+      "description":"A Typography component for consistent text styling with various variants, sizes, weights, and colors.",
+      "dependencies":[
+        "@radix-ui/react-slot",
+        "class-variance-authority"
+      ],
+      "files":{
+        "main":{
+          "path":"components/typography/index.tsx",
+          "type":"component"
+        }
+      }
+    },
+    "container": {
+      "name": "Container",
+      "description": "A flexible container component for constraining content width with responsive padding and centering options.",
+      "dependencies": ["class-variance-authority"],
+      "files": {
+        "main": {
+          "path": "components/container/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "section": {
+      "name": "Section",
+      "description": "A layout component for creating distinct vertical blocks with consistent vertical rhythm, spacing, and background styling.",
+      "dependencies": ["class-variance-authority"],
+      "files": {
+        "main": {
+          "path": "components/layouts/section/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "cluster": {
+      "name": "Cluster",
+      "description": "A layout component for creating distinct group related items with consistent spacing and alignment.",
+      "dependencies": ["class-variance-authority"],
+      "files": {
+        "main": {
+          "path": "components/layouts/cluster/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "breakpoint": {
+      "name": "Breakpoint",
+      "description": "A flexible container component for constraining content width with responsive padding and centering options.",
+      "dependencies": ["class-variance-authority", "lucide-react"],
+      "files": {
+        "main": {
+          "path": "components/layouts/breakpoint/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "stack": {
+      "name": "Stack",
+      "description": "A layout component for arranging elements in a stack with adjustable spacing and alignment.",
+      "dependencies": ["class-variance-authority", "lucide-react"],
+      "files": {
+        "main": {
+          "path": "components/layouts/stack/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "DebugBox": {
+      "name": "DebugBox",
+      "description": "A development utility that overlays grid, spacing, breakpoints, and dimensions for debugging layouts.",
+      "dependencies": [],
+      "files": {
+        "main": {
+          "path": "components/DebugBox/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "header-layout": {
+      "name": "HeaderLayout",
+      "description": "A flexible layout component with header, sidebar, and footer that supports responsive design and various configuration options.",
+      "dependencies": ["framer-motion", "lucide-react", "class-variance-authority"],
+      "files": {
+        "main": {
+          "path": "components/layouts/header-layout/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "drawer": {
+      "name": "Drawer",
+      "description": "A drawer component with animation and different variants",
+      "dependencies": ["framer-motion", "lucide-react", "class-variance-authority"],
+      "files": {
+        "main": {
+          "path": "components/drawer/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "lazyLoad": {
+      "name": "Lazyload",
+      "description": "A layout component for lazy loading...",
+      "dependencies": [],
+      "files": {
+        "main": {
+          "path": "components/lazyload/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "singleColumnLayout": {
+      "name": "SingleColumnLayout",
+      "description": "A clean, responsive single-column layout with header, constrained content area, and footer. Supports multiple theme variants and animations.",
+      "dependencies": ["framer-motion", "lucide-react", "class-variance-authority"],
+      "componentDependencies": ["button"],
+      "files": {
+        "main": {
+          "path": "templates/layouts/single-column-layout/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "sidebarleftlayout": {
+      "name": "SidebarLeftLayout",
+      "description": "A flexible layout component with header, sidebar, and footer that supports responsive design and various configuration options.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react",
+        "class-variance-authority"
+      ],
+      "componentDependencies": [
+        "sidebar"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/layouts/sidebar-left-layout/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "sidebarrightlayout": {
+      "name": "SidebarRightLayout",
+      "description": "A flexible layout component with header, right sidebar, and footer that supports responsive design and various configuration options.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react",
+        "class-variance-authority"
+      ],
+      "componentDependencies": [
+        "sidebar"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/layouts/sidebar-right-layout/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "fullheightsidebarlayout": {
+      "name": "FullHeightSidebarLayout",
+      "description": "A flexible layout component with header, sidebar that supports app dashboard with responsive design.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react",
+        "class-variance-authority"
+      ],
+      "componentDependencies": [
+        "sidebar"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/layouts/full-height-sidebar-layout/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "responsivegridlayout": {
+      "name": "ResponsiveGridLayout",
+      "description": "A responsive grid layout template for CLI dashboards, combining a header, footer, and auto-flowing cards that adapt across breakpoints.",
+      "dependencies": [],
+      "componentDependencies": [],
+      "files": {
+        "main": {
+          "path": "templates/layouts/responsive-grid-layout/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "threecolumnsidebarlayout": {
+      "name": "ThreeColumnSidebarLayout",
+      "description": "A flexible layout component with header, sidebar that supports app dashboard with responsive design.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react",
+        "class-variance-authority"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/layouts/three-column-sidebar-layout/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "forgot-password": {
+      "name": "forgotPassword",
+      "description": "A fully responsive and customizable Forgot Password component with an input field and submit button, built to support secure in-app password reset processes.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react",
+        "class-variance-authority"
+      ],
+      "componentDependencies": [
+        "card",
+        "input",
+        "button"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/pages/forgot-password/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "signin": {
+      "name": "SignIn",
+      "description": "A sign-in page template with responsive design and form validation.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react",
+        "class-variance-authority"
+      ],
+      "componentDependencies": [
+        "button","input"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/pages/sign-in/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "signup": {
+      "name": "SignUp",
+      "description": "A sign-up page template with responsive design and form validation.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react",
+        "class-variance-authority",
+        "react-icons"
+      ],
+      "componentDependencies": [
+        "button","input"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/pages/sign-up/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "avatar": {
+      "name": "Avatar",
+      "description": "An avatar component with image, icon, letters, and status indicator support, along with fallback handling and customizable sizes and shapes.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": {
+        "main": {
+          "path": "components/avatar/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "otp-verification": {
+      "name": "otpVerification",
+      "description": "A fully responsive OTP (One-Time Password) verification component that provides configurable input length, animations, themes, auto-focus behavior, and paste-to-autofill support.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react",
+        "class-variance-authority"
+      ],
+      "componentDependencies": [
+        "button"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/pages/otp-verification/index.tsx",
+          "type":"template"
+        }
+      }
+    },
+    "resetPassword": {
+      "name": "ResetPassword",
+      "description": "A reset password page template with responsive design and form validation.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "componentDependencies": [
+        "button",
+        "input",
+        "card"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/pages/reset-password/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "settingPage": {
+      "name": "SettingsPage",
+      "description": "A settings page template with responsive design and animation.",
+      "dependencies": [
+        "framer-motion",
+        "i18n",
+        "react-i18next"
+      ],
+      "componentDependencies": [
+        "dropdown",
+        "button",
+        "radio",
+        "typography",
+        "switch",
+        "dialogBox"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/pages/setting-page/index.tsx",
+          "type": "template"
+        },
+        "hook": {
+          "path": "templates/pages/setting-page/i18n.tsx",
+          "type": "hook"
+        }
+      }
+    },
+    "twoFactorAuthSetup": {
+      "name": "TwoFactorAuthSetup",
+      "description": "A two-factor authentication setup page with QR code, manual entry, backup codes, and verification step.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "componentDependencies": [
+        "button",
+        "card"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/pages/two-factor-auth-setup/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "profile":{
+      "name": "Profile",
+      "description": "A profile page template with responsive design and form validation.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react", "class-variance-authority"
+      ],
+      "componentDependencies": [
+        "button","avatar",
+        "input",
+        "typography"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/pages/profile/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "pricingGrid":{
+      "name": "PricingGrid",
+      "description": "A pricing grid template with responsive design.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "componentDependencies": [
+        "button"
+      ],
+      "files": {
+        "main": {
+          "path": "components/pricing-grid/index.tsx",
+          "type" : "component"
+        }
+      }
+    },
+    "securityPage": {
+      "name": "SecurityPage",
+      "description": "A comprehensive account security page with password change, active sessions, logout-all, two-factor authentication toggle with recovery codes, and login activity, available in both grid and collapsible list layouts.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react",
+        "class-variance-authority"
+      ],
+      "componentDependencies": [
+        "input",
+        "switch",
+        "table",
+        "accordion",
+        "card",
+        "pagination"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/pages/security/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "notificationSettings": {
+      "name": "NotificationSettingsPage",
+      "description": "A notification settings page with email, SMS, and push notification preferences, featuring toggles and category grouping.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react",
+        "class-variance-authority"
+      ],
+      "componentDependencies": [
+        "button",
+        "switch",
+        "radio",
+        "accordion",
+        "card"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/pages/notification-settings-page/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "apiKeys":{
+      "name": "ApiKeys",
+      "description": "A page for managing API keys with responsive design and form validation.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react", "class-variance-authority"
+      ],
+      "componentDependencies": [
+        "button",
+        "input",
+        "typography", "checkbox"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/pages/api-keys/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "comparisonTable": {
+      "name": "ComparisonTable",
+      "description": "The Comparison Table provides a clear, scalable way to evaluate features, plans, or capabilities side-by-side. It adapts seamlessly between desktop grid and mobile-friendly layouts, ensuring consistent readability, accessibility, and decision-making across devices.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react",
+        "class-variance-authority"
+      ],
+      "componentDependencies": [
+        "typography",
+        "card"
+      ],
+      "files": {
+        "main": {
+          "path": "components/comparison-table/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "billingPage": {
+      "name": "BillingPage",
+      "description": "",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react",
+        "class-variance-authority"
+      ],
+      "componentDependencies": [
+        "avatar",
+        "buttonWithIcon",
+        "typography",
+        "card",
+        "pricingGrid",
+        "dialogBox"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/pages/billing-page/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "dashboard-overview-page": {
+      "name": "dashboard-overview-page",
+      "description": "A composable analytics dashboard template with KPI cards, key metrics grid, paginated activity list, CTA actions, and date-range filtering.",
+      "dependencies": [
+        "react-icons"
+      ],
+      "componentDependencies": [
+        "button",
+        "card",
+        "datePicker",
+        "pagination"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/pages/dashboard-overview/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "dashboard-shortcuts-page": {
+      "name": "dashboard-shortcuts-page",
+      "description": "A composable dashboard shortcuts template with large action buttons, icon-backed shortcut grid, keyboard hints, and persisted drag-and-drop customization.",
+      "dependencies": [
+        "@radix-ui/react-icons"
+      ],
+      "componentDependencies": [
+        "button",
+        "card"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/pages/dashboard-shortcuts-page/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "analytics-dashboard-page": {
+      "name": "analytics-dashboard-page",
+      "description": "A composable analytics dashboard template with KPI summary cards, time-series line and bar charts, and a distribution pie chart, driven by dynamic time-series data and series configuration.",
+      "dependencies": [],
+      "componentDependencies": [
+        "button",
+        "card",
+        "datePicker"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/pages/analytics-dashboard-page/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "imageCard": {
+      "name": "ImageCard",
+      "description": "An image card component with different variants",
+      "dependencies": ["lucide-react", "class-variance-authority"],
+      "componentDependencies": [
+        "typography",
+        "lazyLoad",
+        "aspectRatio"
+      ],
+      "files": {
+        "main": {
+          "path": "components/image-card/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "fileUpload":{
+      "name": "FileUpload",
+      "description": "A file uploader component with responsive design and form validation.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react", "class-variance-authority"
+      ],
+      "componentDependencies": [
+        "button",
+        "avatar",
+        "typography"
+      ],
+      "files": {
+        "main": {
+          "path": "components/file-upload/index.tsx",
+          "type": "component"
+        }
+      }
+    }, 
+    "datePicker":{
+      "name": "DatePicker",
+      "description": "A date picker component with responsive design and form validation.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react", "class-variance-authority"
+      ],
+      "componentDependencies": [
+        "button",
+        "typography"
+      ],
+      "files": {
+        "main": {
+          "path": "components/date-picker/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "userCard":{
+      "name": "userCard",
+      "description": "An image card component with different variants.",
+      "dependencies": [
+        "lucide-react", 
+        "class-variance-authority",
+        "react-icons"
+      ],
+      "componentDependencies": [
+        "card",
+        "avatar",
+        "button",
+        "typography"
+      ],
+      "files": {
+        "main": {
+          "path": "components/user-card/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "rating":{
+      "name": "Rating",
+      "description": "A flexible rating component with animations, custom icons, emojis, and multiple interaction modes.",
+      "dependencies": [
+        "lucide-react", 
+        "class-variance-authority",
+        "framer-motion"
+      ],
+      "files": {
+        "main": {
+          "path": "components/rating/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "hero":{
+      "name": "Hero",
+      "description": "A flexible hero component with animations, custom icons, emojis, and multiple interaction modes.",
+      "dependencies": [
+        "lucide-react", 
+        "class-variance-authority",
+        "framer-motion"
+      ],
+      "componentDependencies": [
+        "container",
+        "typography",
+        "button",
+        "buttonwithicon"
+      ],
+      "files": {
+        "main": {
+          "path": "components/hero/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "mega-menu-multi-column-dropdown": {
+      "name": "mega-menu-multi-column-dropdown",
+      "description": "A header mega menu section with a multi-column dropdown, category headers, icons/images per link, nested submenus, and an optional CTA button.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "componentDependencies": [
+        "button"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/sections/mega-menu-multi-column-dropdown/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "productCard":{
+      "name": "ProductCard",
+      "description": "A flexible product card component with custom tags and multiple interaction modes.",
+      "dependencies": [
+        "lucide-react", 
+        "class-variance-authority"
+      ],
+      "componentDependencies": [
+        "rating",
+        "typography",
+        "buttonwithicon",
+        "card"
+      ],
+      "files": {
+        "main": {
+          "path": "components/product-card/index.tsx",
+          "type": "component"
+        }
+      }
+    }, 
+    "callToAction" :{
+      "name": "CallToAction",
+      "description": "",
+      "dependencies": [
+        "lucide-react", 
+        "class-variance-authority",
+        "framer-motion"
+      ],
+      "componentDependencies": [
+        "button",
+        "typography"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/sections/call-to-action/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "tab-navigation": {
+      "name": "tab-navigation",
+      "description": "A horizontal tab navigation template with active indicator, optional icons and badges, and full keyboard support.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "componentDependencies": [],
+      "files": {
+        "main": {
+          "path": "templates/sections/tab-navigation/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "testimonialCard" :{
+      "name": "TestimonialCard",
+      "description": "Testimonial Card component showcases customer feedback in a clear and engaging format. It supports flexible layouts with features such as quotes, author details (name, title, avatar), ratings, social links.",
+      "dependencies": [
+        "class-variance-authority",
+        "framer-motion"
+      ],
+      "componentDependencies": [
+        "rating",
+        "avatar",
+        "card",
+        "typography"
+      ],
+      "files": {
+        "main": {
+          "path": "components/testimonial-card/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "teamProfiles": {
+      "name": "TeamProfiles",
+      "description": "",
+      "dependencies": [
+        "lucide-react", 
+        "class-variance-authority",
+        "framer-motion"
+      ],
+      "componentDependencies": [
+        "typography",
+        "button"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/sections/team-profiles/index.tsx",
+          "type": "template"
+        }
+      }
+    },
+    "faqAccordion":{
+      "name": "FAQAccordion",
+      "description": "A flexible faq accordion component with custom tags and multiple interaction modes.",
+      "dependencies": [
+        "lucide-react", 
+        "class-variance-authority", "framer-motion"
+      ],
+      "componentDependencies": [
+        "typography",
+        "button"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/sections/faq-accordion/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "split": {
+      "name": "Split",
+      "description": "component simplifies the creation of two-column layouts such as sidebars with content, image and text sections, or dashboard layouts. It supports ratios, gaps, responsive stacking, and optional resizing.",
+      "files": {
+        "main": {
+          "path": "components/layouts/split/index.tsx",
+          "type": "component"
+        }
+      }
+    },
+    "contact-form": {
+      "name": "contact-form",
+      "description": "A Contact Form Page that allows users to submit inquiries, feedback, or support requests. The form collects basic contact details and a message, with an option to attach a file.",
+      "dependencies": [
+        "@radix-ui/react-icons", 
+        "framer-motion"
+      ],
+      "componentDependencies": [
+        "textarea",
+        "button",
+        "input",
+        "fileUpload",
+        "toast"
+      ],
+      "files": {
+        "main": {
+          "path": "templates/pages/contact-form/index.tsx",
+          "type": "template"
+        }
+      }
+    }
+  } 
+}

@@ -1,0 +1,453 @@
+---
+sidebar_position: 1
+title: ThreeColumnLayout
+description: A flexible layout component with header, right sidebar, and footer that supports responsive design and various configuration options.
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import ThreeColumnSidebarLayoutDemo from '@site/src/components/Demo/ThreeColumnSidebarLayoutDemo';
+
+The **Three Column SideBar Layout** component provides a complete layout solution with a header, left sidebar, scrollable main content, scrollable right content. It's designed to be highly configurable with support for responsive design, animations, and various layout variants. This component is perfect for building social sites.
+
+<ThreeColumnSidebarLayoutDemo/>
+
+## Installation
+
+<Tabs>
+  <TabItem value="cli" label="CLI" default>
+    ```bash
+    ignix add component ThreeColumnSidebarLayout
+    ```
+  </TabItem>
+  <TabItem value="manual" label="manual" className="max-h-[500px] overflow-y-auto">
+  ```tsx
+import * as React from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { cn } from "../../../utils/cn";
+import { SidebarProvider, useSidebar } from "@ignix-ui/sidebar";
+import { Menu, X } from "lucide-react";
+
+/**
+ * Represents a navigation or TOC section.
+ */
+interface NavSection {
+  label: string;
+  items: Array<{
+    label: string;
+    href: string;
+    active?: boolean;
+  }>;
+}
+
+/**
+ * Props for the ThreeColumnSidebarLayout component.
+ */
+export interface ThreeColumnLayoutProps {
+  header?: React.ReactNode;
+  sidebar?: React.ReactNode;
+  rightSidebar?: React.ReactNode;
+  navItems?: NavSection[];
+  tocItems?: NavSection[];
+  children: React.ReactNode;
+  footer?: React.ReactNode;
+  sidebarWidth?: number;
+  rightSidebarWidth?: number;
+  stickyHeader?: boolean;
+  stickyFooter?: boolean;
+  mobileBreakpoint?: "sm" | "md" | "lg";
+  overlay?: boolean;
+  transitionDuration?: number;
+  headerHeight?: number;
+  footerHeight?: number;
+  zIndex?: {
+    header?: number;
+    sidebar?: number;
+    footer?: number;
+    overlay?: number;
+  };
+  className?: string;
+}
+
+/**
+ * Core three-column responsive layout with:
+ * - Header
+ * - Left sidebar (navigation / filters)
+ * - Main content
+ * - Right sidebar (TOC / stats)
+ * - Footer
+ */
+const ThreeColumnLayoutContent: React.FC<ThreeColumnLayoutProps> = ({
+  header,
+  sidebar,
+  rightSidebar,
+  navItems,
+  tocItems,
+  children,
+  footer,
+  sidebarWidth = 300,
+  rightSidebarWidth = 240,
+  stickyFooter = false,
+  stickyHeader = true,
+  mobileBreakpoint = "md",
+  overlay = true,
+  transitionDuration = 0.3,
+  headerHeight = 60,
+  footerHeight = 60,
+  zIndex = { header: 50, sidebar: 40, footer: 30, overlay: 80 },
+  className,
+}) => {
+  const { isOpen: leftOpen, toggle: toggleLeft } = useSidebar();
+  const [isMobile, setIsMobile] = React.useState(false);
+  const [isTablet, setIsTablet] = React.useState(false);
+  
+  const mobileBp = mobileBreakpoint === "sm" ? 640 : mobileBreakpoint === "md" ? 768 : 1024;
+  const tabletBp = 1024; // iPad and similar tablets
+
+  React.useEffect(() => {
+    const check = () => {
+      const width = window.innerWidth;
+      setIsMobile(width < mobileBp);
+      setIsTablet(width >= mobileBp && width < tabletBp);
+    };
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, [mobileBp, tabletBp]);
+
+  // Set CSS custom properties for dynamic values (necessary for prop-based sizing)
+  React.useEffect(() => {
+    const root = document.documentElement;
+    root.style.setProperty("--layout-header-h", `${headerHeight}px`);
+    root.style.setProperty("--layout-footer-h", `${footerHeight}px`);
+    root.style.setProperty("--layout-sidebar-w", `${sidebarWidth}px`);
+    root.style.setProperty("--layout-right-sidebar-w", `${rightSidebarWidth}px`);
+    root.style.setProperty("--layout-header-z", `${zIndex.header}`);
+    root.style.setProperty("--layout-footer-z", `${zIndex.footer}`);
+    root.style.setProperty("--layout-sidebar-z", `${zIndex.sidebar}`);
+    root.style.setProperty("--layout-overlay-z", `${zIndex.overlay}`);
+    root.style.setProperty("--layout-mobile-sidebar-z", `${(zIndex.sidebar ?? 90) + 10}`);
+    
+    return () => {
+      root.style.removeProperty("--layout-header-h");
+      root.style.removeProperty("--layout-footer-h");
+      root.style.removeProperty("--layout-sidebar-w");
+      root.style.removeProperty("--layout-right-sidebar-w");
+      root.style.removeProperty("--layout-header-z");
+      root.style.removeProperty("--layout-footer-z");
+      root.style.removeProperty("--layout-sidebar-z");
+      root.style.removeProperty("--layout-overlay-z");
+      root.style.removeProperty("--layout-mobile-sidebar-z");
+    };
+  }, [headerHeight, footerHeight, sidebarWidth, rightSidebarWidth, zIndex]);
+
+  return (
+    <div
+      className={cn(
+        "w-full min-h-screen flex flex-col",
+        "bg-[var(--background)] text-[var(--foreground)]",
+        className
+      )}
+    >
+      {/* HEADER */}
+      {header && (
+        <header
+          className={cn(
+            "w-full border-b border-[var(--border)]",
+            "bg-[var(--background)]",
+            "h-[var(--layout-header-h)] pl-12 lg:pl-0",
+            stickyHeader && "sticky top-0 z-[var(--layout-header-z)]"
+          )}
+          role="banner"
+        >
+          <div className="h-full flex items-center px-4">{header}</div>
+        </header>
+      )}
+
+      {/* MAIN LAYOUT */}
+      <div className="flex flex-1 overflow-hidden">
+        {/* LEFT SIDEBAR - Desktop only (hidden on tablet and mobile) */}
+        {(sidebar || navItems) && !isMobile && !isTablet && (
+          <aside
+            className={cn(
+              "sticky border-r border-[var(--border)]",
+              "bg-[var(--background)]",
+              "overflow-y-auto overflow-x-hidden",
+              "transition-all duration-300",
+              "top-[var(--layout-header-h)] h-[calc(100vh-var(--layout-header-h))]",
+              leftOpen ? "w-[var(--layout-sidebar-w)]" : "w-0"
+            )}
+            role="complementary"
+            aria-label="Navigation sidebar"
+          >
+            {navItems ? (
+              <nav className="h-full overflow-y-auto p-4">
+                <div className="space-y-6">
+                  {navItems.map((section) => (
+                    <div key={section.label}>
+                      <h2 className="text-xs font-semibold text-[var(--muted-foreground)] uppercase tracking-wider mb-2 px-2">
+                        {section.label}
+                      </h2>
+                      <ul className="space-y-1">
+                        {section.items.map((item, index) => (
+                          <li key={index}>
+                            <a
+                              href={item.href}
+                              className={cn(
+                                "block px-3 py-2 rounded-md text-sm transition-colors",
+                                item.active
+                                  ? "bg-[var(--primary)]/10 text-[var(--primary)] font-medium"
+                                  : "text-[var(--foreground)] hover:bg-[var(--accent)]"
+                              )}
+                            >
+                              {item.label}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </nav>
+            ) : (
+              sidebar
+            )}
+          </aside>
+        )}
+
+        {/* MAIN CONTENT */}
+        <main
+          className={cn(
+            "flex-1 overflow-y-auto overflow-x-hidden",
+            "h-[calc(100vh-var(--layout-header-h))]",
+            // Full width on tablet (no sidebars)
+            isTablet && "w-full",
+            // Prevent blur on mobile when overlay is open
+            isMobile && leftOpen && "relative z-0"
+          )}
+          role="main"
+        >
+          <div className={cn(
+            "mx-8 px-0 py-4",
+            // Wider max-width on tablet since no sidebars
+            isTablet ? "max-w-5xl" : "max-w-4xl"
+          )}>
+            {children}
+          </div>
+        </main>
+
+        {/* RIGHT SIDEBAR - Desktop only (hidden on tablet and mobile) */}
+        {(rightSidebar || tocItems) && !isMobile && !isTablet && (
+          <aside
+            className={cn(
+              "sticky border-l border-[var(--border)]",
+              "bg-[var(--background)]",
+              "overflow-y-auto overflow-x-hidden",
+              "transition-all duration-300",
+              "top-[var(--layout-header-h)] h-[calc(100vh-var(--layout-header-h))]",
+              "w-[var(--layout-right-sidebar-w)]"
+            )}
+            role="complementary"
+            aria-label="Table of contents"
+          >
+            {tocItems ? (
+              <nav className="h-full overflow-y-auto p-4">
+                <div className="space-y-6">
+                  {tocItems.map((section) => (
+                    <div key={section.label}>
+                      <h2 className="text-xs font-semibold text-[var(--muted-foreground)] uppercase tracking-wider mb-3 px-2">
+                        {section.label}
+                      </h2>
+                      <ul className="space-y-1">
+                        {section.items.map((item, index) => (
+                          <li key={index}>
+                            <a
+                              href={item.href}
+                              className={cn(
+                                "block px-3 py-2 rounded-md text-sm transition-colors",
+                                item.active
+                                  ? "bg-[var(--primary)]/10 text-[var(--primary)] font-medium"
+                                  : "text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--accent)]"
+                              )}
+                            >
+                              {item.label}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </nav>
+            ) : (
+              rightSidebar
+            )}
+          </aside>
+        )}
+      </div>
+
+      {/* MOBILE OVERLAY SIDEBAR */}
+      {(sidebar || navItems) && (isMobile || isTablet) && (
+        <>
+          <AnimatePresence>
+            {overlay && leftOpen && (
+              <motion.div
+                className="fixed inset-0 z-[var(--layout-overlay-z)]"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={toggleLeft}
+                aria-hidden="true"
+                style={{ pointerEvents: leftOpen ? 'auto' : 'none' }}
+              />
+            )}
+          </AnimatePresence>
+
+          <motion.aside
+            className={cn(
+              "fixed inset-y-0 left-0",
+              "bg-[var(--background)]",
+              "shadow-2xl z-[var(--layout-mobile-sidebar-z)]",
+              "w-[var(--layout-sidebar-w)]"
+            )}
+            initial={{ x: "calc(-1 * var(--layout-sidebar-w))" }}
+            animate={{ x: leftOpen ? 0 : "calc(-1 * var(--layout-sidebar-w))" }}
+            transition={{ duration: transitionDuration, ease: [0.4, 0, 0.2, 1] }}
+            role="complementary"
+            aria-label="Mobile navigation"
+            aria-hidden={!leftOpen}
+          >
+            <div className="h-full overflow-y-auto relative isolate">
+              {navItems ? (
+                <nav className="h-full overflow-y-auto p-4">
+                  <div className="space-y-6">
+                    {navItems.map((section) => (
+                      <div key={section.label}>
+                        <h2 className="text-xs font-semibold text-[var(--muted-foreground)] uppercase tracking-wider mb-2 px-2">
+                          {section.label}
+                        </h2>
+                        <ul className="space-y-1">
+                          {section.items.map((item, index) => (
+                            <li key={index}>
+                              <a
+                                href={item.href}
+                                className={cn(
+                                  "block px-3 py-2 rounded-md text-sm transition-colors",
+                                  "cursor-pointer",
+                                  item.active
+                                    ? "bg-[var(--primary)]/10 text-[var(--primary)] font-medium"
+                                    : "text-[var(--foreground)] hover:bg-[var(--accent)]"
+                                )}
+                                onClick={() => {
+                                  // Allow navigation but also close sidebar
+                                  toggleLeft();
+                                }}
+                              >
+                                {item.label}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </nav>
+              ) : (
+                sidebar
+              )}
+            </div>
+          </motion.aside>
+
+          {/* Mobile Toggle Button */}
+          <button
+            className={cn(
+              "fixed z-[999] p-2 rounded-lg",
+              "bg-[var(--card)] border border-[var(--border)]",
+              "shadow-lg top-4 left-4",
+              "hover:bg-[var(--accent)] transition-colors",
+              leftOpen && "left-60 top-0.5",
+            )}
+            onClick={toggleLeft}
+            aria-label={leftOpen ? "Close sidebar" : "Open sidebar"}
+            aria-expanded={leftOpen}
+          >
+            {leftOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </>
+      )}
+
+      {/* FOOTER */}
+      {footer && (
+        <footer
+          className={cn(
+            "w-full border-t border-[var(--border)]",
+            "bg-[var(--background)]",
+            "h-[var(--layout-footer-h)]",
+            stickyFooter && "sticky bottom-0 z-[var(--layout-footer-z)]"
+          )}
+          role="contentinfo"
+        >
+          <div className="h-full flex items-center justify-center px-4">{footer}</div>
+        </footer>
+      )}
+    </div>
+  );
+};
+
+/**
+ * Provider-wrapped exported layout.
+ */
+export const ThreeColumnSidebarLayout: React.FC<ThreeColumnLayoutProps> = (props) => {
+  return (
+    <SidebarProvider initialOpen={true}>
+      <ThreeColumnLayoutContent {...props} />
+    </SidebarProvider>
+  );
+};
+
+ThreeColumnSidebarLayout.displayName = "ThreeColumnSidebarLayout";
+
+  ```
+  </TabItem>
+</Tabs>
+
+
+## Usage
+
+```tsx
+  import { ThreeColumnSidebarLayout } from '@ignix-ui/threecolumnlayout';
+
+    function App() {
+      return (
+        <ThreeColumnSidebarLayout
+          header={<div>Header Content</div>}
+          sidebar={<div>Sidebar Content</div>}
+          rightSidebar={<div>Right Content</div>}
+        >
+          <div>Main Content</div>
+        </ThreeColumnSidebarLayout>
+      );
+    }
+```
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `header` | `React.ReactNode` | `undefined` | Content for the header section |
+| `sidebar` | `React.ReactNode` | `undefined` | Content for the left sidebar section |
+| `rightSidebar` | `React.ReactNode` | `undefined` | Content for the right sidebar section |
+| `navItems` | `NavSection[]` | `undefined` | Navigation items for the left sidebar |
+| `tocItems` | `NavSection[]` | `undefined` | Table of contents items for the right sidebar |
+| `children` | `React.ReactNode` | — | Main content area |
+| `footer` | `React.ReactNode` | `undefined` | Content for the footer section |
+| `sidebarWidth` | `number` | `undefined` | Width of the left sidebar in pixels |
+| `rightSidebarWidth` | `number` | `undefined` | Width of the right sidebar in pixels |
+| `stickyHeader` | `boolean` | `true` | Whether the header should remain fixed at the top |
+| `stickyFooter` | `boolean` | `false` | Whether the footer should remain fixed at the bottom |
+| `mobileBreakpoint` | `"sm" \| "md" \| "lg"` | `"md"` | Breakpoint at which mobile layout is applied |
+| `overlay` | `boolean` | `true` | Whether to show an overlay on mobile when sidebars are open |
+| `transitionDuration` | `number` | `0.3` | Animation duration in seconds |
+| `headerHeight` | `number` | `64` | Header height in pixels |
+| `footerHeight` | `number` | `64` | Footer height in pixels |
+| `zIndex` | `{ header?: number; sidebar?: number; footer?: number; overlay?: number }` | `{ header: 10, sidebar: 90, footer: 50, overlay: 80 }` | Z-index values for layout layers |
+| `className` | `string` | `undefined` | Additional CSS classes applied to the root container |

@@ -1,0 +1,337 @@
+export default function Products() {
+    return (
+        <>
+            {/* ─── #products ─── */}
+            <section
+                id="products"
+                data-w-id="688441f0-da8a-8314-aeea-06fbd64feb48"
+                className="
+                    relative w-full
+                    bg-[#0A0A0A]
+                    pt-[6em] pb-[15em] px-[1.88em]
+                    max-[991px]:pb-[10em] max-[991px]:px-0
+                    max-[479px]:pt-[4em] max-[479px]:pb-[7em]
+                "
+            >
+                <section className="w-full max-w-none h-full block">
+                    {/* prodcuts-wrap — typo preservado intencionalmente do DOM original */}
+                    <div className="prodcuts-wrap">
+
+                        {/* products-heading-wrap */}
+                        <div
+                            className="
+                                flex justify-between items-end
+                                max-[991px]:px-[1.88em]
+                                max-[479px]:flex-col max-[479px]:items-start
+                                max-[479px]:gap-y-[1.2em] max-[479px]:px-[1em]
+                            "
+                        >
+                            {/* products-heading */}
+                            <div className="w-[44.25em] max-[991px]:w-full">
+                                {/*
+                                    h2-style green →
+                                    font: Aeonik 3.6em / 93% weight-500 tracking-[-0.03em]
+                                    cor: --heading-color substituída por --sticker-gold
+                                */}
+                                <h2
+                                    text-split=""
+                                    className="
+                                        block
+                                        m-0
+                                        font-[Aeonik,Arial,sans-serif]
+                                        text-[3.6em] font-medium leading-[93%]
+                                        tracking-[-0.03em]
+                                        text-[#D4A574]
+                                        max-[479px]:text-[2.6em]
+                                    "
+                                >
+                                    Para Sua Pele.
+                                    <br />
+                                    Para Seu Corpo.
+                                </h2>
+                            </div>
+                        </div>
+
+                        {/* products-items — grid 3 colunas desktop / flex scroll tablet + mobile */}
+                        <div
+                            className="
+                                grid grid-cols-3 gap-[1.88em]
+                                mt-[12em]
+                                max-[991px]:flex max-[991px]:flex-row max-[991px]:overflow-x-scroll
+                                max-[991px]:mt-0 max-[991px]:pt-[10em]
+                                max-[991px]:px-[1.88em]
+                                max-[479px]:gap-[1em]
+                                max-[479px]:pt-[7em] max-[479px]:px-[1em]
+                                [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]
+                            "
+                        >
+
+                            {/* ── produto 1 ── */}
+                            <a
+                                data-w-id="2a7c0fd0-825e-1061-a699-548e219ea8ab"
+                                href="/procedimentos/crioendolift"
+                                className="
+                                    product-item product-1
+                                    relative flex items-end justify-center
+                                    h-[23.88em] p-[1.25em] rounded-[0.4em]
+                                    bg-[rgba(245,240,232,0.07)] backdrop-blur-[20px]
+                                    border border-[rgba(212,165,116,0.20)]
+                                    no-underline
+                                    max-[991px]:flex-none max-[991px]:w-[25em]
+                                    max-[479px]:items-start max-[479px]:justify-start max-[479px]:w-[19em]
+                                "
+                            >
+                                <img
+                                    src="/images/crioendolift.avif"
+                                    loading="lazy"
+                                    sizes="100vw"
+                                    srcSet="/images/crioendolift-p-500.avif 500w, /images/crioendolift.avif 930w"
+                                    alt="CrioEndolift — Laser de alta potência com retração de pele simultânea."
+                                    className="
+                                        absolute z-[1] w-[20em] top-[-6em]
+                                        max-[479px]:w-[13.4em] max-[479px]:[inset:auto_0%_1em_3em]
+                                    "
+                                />
+                                {/* Lottie hover */}
+                                <div
+                                    data-is-ix2-target="1"
+                                    className="absolute z-[1] w-[27.5em] top-[-6em]"
+                                    data-w-id="6415f455-13f8-0410-b449-5a777c8c7ee1"
+                                    data-animation-type="lottie"
+                                    data-src=""
+                                    data-loop="0"
+                                    data-direction="1"
+                                    data-autoplay="0"
+                                    data-renderer="svg"
+                                    data-default-duration="0"
+                                    data-duration="5"
+                                    data-ix2-initial-state="0"
+                                />
+                                <div className="product-description w-full">
+                                    <div
+                                        className="
+                                            flex flex-col gap-y-[0.75em]
+                                            w-[21em]
+                                            max-[479px]:w-[85%]
+                                        "
+                                    >
+                                        <h3
+                                            className="
+                                                m-0
+                                                font-[Aeonik,Arial,sans-serif]
+                                                text-[2em] font-normal leading-[100%]
+                                                text-[#F5F0E8]
+                                                max-[479px]:text-[1.6em] max-[479px]:leading-[99%]
+                                            "
+                                        >
+                                            CrioEndolift
+                                        </h3>
+                                        <div
+                                            className="
+                                                font-[Aeonik,Arial,sans-serif]
+                                                text-[1em] leading-[130%]
+                                                uppercase
+                                                text-[#F5F0E8]
+                                                mb-0
+                                            "
+                                        >
+                                            Laser de alta potência com retração de pele simultânea. Resultados comparáveis à cirurgia plástica — sem o bisturi.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    className="
+                                        absolute z-[2]
+                                        top-[0.63em] right-[0.63em]
+                                        flex items-center justify-center
+                                        w-[3.38em] h-[3.38em] rounded-[0.13em]
+                                        bg-[rgba(255,255,255,0.1)]
+                                        max-[479px]:w-[3em] max-[479px]:h-[3em]
+                                    "
+                                >
+                                    <div className="text-[#F5F0E8] w-[0.75em]">
+                                        <svg width="100%" height="100%" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M11.7627 11.5605H10.3623V3.25098L1.55762 12.0557L0.567383 11.0654L9.37207 2.26074H1.0625V0.860352H11.7627V11.5605Z" fill="currentColor" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </a>
+
+                            {/* ── produto 2 ── */}
+                            <a
+                                href="/procedimentos/ultra-md"
+                                className="
+                                    product-item product-2
+                                    relative flex items-end justify-center
+                                    h-[23.88em] p-[1.25em] rounded-[0.4em]
+                                    bg-[rgba(245,240,232,0.07)] backdrop-blur-[20px]
+                                    border border-[rgba(212,165,116,0.20)]
+                                    no-underline
+                                    max-[991px]:flex-none max-[991px]:w-[25em]
+                                    max-[479px]:items-start max-[479px]:justify-start max-[479px]:w-[19em]
+                                "
+                            >
+                                <img
+                                    src="/images/ultra-md.avif"
+                                    loading="lazy"
+                                    sizes="100vw"
+                                    srcSet="/images/ultra-md-p-500.avif 500w, /images/ultra-md.avif 930w"
+                                    alt="Ultra MD — Único certificado internacional de eficácia no segmento."
+                                    className="
+                                        absolute z-[1] w-[20em] top-[-6em]
+                                        max-[479px]:w-[13.4em] max-[479px]:[inset:auto_0%_1em_3em]
+                                    "
+                                />
+                                <div
+                                    data-is-ix2-target="1"
+                                    className="absolute z-[1] w-[27.5em] top-[-6em]"
+                                    data-w-id="b897cdff-d63b-81bb-1b63-1a3b84ad4880"
+                                    data-animation-type="lottie"
+                                    data-src=""
+                                    data-loop="0"
+                                    data-direction="1"
+                                    data-autoplay="0"
+                                    data-renderer="svg"
+                                    data-default-duration="0"
+                                    data-duration="5"
+                                    data-ix2-initial-state="0"
+                                />
+                                <div className="product-description w-full">
+                                    <div
+                                        className="
+                                            flex flex-col gap-y-[0.75em]
+                                            w-[26em]
+                                            max-[991px]:w-full
+                                        "
+                                    >
+                                        <h3
+                                            className="
+                                                m-0
+                                                font-[Aeonik,Arial,sans-serif]
+                                                text-[2em] font-normal leading-[100%]
+                                                text-[#F5F0E8]
+                                                max-[479px]:text-[1.6em] max-[479px]:leading-[99%]
+                                            "
+                                        >
+                                            Ultra MD
+                                            <br />
+                                            Certificação FDA
+                                        </h3>
+                                        <div
+                                            className="
+                                                font-[Aeonik,Arial,sans-serif]
+                                                text-[1em] leading-[130%]
+                                                uppercase
+                                                text-[#F5F0E8]
+                                                mb-0
+                                            "
+                                        >
+                                            Único certificado internacional de eficácia no segmento. Exclusividade em Minas Gerais. Sem efeito rebote.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    className="
+                                        absolute z-[2]
+                                        top-[0.63em] right-[0.63em]
+                                        flex items-center justify-center
+                                        w-[3.38em] h-[3.38em] rounded-[0.13em]
+                                        bg-[rgba(255,255,255,0.1)]
+                                        max-[479px]:w-[3em] max-[479px]:h-[3em]
+                                    "
+                                >
+                                    <div className="text-[#F5F0E8] w-[0.75em]">
+                                        <svg width="100%" height="100%" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M11.7627 11.5605H10.3623V3.25098L1.55762 12.0557L0.567383 11.0654L9.37207 2.26074H1.0625V0.860352H11.7627V11.5605Z" fill="currentColor" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </a>
+
+                            {/* ── produto 3 ── */}
+                            <a
+                                href="/procedimentos/hidrolipo"
+                                className="
+                                    product-item product-3
+                                    relative flex items-end justify-center
+                                    h-[23.88em] p-[1.25em] rounded-[0.4em]
+                                    bg-[rgba(245,240,232,0.07)] backdrop-blur-[20px]
+                                    border border-[rgba(212,165,116,0.20)]
+                                    no-underline overflow-hidden
+                                    max-[991px]:flex-none max-[991px]:w-[25em]
+                                    max-[479px]:items-start max-[479px]:justify-start max-[479px]:w-[19em]
+                                "
+                            >
+                                <img
+                                    src="/images/hidrolipo.avif"
+                                    loading="lazy"
+                                    alt="Hidrolipo Não Aspirativa — Sticker Clínica"
+                                    className="
+                                        absolute z-[1] w-[20em] top-[-10em]
+                                        max-[479px]:w-[13em] max-[479px]:[inset:auto_0%_-0.7em_2.3em]
+                                    "
+                                />
+                                <div className="product-description w-full">
+                                    <div
+                                        className="
+                                            flex flex-col gap-y-[0.75em]
+                                            w-[23.9em]
+                                            max-[479px]:w-full
+                                        "
+                                    >
+                                        <h3
+                                            className="
+                                                m-0
+                                                font-[Aeonik,Arial,sans-serif]
+                                                text-[2em] font-normal leading-[100%]
+                                                text-[#F5F0E8]
+                                                max-[479px]:text-[1.6em] max-[479px]:leading-[99%]
+                                            "
+                                        >
+                                            Hidrolipo
+                                            <br />
+                                            Não Aspirativa
+                                        </h3>
+                                        <div
+                                            className="
+                                                font-[Aeonik,Arial,sans-serif]
+                                                text-[1em] leading-[130%]
+                                                uppercase
+                                                text-[#F5F0E8]
+                                                mb-0
+                                            "
+                                        >
+                                            Procedimento minimamente invasivo com acompanhamento nutricional incluso. Sem pós-operatório.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    className="
+                                        absolute z-[2]
+                                        top-[0.63em] right-[0.63em]
+                                        flex items-center justify-center
+                                        w-[3.38em] h-[3.38em] rounded-[0.13em]
+                                        bg-[rgba(255,255,255,0.1)]
+                                        max-[479px]:w-[3em] max-[479px]:h-[3em]
+                                    "
+                                >
+                                    <div className="text-[#F5F0E8] w-[0.75em]">
+                                        <svg width="100%" height="100%" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M11.7627 11.5605H10.3623V3.25098L1.55762 12.0557L0.567383 11.0654L9.37207 2.26074H1.0625V0.860352H11.7627V11.5605Z" fill="currentColor" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </a>
+
+                        </div>
+
+                        {/* scrollbar hide */}
+                        <style>{`
+                            .prodcuts-wrap .product-description { width: 100%; }
+                        `}</style>
+                    </div>
+                </section>
+            </section>
+        </>
+    )
+}

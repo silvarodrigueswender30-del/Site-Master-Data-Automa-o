@@ -1,0 +1,63 @@
+---
+title: Hooks
+sidebar_label: Hooks
+description: API reference for React Hooks in the Ignix UI theming system
+sidebar_position: 2
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import Admonition from '@theme/Admonition';
+
+# Hooks API Reference
+
+## useTheme()
+
+The primary hook for accessing and controlling the current theme state.
+
+### Import
+
+```tsx
+import { useTheme } from '@mindfiredigital/ignix-ui';
+```
+
+### Return Value
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `theme` | `ThemeConfig` | Current theme object |
+| `setTheme` | `(themeId: string) => void` | Change the current theme |
+| `mode` | `'light' \| 'dark'` | Current color mode |
+| `toggleMode` | `() => void` | Toggle between light/dark modes |
+
+### Example
+
+```tsx
+function ThemeController() {
+  const { theme, mode, toggleMode, setTheme } = useTheme();
+
+  return (
+    <div className="space-y-4">
+      <div>
+        <p>Current theme: <strong>{theme.name}</strong></p>
+        <p>Current mode: <strong>{mode}</strong></p>
+      </div>
+      
+      <div className="flex gap-2">
+        <button 
+          onClick={toggleMode}
+          className="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded"
+        >
+          Toggle Mode
+        </button>
+        <button 
+          onClick={() => setTheme('ocean-breeze')}
+          className="px-4 py-2 bg-blue-500 text-white rounded"
+        >
+          Set Ocean Breeze
+        </button>
+      </div>
+    </div>
+  );
+}
+```

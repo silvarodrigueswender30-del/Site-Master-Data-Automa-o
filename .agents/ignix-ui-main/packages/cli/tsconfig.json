@@ -1,0 +1,16 @@
+{
+  "extends": "../tsconfig/base.json",
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["dist", "build", "node_modules"],
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "declaration": true,
+    "declarationMap": false,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}

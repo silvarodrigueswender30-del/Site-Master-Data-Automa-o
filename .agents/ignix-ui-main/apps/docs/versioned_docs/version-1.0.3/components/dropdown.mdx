@@ -1,0 +1,203 @@
+---
+sidebar_position: 3
+title: Dropdown
+description: A reusable dropdown menu component with various styling options and animations.
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import { Dropdown, DropdownItem } from '@site/src/components/UI/dropdown';
+import { Button } from '@site/src/components/UI/button';
+import DropdownDemo from '@site/src/components/Demo/DropdownDemo'
+
+The Dropdown component provides a flexible and customizable way to create dropdown menus with various styling options, animations, and sizing variants. Built with Radix UI and Framer Motion, it offers smooth animations and accessible functionality out of the box.
+
+<DropdownDemo />
+
+## Installation
+
+<Tabs>
+  <TabItem value="cli" label="CLI" default>
+    ```bash
+    ignix add component dropdown
+    ```
+  </TabItem>
+  <TabItem value="manual" label="manual" className="max-h-[500px] overflow-y-auto">
+
+    ```tsx
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import { motion } from "framer-motion";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "../../../utils/cn";
+import { ReactNode } from "react";
+
+const dropdownVariants = cva("z-50 min-w-[10rem] border p-2 shadow-lg ml-[10px] mt-[12px]", {
+  variants: {
+    size: {
+      sm: "text-sm",
+      md: "text-base",
+      lg: "text-lg",
+    },
+    rounded: {
+      none: "rounded-none",
+      sm: "rounded-md",
+      md: "rounded-xl",
+      full: "rounded-full",
+    },
+    bg: {
+      default: "bg-background text-foreground",
+      dark: "bg-card text-card-foreground",
+      transparent: "bg-transparent.",
+      glass: "bg-white/10 backdrop-blur-lg text-[var(--color-glass-text)]",
+      gradient: "bg-gradient-to-r from-[var(--color-gradient-from-dropdown)] to-[var(--color-gradient-to-dropdown)] text-white",
+      primary: "bg-primary text-primary-foreground",
+    },
+  },
+  defaultVariants: {
+    size: "md",
+    rounded: "md",
+    bg: "default",
+  },
+});
+
+
+const animations = {
+  default: {
+    initial: { opacity: 0, y: -10, scale: 0.95 },
+    animate: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.15 } },
+    exit: { opacity: 0, y: -5, scale: 0.95, transition: { duration: 0.1 } },
+  },
+  fade: {
+    initial: { opacity: 0 },
+    animate: { opacity: 1, transition: { duration: 0.2 } },
+    exit: { opacity: 0, transition: { duration: 0.1 } },
+  },
+  scale: {
+    initial: { scale: 0.9, opacity: 0 },
+    animate: { scale: 1, opacity: 1, transition: { duration: 0.15 } },
+    exit: { scale: 0.9, opacity: 0, transition: { duration: 0.1 } },
+  },
+  slide: {
+    initial: { y: -12, opacity: 0 },
+    animate: { y: 0, opacity: 1, transition: { duration: 0.2 } },
+    exit: { y: -8, opacity: 0, transition: { duration: 0.1 } },
+  },
+  flip: {
+    initial: { rotateX: -90, opacity: 0 },
+    animate: { rotateX: 0, opacity: 1, transition: { duration: 0.25 } },
+    exit: { rotateX: -90, opacity: 0, transition: { duration: 0.15 } },
+  },
+};
+
+type AnimationVariant = keyof typeof animations;
+
+interface DropdownProps extends VariantProps<typeof dropdownVariants> {
+  children: ReactNode;
+  trigger: ReactNode;
+  animation?: AnimationVariant;
+  className?: string;
+  side?: "top" | "bottom" | "left" | "right";
+  sideOffset?: number;
+  align?: "start" | "center" | "end";
+}
+
+export const Dropdown = ({
+  children,
+  trigger,
+  animation = "default",
+  size,
+  rounded,
+  bg,
+  className,
+}: DropdownProps) => {
+  return (
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger asChild>{trigger}</DropdownMenu.Trigger>
+      <DropdownMenu.Portal>
+        <DropdownMenu.Content asChild sideOffset={8}>
+          <motion.div
+            variants={animations[animation]}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className={cn(dropdownVariants({ size, rounded, bg }), className)}
+          >
+            {children}
+          </motion.div>
+        </DropdownMenu.Content>
+      </DropdownMenu.Portal>
+    </DropdownMenu.Root>
+  );
+};
+
+export const DropdownItem = ({
+  children,
+  className,
+  ...props
+}: {
+  children: ReactNode;
+  className?: string;
+} & React.ComponentProps<typeof DropdownMenu.Item>) => (
+  <DropdownMenu.Item
+    className={cn(
+      "cursor-pointer select-none rounded-md px-3 py-2 text-sm outline-transparent",
+      className
+    )}
+    {...props}
+  >
+    {children}
+  </DropdownMenu.Item>
+);
+
+    ```
+  </TabItem>
+</Tabs>
+
+## Usage
+
+Import the components:
+
+```tsx
+import { Dropdown, DropdownItem } from '@ignix-ui/dropdown';
+```
+
+### Basic Usage
+
+```tsx
+function BasicDropdown() {
+  return (
+    <Dropdown trigger={<Button>Click me</Button>}>
+      <DropdownItem>Option 1</DropdownItem>
+      <DropdownItem>Option 2</DropdownItem>
+      <DropdownItem>Option 3</DropdownItem>
+    </Dropdown>
+  );
+}
+```
+
+## Props
+
+### Dropdown
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `trigger` | `ReactNode` | - | The element that opens the dropdown when clicked |
+| `children` | `ReactNode` | - | The content rendered inside the dropdown panel |
+| `animation` | `"default" \| "fade" \| "scale" \| "slide" \| "flip"` | `"default"` | Entry and exit animation style |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Font size of the dropdown content |
+| `rounded` | `"none" \| "sm" \| "md" \| "full"` | `"md"` | Border radius of the dropdown panel |
+| `bg` | `"default" \| "dark" \| "transparent" \| "glass" \| "gradient" \| "primary"` | `"default"` | Background style of the dropdown panel |
+| `side` | `"top" \| "bottom" \| "left" \| "right"` | `"bottom"` | Which side of the trigger the dropdown opens on |
+| `sideOffset` | `number` | `8` | Gap in px between the trigger and the dropdown panel |
+| `align` | `"start" \| "center" \| "end"` | `"center"` | Alignment of the dropdown panel relative to the trigger |
+| `className` | `string` | - | Additional CSS classes to apply |
+
+### DropdownItem
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | - | Content of the menu item |
+| `className` | `string` | - | Additional CSS classes to apply |
+| `onSelect` | `(event: Event) => void` | - | Callback fired when the item is selected |
+| `disabled` | `boolean` | `false` | Prevents selection and applies disabled styles |
+| `asChild` | `boolean` | `false` | Merges props onto the child element instead of rendering a wrapper |

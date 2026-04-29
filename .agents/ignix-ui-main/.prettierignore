@@ -1,0 +1,9 @@
+/apps/poc/**/*
+/apps/docs/**/*
+/packages/registry/**/*
+/packages/utils/**/*
+/apps/storybook/**/*
+node_modules
+dist
+.next
+build

@@ -1,0 +1,163 @@
+---
+sidebar_position: 5
+title: Spacer
+description: A simple spacing component for consistent vertical or horizontal gaps.
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import { Spacer } from '@site/src/components/UI/spacer';
+import SpacerDemo from '@site/src/components/Demo/SpacerDemo';
+
+The **Spacer** component adds consistent spacing between elements, without writing custom CSS or margin classes.
+
+<SpacerDemo />
+
+## Installation
+
+<Tabs>
+  <TabItem value="cli" label="CLI" default>
+    ```bash
+    ignix add component spacer
+    ```
+  </TabItem>
+  <TabItem value="manual" label="manual" className="max-h-[500px] overflow-y-auto">
+
+```tsx
+import * as React from 'react';
+import { cva } from 'class-variance-authority';
+import { cn } from '../../../utils/cn';
+
+export interface SpacerProps extends React.HTMLAttributes<HTMLDivElement> {
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | number | string;
+  direction?: 'vertical' | 'horizontal' | 'both';
+  responsive?: {
+    mobile?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | number | string;
+    tablet?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | number | string;
+    desktop?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | number | string;
+  };
+}
+
+const spacerVariants = cva('', {
+  variants: {
+    size: {
+      xs: 'h-1 w-1',
+      sm: 'h-2 w-2',
+      md: 'h-4 w-4',
+      lg: 'h-6 w-6',
+      xl: 'h-8 w-8',
+    },
+    direction: {
+      vertical: 'w-0',
+      horizontal: 'h-0',
+      both: '',
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+    direction: 'vertical',
+  },
+});
+
+const Spacer = React.forwardRef<HTMLDivElement, SpacerProps>(
+  (
+    { className, size = 'md', direction = 'vertical', responsive, style, ...props },
+    ref
+  ) => {
+    const designTokenSizes = ['xs', 'sm', 'md', 'lg', 'xl'];
+
+    const responsiveClasses: string[] = [];
+    if (responsive) {
+      if (responsive.mobile && designTokenSizes.includes(responsive.mobile as string)) {
+        responsiveClasses.push(spacerVariants({ size: responsive.mobile as any, direction }));
+      }
+      if (responsive.tablet && designTokenSizes.includes(responsive.tablet as string)) {
+        responsiveClasses.push(
+          `sm:${spacerVariants({ size: responsive.tablet as any, direction })}`
+        );
+      }
+      if (responsive.desktop && designTokenSizes.includes(responsive.desktop as string)) {
+        responsiveClasses.push(
+          `md:${spacerVariants({ size: responsive.desktop as any, direction })}`
+        );
+      }
+    }
+
+    const isCustomSize = size && !designTokenSizes.includes(size as string);
+    const dynamicStyle: React.CSSProperties = { ...style };
+
+    if (isCustomSize) {
+      const value =
+        typeof size === 'number'
+          ? `${size}px`
+          : /^\d+$/.test(size as string)
+          ? `${size}px`
+          : size;
+
+      if (direction === 'vertical') {
+        dynamicStyle.height = value;
+        dynamicStyle.width = 0;
+      } else if (direction === 'horizontal') {
+        dynamicStyle.width = value;
+        dynamicStyle.height = 0;
+      } else {
+        dynamicStyle.height = value;
+        dynamicStyle.width = value;
+      }
+    }
+
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          !isCustomSize && spacerVariants({ size: size as any, direction }),
+          responsiveClasses,
+          className
+        )}
+        style={dynamicStyle}
+        aria-hidden="true"
+        {...props}
+      />
+    );
+  }
+);
+
+Spacer.displayName = 'Spacer';
+
+export { Spacer, spacerVariants };
+
+```
+  </TabItem>
+</Tabs>
+
+## Usage
+
+Import the component:
+
+```tsx
+import { Spacer } from '@ignix-ui/spacer';
+```
+
+### Basic Usage
+
+```tsx
+function BasicSpacer() {
+  return (
+    <>
+      <div className="bg-blue-500 w-16 h-8" />
+      <Spacer size="lg" direction="vertical" />
+      <div className="bg-red-500 w-16 h-8" />
+    </>
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| number \| string` | `'md'` | Size of the spacer. Accepts a design token, a raw number (treated as `px`), or any valid CSS length string (e.g. `"2rem"`, `"20px"`) |
+| `direction` | `'vertical' \| 'horizontal' \| 'both'` | `'vertical'` | Axis along which space is applied. `vertical` collapses width to `0`, `horizontal` collapses height to `0` |
+| `responsive` | `{ mobile?: Size; tablet?: Size; desktop?: Size }` | `undefined` | Applies different token sizes at each breakpoint. Only design tokens (`xs`–`xl`) are supported; custom sizes are ignored |
+| `className` | `string` | `undefined` | Additional Tailwind classes applied to the spacer container |
+| All `HTMLDivElement` props | `React.HTMLAttributes<HTMLDivElement>` | — | Supports all standard div attributes (e.g. `style`, `id`) |

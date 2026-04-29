@@ -1,0 +1,163 @@
+---
+id: monorepo
+title: Monorepo Starter (Turborepo + pnpm)
+description: Scaffold a production-ready monorepo with Turborepo, pnpm workspaces, shared configs, and a Next.js app.
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+The Monorepo Starter scaffolds a Turborepo + pnpm workspaces setup with:
+
+- apps/web → Next.js frontend
+- packages/components → UI component library (with design tokens)
+- packages/config → shared configs (ESLint, TypeScript, Tailwind)
+- Root `tsconfig.json`, `turbo.json`, `pnpm-workspace.yaml`
+- Caching and parallelization via Turborepo
+
+### Installation Methods
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm" label="npm" default>
+
+  ```bash
+  npm install -g @mindfiredigital/ignix-cli
+  ```
+
+  </TabItem>
+  <TabItem value="yarn" label="Yarn">
+
+  ```bash
+  yarn global add @mindfiredigital/ignix-cli
+  ```
+
+  </TabItem>
+  <TabItem value="npx" label="npx">
+
+  ```bash
+  npx @mindfiredigital/ignix-cli
+  ```
+
+  </TabItem>
+</Tabs>
+
+### Usage Modes
+
+<Tabs>
+  
+  <TabItem value="interactive" label="Interactive">
+
+Simply run `ignix` without any arguments to enter interactive mode:
+
+```bash
+ignix
+```
+
+The interactive mode provides a beautiful, guided interface with the following options:
+- 🚀 **Initialize Ignix UI** - Set up your project
+- ➕ **Add components** - Add components to your project
+- 📋 **List components** - View available components
+- 🎨 **Manage themes** - Configure and manage themes
+- 📦 **Starters Template** - Generate a new starter template
+- 🚪 **Exit** - Close the CLI
+
+Choose the option **Starters Template** and press Enter.
+<div className="border border-gray-300 rounded-lg inline-block p-2">
+![Ignix CLI](/img/ignix-cli.png)
+</div>
+<br />
+Then select **Monorepo (Turborepo + pnpm)** from the list of available starters.
+<br />
+<div className="border border-gray-300 rounded-lg inline-block p-2">
+![Ignix CLI Monorepo](/img/ignix-cli-monorepo.png)
+</div>
+</TabItem>
+<TabItem value="direct" label="Direct">
+
+Run the starter command directly:
+
+```bash
+ignix monorepo
+```
+
+  </TabItem>
+</Tabs>
+
+This will:
+- Create the monorepo structure
+- Write shared configs
+- Wire workspace dependencies
+- Optionally install dependencies (if enabled in your CLI)
+
+## Generated Structure
+
+```text
+.
+├─ apps/
+│  └─ web/                  # Next.js app
+│     ├─ app/page.tsx
+│     ├─ package.json
+│     ├─ next.config.mjs
+│     └─ tsconfig.json
+├─ packages/
+│  ├─ components/           # UI library
+│  │  ├─ src/
+│  │  │  ├─ Button.tsx
+│  │  │  ├─ tokens.ts
+│  │  │  └─ index.ts
+│  │  ├─ package.json
+│  │  ├─ tsconfig.json
+│  │  └─ tsconfig.build.json
+│  └─ config/               # Shared configs
+│     ├─ eslint/index.cjs
+│     ├─ tailwind/tailwind.config.cjs
+│     ├─ tsconfig/base.json
+│     └─ package.json
+├─ package.json             # Workspaces + Turbo scripts
+├─ pnpm-workspace.yaml
+├─ turbo.json               # Turborepo pipeline and caching
+└─ tsconfig.json            # Shared base
+```
+
+## Workspace Scripts
+
+From the repository root:
+
+- `pnpm dev`: run all dev servers (Turborepo orchestrated)
+- `pnpm build`: build all packages/apps with incremental caching
+- `pnpm lint`: run linters across the repo
+
+## Sharing Components across Apps
+
+The Next.js app consumes the shared UI library:
+
+```tsx
+// apps/web/app/page.tsx
+import { Button } from '@acme/components/src';
+
+export default function Page() {
+  return (
+    <main style={{ padding: 24 }}>
+      <h1>Ignix Monorepo</h1>
+      <Button>From components pkg</Button>
+    </main>
+  );
+}
+```
+
+Development flow:
+1. Edit components in `packages/components/src/*`
+2. In another terminal, run `pnpm dev` at the root to rebuild and run apps
+3. Turborepo caches and only rebuilds what changed
+
+## Turborepo Caching
+
+The `turbo.json` config enables:
+- Task graph with `dependsOn` to reuse upstream builds
+- Output tracking for cache hits
+- Persistent `dev` tasks
+
+Builds are significantly faster on subsequent runs or when only a subset of packages change.
+
+
+
