@@ -52,7 +52,7 @@ export default function CTABlock() {
       ref={sectionRef}
       animate="h2"
       className="
-        relative z-[2] bg-[#0A0A0A]
+        relative z-[2] bg-[#E8EEF8]
         pr-0 pl-[1.88em]
         max-[991px]:overflow-hidden
         max-[479px]:h-[50.69em] max-[479px]:pl-[1em] max-[479px]:pr-0
@@ -107,8 +107,8 @@ export default function CTABlock() {
               <div className="max-[479px]:w-[16em]">
                 <h2 className="
                   m-0 font-[Aeonik,Arial,sans-serif]
-                  text-[3.6em] font-medium leading-[93%] tracking-[-0.01em]
-                  text-[#D4A574]
+                  text-[3.6em] font-semibold leading-[93%] tracking-[-0.01em]
+                  text-[#03060F]
                   max-[991px]:text-[3em]
                   max-[479px]:text-[1.9em] max-[479px]:leading-[100%]
                 ">
@@ -127,7 +127,7 @@ export default function CTABlock() {
                   className="
                     m-0 font-[Aeonik,Arial,sans-serif]
                     text-[1em] leading-[130%] uppercase
-                    text-[#F5F0E8]
+                    text-[#4A6A9A]
                     max-[991px]:text-[0.9em]
                     max-[479px]:text-[0.8em]
                   "
@@ -160,13 +160,13 @@ export default function CTABlock() {
                 className="relative inline-block max-w-full p-[0.88em_0.75em] no-underline transition-all duration-300"
               >
                 <div className="relative z-[1] flex items-center justify-between gap-[0.63em]">
-                  <span className="block flex-none w-[0.25em] h-[0.25em] rounded-full bg-[#0A0A0A]" />
-                  <div className="flex-none font-[Aeonik,Arial,sans-serif] text-[0.9em] leading-[120%] uppercase text-[#0A0A0A] max-[479px]:text-[0.85em]">
+                  <span className="block flex-none w-[0.25em] h-[0.25em] rounded-full bg-[#F0F4FF]" />
+                  <div className="flex-none font-[Aeonik,Arial,sans-serif] text-[0.9em] leading-[120%] uppercase text-[#F0F4FF] max-[479px]:text-[0.85em]">
                     Agendar Avaliação Gratuita
                   </div>
-                  <span className="block flex-none w-[0.25em] h-[0.25em] rounded-full bg-[#0A0A0A]" />
+                  <span className="block flex-none w-[0.25em] h-[0.25em] rounded-full bg-[#F0F4FF]" />
                 </div>
-                <div className="absolute inset-0 border-none bg-[#F5F0E8] rounded-[0.25em]" />
+                <div className="absolute inset-0 border-none bg-[#0050FF] rounded-[0.25em]" />
               </a>
 
               {/* BOTÃO SECUNDÁRIO — borda bone, texto bone */}
@@ -175,13 +175,13 @@ export default function CTABlock() {
                 className="relative inline-block max-w-full p-[0.88em_0.75em] no-underline transition-all duration-300"
               >
                 <div className="relative z-[1] flex items-center justify-between gap-[0.63em]">
-                  <span className="block flex-none w-[0.25em] h-[0.25em] rounded-full bg-[#F5F0E8]" />
-                  <div className="font-[Aeonik,Arial,sans-serif] text-[0.9em] leading-[120%] uppercase text-[#F5F0E8] max-[479px]:text-[0.85em]">
+                  <span className="block flex-none w-[0.25em] h-[0.25em] rounded-full bg-[#0050FF]" />
+                  <div className="font-[Aeonik,Arial,sans-serif] text-[0.9em] leading-[120%] uppercase text-[#0050FF] max-[479px]:text-[0.85em]">
                     Falar com a Equipe
                   </div>
-                  <span className="block flex-none w-[0.25em] h-[0.25em] rounded-full bg-[#F5F0E8]" />
+                  <span className="block flex-none w-[0.25em] h-[0.25em] rounded-full bg-[#0050FF]" />
                 </div>
-                <div className="absolute inset-0 border-[0.08em] border-solid border-[#F5F0E8] rounded-[0.25em]" />
+                <div className="absolute inset-0 border-[0.08em] border-solid border-[#0050FF] rounded-[0.25em]" />
               </a>
             </div>
           </div>
@@ -200,24 +200,24 @@ export default function CTABlock() {
             <img src="/images/cta-1.avif" loading="lazy"
               sizes="(max-width: 767px) 100vw, (max-width: 991px) 728px, 940px, 100vw"
               srcSet="/images/cta-1-p-500.avif 500w, /images/cta-1.avif 1000w" alt=""
-              className="absolute bottom-[6.1em] left-[13.8em] block w-[20.3em] max-[991px]:bottom-[7.1em] max-[991px]:w-[17em] max-[479px]:left-[8.6em] max-[479px]:w-[12.94em]"
+              className="absolute bottom-[6.1em] left-[13.8em] block w-[20.3em] border-[2px] border-solid border-[#0050FF] max-[991px]:bottom-[7.1em] max-[991px]:w-[17em] max-[479px]:left-[8.6em] max-[479px]:w-[12.94em]"
             />
             <img src="/images/cta-3.avif" loading="lazy" alt=""
-              className="absolute bottom-[26.4em] -left-[0.2em] block w-[9.5em] max-[991px]:bottom-[27.3em] max-[991px]:left-[8.2em] max-[991px]:w-[8em] max-[479px]:bottom-[18em] max-[479px]:left-0 max-[479px]:w-[5.88em]"
+              className="absolute bottom-[26.4em] -left-[0.2em] block w-[9.5em] border-[2px] border-solid border-[#0050FF] max-[991px]:bottom-[27.3em] max-[991px]:left-[8.2em] max-[991px]:w-[8em] max-[479px]:bottom-[18em] max-[479px]:left-0 max-[479px]:w-[5.88em]"
             />
             <img src="/images/cta-6.avif" loading="lazy" alt=""
-              className="absolute bottom-[1.1em] left-[8.7em] block w-[5em] max-[991px]:bottom-[2.1em] max-[991px]:left-[9.7em] max-[991px]:w-[4em] max-[479px]:bottom-[3.6em] max-[479px]:left-[5.2em] max-[479px]:w-[3.38em]"
+              className="absolute bottom-[1.1em] left-[8.7em] block w-[5em] border-[2px] border-solid border-[#0050FF] max-[991px]:bottom-[2.1em] max-[991px]:left-[9.7em] max-[991px]:w-[4em] max-[479px]:bottom-[3.6em] max-[479px]:left-[5.2em] max-[479px]:w-[3.38em]"
             />
             <img src="/images/cta-4.avif" loading="lazy" alt=""
-              className="absolute bottom-[35.8em] left-[9.3em] block w-[5em] max-[991px]:bottom-[35.3em] max-[991px]:left-[16.1em] max-[991px]:w-[4em] max-[479px]:bottom-[23.8em] max-[479px]:left-[5.8em] max-[479px]:w-[3em]"
+              className="absolute bottom-[35.8em] left-[9.3em] block w-[5em] border-[2px] border-solid border-[#0050FF] max-[991px]:bottom-[35.3em] max-[991px]:left-[16.1em] max-[991px]:w-[4em] max-[479px]:bottom-[23.8em] max-[479px]:left-[5.8em] max-[479px]:w-[3em]"
             />
             <img src="/images/cta-5.avif" loading="lazy" alt=""
-              className="absolute -right-[3.3em] bottom-0 block w-[10.9em] max-[991px]:hidden"
+              className="absolute -right-[3.3em] bottom-0 block w-[10.9em] border-[2px] border-solid border-[#0050FF] max-[991px]:hidden"
             />
             <img src="/images/cta-2.avif" loading="lazy"
               sizes="(max-width: 767px) 100vw, (max-width: 991px) 728px, 940px, 100vw"
               srcSet="/images/cta-2-p-500.avif 500w, /images/cta-2.avif 1000w" alt=""
-              className="absolute bottom-[26.4em] left-[34.2em] block w-[10.5em] max-[991px]:bottom-[24em] max-[991px]:left-[30.9em] max-[991px]:w-[8em] max-[479px]:left-[18.2em] max-[479px]:w-[6.56em]"
+              className="absolute bottom-[26.4em] left-[34.2em] block w-[10.5em] border-[2px] border-solid border-[#0050FF] max-[991px]:bottom-[24em] max-[991px]:left-[30.9em] max-[991px]:w-[8em] max-[479px]:left-[18.2em] max-[479px]:w-[6.56em]"
             />
           </div>
 

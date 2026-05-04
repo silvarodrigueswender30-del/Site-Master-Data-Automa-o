@@ -48,10 +48,10 @@ export default function LogosStrip() {
 
         /* Fade lateral esquerdo e direito para suavizar as bordas do marquee */
         .logos-fade-left {
-          background: linear-gradient(to right, #0A0A0A 0%, transparent 100%);
+          background: linear-gradient(to right, #060E1C 0%, transparent 100%);
         }
         .logos-fade-right {
-          background: linear-gradient(to left, #0A0A0A 0%, transparent 100%);
+          background: linear-gradient(to left, #060E1C 0%, transparent 100%);
         }
       `}</style>
 
@@ -73,7 +73,7 @@ export default function LogosStrip() {
           max-md:h-auto max-md:py-[2em] max-md:-mt-[4em]
         "
         style={{
-          background: 'linear-gradient(to bottom, transparent 0%, #0A0A0A 55%)',
+          background: 'linear-gradient(to bottom, transparent 0%, #060E1C 55%)',
         }}
       >
         {/* Fade lateral esquerdo */}
@@ -93,7 +93,7 @@ export default function LogosStrip() {
               loading="lazy"
               alt={i >= logos.length ? '' : logo.alt}
               aria-hidden={i >= logos.length ? 'true' : undefined}
-              className={`${logo.width} flex-shrink-0 opacity-90 hover:opacity-100 transition-opacity duration-300`}
+              className={`${logo.width} flex-shrink-0 opacity-30 hover:opacity-70 grayscale brightness-200 contrast-50 mix-blend-screen transition-all duration-300`}
             />
           ))}
         </div>

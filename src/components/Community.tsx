@@ -64,7 +64,7 @@ export default function Community() {
 
             <h2
               text-split=""
-              className="m-0 font-serif text-[#F5F0E8] text-[3.6em] font-medium leading-[93%] tracking-[-0.01em] max-[991px]:text-[3em] max-[479px]:text-[1.9em] max-[479px]:leading-[100%]"
+              className="m-0 font-serif text-[#F0F4FF] text-[3.6em] font-medium leading-[93%] tracking-[-0.01em] max-[991px]:text-[3em] max-[479px]:text-[1.9em] max-[479px]:leading-[100%]"
             >
               Últimas da
               <br />
@@ -80,23 +80,23 @@ export default function Community() {
                     onClick={prevSlide}
                     aria-label="Anterior"
                     style={{
-                      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233A3A3A' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E")`,
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2303060F' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E")`,
                       backgroundSize: '0.94em 0.94em',
                       backgroundPosition: '50%',
                       backgroundRepeat: 'no-repeat',
                     }}
-                    className="block cursor-pointer border-0 w-[3.38em] h-[3.38em] p-0 rounded-[0.13em] bg-[#F5F0E8] transition-all duration-300 hover:bg-[#D4A574]"
+                    className="block cursor-pointer border-0 w-[3.38em] h-[3.38em] p-0 rounded-[0.13em] bg-[#00D264] transition-all duration-300"
                   />
                   <button
                     onClick={nextSlide}
                     aria-label="Próximo"
                     style={{
-                      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233A3A3A' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18l6-6-6-6'/%3E%3C/svg%3E")`,
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2303060F' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18l6-6-6-6'/%3E%3C/svg%3E")`,
                       backgroundSize: '0.94em 0.94em',
                       backgroundPosition: '50%',
                       backgroundRepeat: 'no-repeat',
                     }}
-                    className="block cursor-pointer border-0 w-[3.38em] h-[3.38em] p-0 rounded-[0.13em] bg-[#F5F0E8] transition-all duration-300 hover:bg-[#D4A574]"
+                    className="block cursor-pointer border-0 w-[3.38em] h-[3.38em] p-0 rounded-[0.13em] bg-[#00D264] transition-all duration-300"
                   />
                 </div>
 
@@ -128,12 +128,12 @@ export default function Community() {
                             className="splide__img absolute inset-0 w-full h-full object-cover"
                           />
 
-                          <div className="relative z-[1] flex flex-col items-start justify-between w-[18em] h-[20.94em] p-[1.5em_1.25em] bg-[rgba(245,240,232,0.07)] backdrop-blur-[20px] border border-[rgba(212,165,116,0.20)] rounded-[0.13em] max-[479px]:w-[17.88em] max-[479px]:h-[16em]">
+                          <div className="relative z-[1] flex flex-col items-start justify-between w-[18em] h-[20.94em] p-[1.5em_1.25em] bg-[#0A1428] backdrop-blur-[20px] border border-[#0D1F3C] rounded-[0.13em] max-[479px]:w-[17.88em] max-[479px]:h-[16em]">
                             <div className="flex flex-col items-start justify-between w-[15.4em] h-full">
-                              <div className="font-sans text-[1.25em] font-medium leading-[120%] uppercase w-[90%] text-[#F5F0E8] max-[991px]:text-[1.2em]">
+                              <div className="font-sans text-[1.25em] font-medium leading-[120%] uppercase w-[90%] text-[#F0F4FF] max-[991px]:text-[1.2em]">
                                 {slide.title}
                               </div>
-                              <div className="font-sans text-[1em] leading-[130%] uppercase mb-0 text-[#D4A574] max-[991px]:text-[0.9em] max-[479px]:text-[0.8em]">
+                              <div className="font-sans text-[1em] leading-[130%] uppercase mb-0 text-[#4A6A9A] max-[991px]:text-[0.9em] max-[479px]:text-[0.8em]">
                                 {slide.description}
                               </div>
                             </div>

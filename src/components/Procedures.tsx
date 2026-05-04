@@ -8,7 +8,10 @@ export default function Procedures() {
        */}
       <section
         id="s-carbon"
-        className="relative bg-[#0A0A0A] h-screen max-[991px]:h-auto"
+        className="relative h-screen max-[991px]:h-auto overflow-hidden"
+        style={{
+          background: 'radial-gradient(circle, #060E1C 0%, #020409 100%)'
+        }}
       >
 
         {/*
@@ -65,7 +68,7 @@ export default function Procedures() {
             <div className="
               h-full
               pt-[3.13em] pr-[1.88em] pb-[3.13em] pl-[3.13em]
-              border-b border-[rgba(212,165,116,0.20)]
+              bg-white/5 backdrop-blur-md border border-white/10
               flex flex-col justify-between items-start
               max-[991px]:w-[38em] max-[991px]:pl-[1.88em] max-[991px]:gap-y-[3em]
               max-[479px]:border-b-0 max-[479px]:w-full max-[479px]:p-[4em_1em]
@@ -86,7 +89,7 @@ export default function Procedures() {
                   block m-0
                   font-[Aeonik,Arial,sans-serif]
                   text-[3.6em] font-medium leading-[93%] tracking-[-0.03em]
-                  text-[#D4A574]
+                  text-[#F0F4FF]
                   max-[479px]:text-[2.4em]
                 "
               >
@@ -127,7 +130,7 @@ export default function Procedures() {
                 <div className="
                   font-[Aeonik,Arial,sans-serif]
                   text-[1.13em] leading-[120%] uppercase
-                  text-[#C2847A]
+                  text-[#F0F4FF]
                   max-[991px]:text-[1em]
                   max-[479px]:text-[.86em]
                 ">
@@ -164,22 +167,22 @@ export default function Procedures() {
                     flex items-center justify-between
                     gap-x-[.63em]
                   ">
-                    <span className="rounded-full w-[.25em] h-[.25em] bg-[#D4A574] flex-none" />
+                    <span className="rounded-full w-[.25em] h-[.25em] bg-[#0050FF] flex-none" />
                     <span className="
                       font-[Aeonik,Arial,sans-serif]
                       text-[1em] leading-[130%] uppercase
-                      text-[#D4A574] mb-0
+                      text-[#0050FF] mb-0
                     ">
                       conhecer os protocolos
                     </span>
-                    <span className="rounded-full w-[.25em] h-[.25em] bg-[#D4A574] flex-none" />
+                    <span className="rounded-full w-[.25em] h-[.25em] bg-[#0050FF] flex-none" />
                   </div>
 
                   {/* btn-background green: borda dourada, sem preenchimento */}
                   <div className="
                     absolute inset-0 w-full
                     rounded-[.25em]
-                    border-[.08em] border-[#D4A574]
+                    border-[.08em] border-[#0050FF]
                   " />
                 </a>
               </div>

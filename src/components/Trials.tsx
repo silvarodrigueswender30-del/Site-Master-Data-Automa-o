@@ -138,9 +138,9 @@ export default function Trials() {
             left: 0%;
             width: 50vw;
             height: 11.38em;
-            background: rgba(212, 165, 116, 0.15) !important;
+            background: rgba(0, 80, 255, 0.1) !important;
             backdrop-filter: none !important;
-            border: none !important;
+            border: 1px solid #C8D8F0 !important;
           }
           .fiels-trial-box-info.second {
             top: -11.38em;
@@ -149,9 +149,9 @@ export default function Trials() {
             left: auto;
             width: 50vw;
             height: 11.38em;
-            background: rgba(194, 132, 122, 0.15) !important;
+            background: rgba(0, 80, 255, 0.1) !important;
             backdrop-filter: none !important;
-            border: none !important;
+            border: 1px solid #C8D8F0 !important;
           }
         }
 
@@ -186,7 +186,7 @@ export default function Trials() {
          * @479px L12842: display:none (esconde no mobile — mostra o mobile version)
          */
         .text-27-regular {
-          color: #D4A574;
+          color: #0050FF;
           font-size: 1.69em;
           font-weight: 500;
           line-height: 120%;
@@ -210,7 +210,7 @@ export default function Trials() {
          */
         .text-27-regular-mobile {
           display: none;
-          color: #ffffff;
+          color: #0050FF;
           font-size: 1.3em;
           font-weight: 500;
           line-height: 105%;
@@ -229,7 +229,7 @@ export default function Trials() {
        * Farm L3397: background-color:var(--beige) → #0A0A0A
        * @991px L11192: position:relative
        */}
-      <section id="s-trials" className="relative bg-[#0A0A0A]">
+      <section id="s-trials" className="relative bg-[#020409]">
         <div className="w-full h-full block">
 
           {/*
@@ -240,7 +240,7 @@ export default function Trials() {
            */}
           <div className="
             grid grid-cols-2 gap-0
-            border-t border-[#D4A57433]
+            border-t border-[#1A3060]
             max-lg:flex max-lg:flex-col
             max-md:border-t-0
           ">
@@ -276,13 +276,13 @@ export default function Trials() {
                 <div ref={headingRef} className="w-[19em] max-md:w-auto trials-anim-left">
                   <h2
                     text-split=""
-                    className="block text-[#D4A574] tracking-[-0.03em] font-medium text-[3.6em] leading-[93%] mt-0 mb-0 max-md:text-[2em] max-md:leading-[100%]"
+                    className="block text-[#F0F4FF] tracking-[-0.03em] font-medium text-[3.6em] leading-[93%] mt-0 mb-0 max-md:text-[2em] max-md:leading-[100%]"
                   >
                     Unidades Sticker em Atividade
                   </h2>
                 </div>
 
-                <div ref={subtitleRef} className="text-[#C2847A] uppercase text-[1em] leading-[130%] mb-0 trials-anim">
+                <div ref={subtitleRef} className="text-[#8AAAD0] uppercase text-[1em] leading-[130%] mb-0 trials-anim">
                   Estamos expandindo nossos protocolos exclusivos para os principais centros de estética do Brasil. Atualmente presentes em Minas Gerais, São Paulo, Rio de Janeiro, Distrito Federal e Goiás.
                 </div>
               </div>
@@ -306,6 +306,7 @@ export default function Trials() {
                     loading="lazy"
                     alt=""
                     className="flex-none w-[61.75em] max-w-none max-lg:w-full max-md:object-cover max-md:object-[35%_50%] max-md:h-[22em]"
+                    style={{ filter: 'invert(100%) hue-rotate(180deg) brightness(0.6) contrast(1.2)' }}
                   />
 
                   {locations.map((loc) => (
@@ -320,22 +321,28 @@ export default function Trials() {
                       onMouseEnter={() => setActiveId(loc.id)}
                       onMouseLeave={() => setActiveId('')}
                     >
-                      <img
-                        src="https://cdn.prod.website-files.com/68b5b8542c5c0a63b1d91b3b/69d6420e002fdcd5f4040c5f_marker.svg"
-                        loading="lazy" alt=""
-                        className="w-[1.5em] max-lg:w-[1.25em] max-md:w-[1em]"
-                      />
+                      <div className="relative flex items-center justify-center">
+                        {loc.id === 'uberlandia' && (
+                          <div className="absolute w-[2.5em] h-[2.5em] bg-[#FFB800] rounded-full animate-ping opacity-30" />
+                        )}
+                        <img
+                          src="https://cdn.prod.website-files.com/68b5b8542c5c0a63b1d91b3b/69d6420e002fdcd5f4040c5f_marker.svg"
+                          loading="lazy" alt=""
+                          style={{ filter: 'invert(75%) sepia(90%) saturate(3000%) hue-rotate(5deg) brightness(105%) contrast(105%)' }}
+                          className="relative z-10 w-[1.5em] max-lg:w-[1.25em] max-md:w-[1em]"
+                        />
+                      </div>
                       <div className="
                         location-info absolute flex-col
                         w-[9.25em] h-[9.25em] bottom-[3.6em] -left-[3em]
-                        bg-[rgba(212,165,116,0.15)] backdrop-blur-[8px]
-                        border border-[rgba(212,165,116,0.2)] rounded-[0.25em] overflow-hidden
+                        bg-[rgba(6,14,28,0.85)] backdrop-blur-[12px]
+                        border border-[#1A3060] rounded-[0.25em] overflow-hidden
                       ">
                         <div className="flex flex-col gap-[0.4em] p-[1em_1em_1em_1.2em]">
-                          <div className="text-[#F5F0E8] text-[1.4em] font-medium leading-[105%] tracking-[-0.01em] mt-0 mb-0">
+                          <div className="text-[#FFB800] font-mono text-[1.4em] font-medium leading-[105%] tracking-[-0.01em] mt-0 mb-0">
                             {loc.city}, {loc.state}
                           </div>
-                          <div className="text-[#F5F0E8] uppercase text-[0.9em] leading-[120%]">
+                          <div className="text-[#8AAAD0] uppercase text-[0.9em] leading-[120%]">
                             {loc.info}
                           </div>
                         </div>
@@ -349,13 +356,14 @@ export default function Trials() {
                     max-lg:flex max-lg:justify-center max-lg:items-center
                     max-lg:absolute max-lg:bottom-[2em] max-lg:right-[2em]
                     max-lg:z-[1] max-lg:w-[3.5em] max-lg:h-[3.5em]
-                    max-lg:border max-lg:border-[#D4A574]
-                    max-lg:bg-[#0A0A0A] max-lg:rounded-[0.4em]
+                    max-lg:border max-lg:border-[#00D264]
+                    max-lg:bg-[#F0F4FF] max-lg:rounded-[0.4em]
                     max-md:w-[2.5em] max-md:h-[2.5em] max-md:bottom-[1em] max-md:right-[1em]
                   ">
                     <img
                       src="https://cdn.prod.website-files.com/68b5b8542c5c0a63b1d91b3b/68cbaf5aacce1183f44df4a4_8plus.svg"
                       loading="lazy" alt=""
+                      style={{ filter: 'invert(52%) sepia(91%) saturate(1518%) hue-rotate(107deg) brightness(101%) contrast(105%)' }}
                       className="w-[1.1em] h-[1.1em] max-md:w-[0.9em] max-md:h-[0.9em]"
                     />
                   </div>
@@ -380,7 +388,7 @@ export default function Trials() {
               className="
                 relative flex justify-start items-end overflow-hidden
                 h-[57.5em] pb-[3.75em] pl-[3.75em]
-                max-lg:pl-[1.88em] max-lg:border-t max-lg:border-[#b7b8a033]
+                max-lg:pl-[1.88em] max-lg:border-t max-lg:border-[#C8D8F0]
                 max-md:h-[32.81em] max-md:pl-[1em] max-md:pr-[1em] max-md:overflow-visible
               "
             >
@@ -405,14 +413,14 @@ export default function Trials() {
               <div
                 ref={boxFirstRef}
                 data-w-id="ac7801f1-7ed1-25ee-c7b3-7205520c690c"
-                className="fiels-trial-box-info first trials-anim bg-[rgba(245,240,232,0.07)] backdrop-blur-[20px] border border-[rgba(212,165,116,0.2)]"
+                className="fiels-trial-box-info first trials-anim bg-[rgba(255,255,255,0.7)] backdrop-blur-[20px] border border-[#C8D8F0]"
               >
                 <div className="fiels-trial-box-info--inside">
                   <div className="max-[479px]:w-[6em]">
                     <h3 className="text-27-regular-mobile">Próxima Avaliação</h3>
                     <h3 className="text-27-regular">Próxima Avaliação</h3>
                   </div>
-                  <div className="text-[#C2847A] uppercase text-[0.9em] leading-[120%]">
+                  <div className="text-[#4A6A9A] uppercase text-[0.9em] leading-[120%]">
                     junho 2025 — novos horários disponíveis.
                   </div>
                 </div>
@@ -427,14 +435,14 @@ export default function Trials() {
               <div
                 ref={boxSecondRef}
                 data-w-id="6b2ee82d-b3a5-6581-754e-cfad6c04cf04"
-                className="fiels-trial-box-info second trials-anim bg-[rgba(245,240,232,0.07)] backdrop-blur-[20px] border border-[rgba(212,165,116,0.2)]"
+                className="fiels-trial-box-info second trials-anim bg-[rgba(255,255,255,0.7)] backdrop-blur-[20px] border border-[#C8D8F0]"
               >
                 <div className="fiels-trial-box-info--inside">
                   <div className="max-[479px]:w-[6em]">
                     <h3 className="text-27-regular-mobile">Por que compartilhamos</h3>
                     <h3 className="text-27-regular h-100">Por que compartilhamos</h3>
                   </div>
-                  <div className="text-[#C2847A] uppercase text-[0.9em] leading-[120%]">
+                  <div className="text-[#4A6A9A] uppercase text-[0.9em] leading-[120%]">
                     Resultados reais superam promessas de marketing.
                   </div>
                 </div>
@@ -445,7 +453,7 @@ export default function Trials() {
                 <div className="w-[34em] max-md:w-full">
                   <h2
                     text-split=""
-                    className="text-white tracking-[-0.01em] font-medium text-[3.6em] leading-[93%] mt-0 mb-0 max-md:text-[2em]"
+                    className="text-[#F0F4FF] tracking-[-0.01em] font-medium text-[3.6em] leading-[93%] mt-0 mb-0 max-md:text-[2em]"
                   >
                     Seja a primeira a experimentar o CrioEndolift. Vagas abertas para junho.
                   </h2>
@@ -456,11 +464,11 @@ export default function Trials() {
                   className="relative bg-transparent no-underline py-[0.88em] px-[0.75em] transition-all duration-300"
                 >
                   <div className="relative z-[1] flex justify-between items-center gap-[0.63em]">
-                    <div className="rounded-full w-[0.25em] h-[0.25em] bg-[#D4A574]" />
-                    <div className="text-[#D4A574] uppercase text-[1em] leading-[130%]">Agendar agora</div>
-                    <div className="rounded-full w-[0.25em] h-[0.25em] bg-[#D4A574]" />
+                    <div className="rounded-full w-[0.25em] h-[0.25em] bg-[#F0F4FF]" />
+                    <div className="text-[#F0F4FF] uppercase text-[1em] leading-[130%]">Agendar agora</div>
+                    <div className="rounded-full w-[0.25em] h-[0.25em] bg-[#F0F4FF]" />
                   </div>
-                  <div className="absolute inset-0 rounded-[0.25em] bg-[#D4A574] hover:bg-[#C2847A] transition-colors duration-300" style={{ zIndex: 0 }} />
+                  <div className="absolute inset-0 rounded-[0.25em] bg-[#0050FF] hover:bg-[#0040CC] transition-colors duration-300" style={{ zIndex: 0 }} />
                 </a>
               </div>
 

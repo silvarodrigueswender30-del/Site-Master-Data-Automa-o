@@ -43,7 +43,7 @@ export default function Problem() {
      */
     <section
       id="s-second"
-      className="relative z-[4] bg-[#0A0A0A] h-[66em] max-md:h-auto"
+      className="relative z-[4] bg-[#F0F4FF] h-[66em] max-md:h-auto"
     >
       {/*
        * .w-layout-blockcontainer.container
@@ -73,7 +73,7 @@ export default function Problem() {
               hidden
               max-lg:flex max-lg:flex-col max-lg:justify-start max-lg:items-start
               max-lg:pt-[6em] max-lg:pb-[6em] max-lg:px-[var(--padding-web)]
-              max-lg:bg-[#0A0A0A]
+              max-lg:bg-master-ice
               max-md:pt-[4.63em] max-md:pb-[4.63em] max-md:px-[1em]
             "
           >
@@ -101,7 +101,7 @@ export default function Problem() {
               <h2
                 text-split=""
                 className="
-                  block text-[#D4A574] tracking-[-0.03em] font-medium
+                  block text-[#03060F] tracking-[-0.03em] font-bold
                   text-[3.6em] leading-[93%]
                   mt-0 mb-0
                   max-lg:text-[3em]
@@ -119,7 +119,7 @@ export default function Problem() {
                */}
               <div
                 className="
-                  text-[#C2847A] uppercase font-[Aeonik,Arial,sans-serif]
+                  text-[#4A6A9A] uppercase font-[Aeonik,Arial,sans-serif]
                   text-[1em] leading-[130%] mb-0
                   max-md:text-[0.86em]
                 "
@@ -246,7 +246,7 @@ export default function Problem() {
               <h2
                 text-split=""
                 className="
-                  block text-[#D4A574] tracking-[-0.03em] font-medium
+                  block text-[#03060F] tracking-[-0.03em] font-bold
                   text-[3.6em] leading-[93%] mt-0 mb-0
                   max-lg:text-[3em]
                   max-md:text-[2em] max-md:leading-[100%]
@@ -262,8 +262,8 @@ export default function Problem() {
                */}
               <div
                 className="
-                  text-[#C2847A] font-[Aeonik,Arial,sans-serif]
-                  text-[1em] leading-[125%] mt-0 mb-0
+                  text-master-slate text-lg font-[Aeonik,Arial,sans-serif]
+                  leading-[125%] mt-0 mb-0
                 "
               >
                 Fonte: Estudos clínicos internos, 2024
@@ -289,6 +289,7 @@ export default function Problem() {
                 src="https://cdn.prod.website-files.com/68b5b8542c5c0a63b1d91b3b/68b9aad0bc1a4852e6d4097f_Group%20214.svg"
                 loading="lazy"
                 alt="Corn Outline"
+                style={{ filter: 'brightness(0) saturate(100%) invert(8%) sepia(26%) saturate(4529%) hue-rotate(203deg) brightness(94%) contrast(101%)' }}
                 className="w-[40.63em]"
               />
 
@@ -303,7 +304,7 @@ export default function Problem() {
                 src="https://cdn.prod.website-files.com/68b5b8542c5c0a63b1d91b3b/68b9aaf6a2ba79178ea028ce_Group%20215.svg"
                 loading="lazy"
                 alt="Corn Filled"
-                style={{ height: '0em' }}
+                style={{ height: '0em', filter: 'brightness(0) saturate(100%) invert(21%) sepia(99%) saturate(4051%) hue-rotate(218deg) brightness(101%) contrast(109%)' }}
                 className="absolute object-cover object-[50%_100%] w-[40.63em]"
               />
             </div>

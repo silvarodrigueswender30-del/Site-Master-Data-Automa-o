@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -6,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 const FRAME_CONFIG = {
   total: 139,
-  folder: 'https://farm-minerals.b-cdn.net/frames/tab', // Ajuste para sua pasta local se necessário
+  folder: 'https://farm-minerals.b-cdn.net/frames/tab',
   prefix: 'frame_',
   extension: 'webp',
 }
@@ -46,7 +48,7 @@ export default function Capsule() {
       const ch = canvas.height / dpr
       const iw = img.width
       const ih = img.height
-      const scale = Math.max(cw / iw, ch / ih) // Efeito Cover perfeito
+      const scale = Math.max(cw / iw, ch / ih)
       const x = cw / 2 - (iw * scale) / 2
       const y = ch / 2 - (ih * scale) / 2
       ctx.clearRect(0, 0, cw, ch)
@@ -62,49 +64,36 @@ export default function Capsule() {
     function startScroll() {
       drawFrame(0)
 
-      // Timeline Única (Controla o Canvas e o Pinning)
-      const tl = gsap.timeline({
+      gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: 'top top',
           end: 'bottom bottom',
           scrub: 1,
-          pin: bgLayer, // Pina apenas o fundo absoluto
-          pinSpacing: false, // O conteúdo dita a altura
+          pin: bgLayer,
+          pinSpacing: false,
         },
-      })
-
-      // Animação dos Frames
-      tl.to(frameObj, {
+      }).to(frameObj, {
         frame: total - 1,
         ease: 'none',
         onUpdate: () => drawFrame(Math.round(frameObj.frame)),
       })
 
-      // Efeito de Fade nos Textos de Storytelling
       gsap.utils.toArray('.story-fade').forEach((el: any) => {
         gsap.fromTo(el,
           { opacity: 0, y: 40 },
           {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 70%',
-              end: 'top 30%',
-              scrub: true
-            }
+            opacity: 1, y: 0, duration: 1,
+            scrollTrigger: { trigger: el, start: 'top 70%', end: 'top 30%', scrub: true },
           }
         )
       })
     }
 
-    // Carregamento de Imagens
     canvas.style.opacity = '0'
     for (let i = 0; i < total; i++) {
       const img = new Image()
-      const n = String(i + 1).padStart(4, '0') // Ex: frame_0001.webp
+      const n = String(i + 1).padStart(4, '0')
       img.src = `${FRAME_CONFIG.folder}/${FRAME_CONFIG.prefix}${n}.${FRAME_CONFIG.extension}`
       img.onload = () => {
         images[i] = img
@@ -123,91 +112,161 @@ export default function Capsule() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="capsule-native relative w-full bg-[#0A0A0A] overflow-hidden">
+    <section
+      ref={sectionRef}
+      className="relative z-[3] bg-[#4A7C8E] h-[250em] -mt-[10em] max-[991px]:h-[300em] max-[479px]:bg-[#3A3A3A] max-[479px]:mt-0"
+    >
+      <div className="h-full relative">
+        <div ref={bgLayerRef} className="sticky top-0 z-[1] w-full">
+          {/* Canvas Wrapper - Visible on desktop, specifically padding on mobile */}
+          <div className="absolute inset-0 w-full h-screen flex justify-center items-center max-[479px]:pt-[20em]">
+            <canvas
+              ref={canvasRef}
+              id="capsule-canvas"
+              className="w-full h-full object-cover"
+            />
+          </div>
 
-      {/* ── LAYER 1: BACKGROUND (Canvas Pínado pelo GSAP) ── */}
-      <div ref={bgLayerRef} className="capsule-bg-layer absolute top-0 left-0 w-full h-screen z-0 pointer-events-none">
-        <canvas ref={canvasRef} className="w-full h-full object-cover" id="capsule-canvas" />
-        <div className="absolute inset-0 bg-[#0A0A0A]/40 z-10" /> {/* Overlay de contraste */}
-      </div>
+          {/* Background Layer */}
+          <div className="absolute inset-0 z-0 h-screen bg-[#4A7C8E] max-[479px]:h-[100dvh]" />
 
-      {/* ── LAYER 2: STORYTELLING (Em Fluxo, define a altura do scroll) ── */}
-      <div className="capsule-story-layer relative z-20 w-full">
-        <div className="h-[30vh]"></div> {/* Espaço inicial */}
+          {/* Start Text */}
+          <div className="relative z-[2] h-screen pt-[5em] pr-[1.88em] pl-[1.88em] flex flex-col justify-between items-start max-[991px]:pt-[3em] max-[479px]:pt-[4.63em] max-[479px]:pl-[1em]">
+            <div className="relative z-[1] w-[35.4em] max-[991px]:sticky max-[991px]:top-[7em] max-[479px]:w-full max-[479px]:top-[5em]">
+              <h2 className="block m-0 font-[Aeonik,Arial,sans-serif] text-[3.6em] font-medium leading-[93%] tracking-[-0.03em] text-[#D4A574] max-[479px]:text-[2.4em]">
+                O quanto você poderia transformar — se nada fosse desperdiçado?
+              </h2>
+            </div>
 
-        {/* Bloco 1: Esquerda */}
-        <div className="story-fade min-h-screen flex items-center px-6 md:px-16 lg:px-24 max-w-7xl mx-auto">
-          <div className="max-w-2xl">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-[#F5F0E8] leading-tight">
-              O quanto você poderia transformar — <span className="text-[#D4A574]">se nada fosse desperdiçado?</span>
-            </h2>
+            <img
+              src="/images/capsule.avif"
+              loading="lazy"
+              alt=""
+              className="relative z-[1] self-center w-[31.06em] h-[31.06em] object-contain max-[479px]:w-[20em] max-[479px]:h-[20em]"
+              style={{ mixBlendMode: 'lighten' }}
+            />
           </div>
         </div>
 
-        {/* Bloco 2: Direita */}
-        <div className="story-fade min-h-screen flex items-center justify-end px-6 md:px-16 lg:px-24 max-w-7xl mx-auto text-left md:text-right">
-          <div className="max-w-xl">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-[#F5F0E8] leading-tight mb-8">
-              Encontramos um <br className="hidden md:block" />caminho melhor
-            </h2>
-            <p className="text-base md:text-lg text-[#F5F0E8]/70 uppercase tracking-widest leading-relaxed mb-10">
-              Conheça os protocolos Sticker. Tecnologia de ponta que redefine os resultados em estética corporal.
-            </p>
-            <a href="https://wa.me/5534992360120" className="inline-flex items-center gap-4 px-8 py-4 border border-[#D4A574]/30 bg-white/5 backdrop-blur-md text-[#F5F0E8] uppercase tracking-tighter hover:bg-[#D4A574]/15 transition-all duration-300">
-              <span>Saiba mais</span>
-              <div className="w-2 h-2 rounded-full bg-[#D4A574]" />
+        {/* Second Block - Desktop */}
+        <div className="story-fade flex justify-end items-start w-full px-[1.88em] pt-[12.5em] max-[991px]:hidden">
+          <div className="flex flex-col items-start gap-y-[2.5em] w-[21.1em]">
+            <div className="flex flex-col gap-y-[1.5em]">
+              <h2 className="block m-0 font-[Aeonik,Arial,sans-serif] text-[3.6em] font-medium leading-[93%] tracking-[-0.03em] text-[#D4A574]">
+                Encontramos um caminho melhor
+              </h2>
+              <p className="m-0 font-[Aeonik,Arial,sans-serif] text-[1em] leading-[130%] uppercase text-[#F5F0E8]/70">
+                Conheça os protocolos Sticker. Tecnologia de ponta que redefine os resultados em estética corporal.
+              </p>
+            </div>
+
+            <a
+              href="https://wa.me/5534992360120"
+              className="relative flex-none py-[.88em] px-[.75em] no-underline bg-transparent group"
+            >
+              <div className="relative z-[1] flex items-center justify-between gap-x-[.63em]">
+                <span className="rounded-full w-[.25em] h-[.25em] bg-[#D4A574] flex-none" />
+                <span className="font-[Aeonik,Arial,sans-serif] text-[1em] leading-[130%] uppercase text-[#D4A574]">
+                  conhecer os protocolos
+                </span>
+                <span className="rounded-full w-[.25em] h-[.25em] bg-[#D4A574] flex-none" />
+              </div>
+              <div className="absolute inset-0 w-full rounded-[.25em] border-[.08em] border-[#D4A574] group-hover:bg-[#D4A574]/10 transition-colors duration-300" />
             </a>
           </div>
         </div>
 
-        <div className="h-[20vh]"></div> {/* Espaço antes do Reveal */}
-      </div>
+        {/* Mobile Story Header */}
+        <div className="hidden max-[991px]:flex max-[991px]:flex-col max-[991px]:items-start max-[991px]:absolute max-[991px]:top-0 max-[991px]:left-0 max-[991px]:gap-y-[2.5em] max-[991px]:w-full max-[991px]:px-[1.88em] max-[991px]:pt-[3em] max-[479px]:z-0 max-[479px]:gap-y-[2em]">
+          <div className="flex flex-col gap-y-[1em]">
+            <h2 className="block m-0 font-[Aeonik,Arial,sans-serif] text-[3.6em] font-medium leading-[93%] tracking-[-0.03em] text-[#D4A574] max-[479px]:text-[2.4em]">
+              Encontramos um caminho melhor
+            </h2>
+            <p className="m-0 font-[Aeonik,Arial,sans-serif] text-[1em] leading-[130%] uppercase text-[#F5F0E8]/70 max-[479px]:text-[.86em]">
+              Conheça os protocolos Sticker. Tecnologia de ponta que redefine os resultados em estética corporal.
+            </p>
+          </div>
+        </div>
 
-      {/* ── LAYER 3: REVEAL (Fundo Sólido #0A0A0A, Cobre o Canvas) ── */}
-      <div className="capsule-reveal-layer relative z-30 bg-[#0A0A0A] w-full pt-32 pb-32 border-t border-[#D4A574]/10">
-        <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24">
-
-          {/* SVG "Meet" - Contido e Responsivo */}
-          <div className="mb-32 flex justify-center w-full">
-            <img
-              src="https://cdn.prod.website-files.com/68b5b8542c5c0a63b1d91b3b/69c132c2acc4342bbdc24ecc_meet.svg"
-              alt="Meet Sticker"
-              className="w-full max-w-[700px] h-auto block"
-            />
+        {/* Benefit Cards */}
+        <div className="relative z-[2] px-[1.88em] grid grid-cols-3 gap-[1.88em] mt-[12.5em] max-[991px]:w-[100vw] max-[479px]:flex max-[479px]:flex-row max-[479px]:gap-[1.5em] max-[479px]:mt-0 max-[479px]:p-[0_1em_10em] max-[479px]:sticky max-[479px]:top-[20em] max-[479px]:overflow-hidden">
+          {/* Card 1 */}
+          <div
+            className="flex flex-col justify-between items-start gap-y-[1.88em] h-[16.13em] p-[1.25em] rounded-[.4em] max-[479px]:flex-none max-[479px]:w-[22em]"
+            style={{
+              background: 'rgba(245, 240, 232, 0.07)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '1px solid rgba(212, 165, 116, 0.20)',
+            }}
+          >
+            <div className="flex flex-col gap-y-[.75em] w-[18em]">
+              <img
+                src="https://cdn.prod.website-files.com/693293123c1384ae5e258a60/693293123c1384ae5e258aef_detail%20small.svg"
+                alt=""
+                className="w-[2.25em] h-[2.25em] max-[479px]:w-[1.6em] max-[479px]:h-[1.6em]"
+              />
+              <h3 className="m-0 font-[Aeonik,Arial,sans-serif] text-[1.69em] font-normal leading-[110%] tracking-[-0.01em] text-[#D4A574] max-[479px]:w-[70%] max-[479px]:text-[1.5em] max-[479px]:font-medium max-[479px]:leading-[100%]">
+                CrioEndolift
+              </h3>
+            </div>
+            <div className="font-[Aeonik,Arial,sans-serif] text-[1em] leading-[130%] uppercase text-[#F5F0E8] mb-0">
+              Laser de alta potência com retração de pele simultânea. Resultados comparáveis à cirurgia sem o bisturi.
+            </div>
           </div>
 
-          {/* Cards de Benefícios (Grid 3 Colunas) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-32">
-            {[
-              { title: 'CrioEndolift', desc: 'Laser de alta potência com retração de pele simultânea. Resultados comparáveis à cirurgia sem o bisturi.' },
-              { title: 'Ultra MD — FDA', desc: 'Único certificado internacional de eficácia. Exclusividade Sticker em MG.' },
-              { title: 'Sem efeito rebote', desc: 'Resultados rápidos, indolores e duradouros — sem comprometer sua rotina.' }
-            ].map((card, i) => (
-              <div key={i} className="p-10 bg-[#F5F0E8]/[0.02] border border-[#D4A574]/15 hover:border-[#D4A574]/40 transition-colors duration-300 group">
-                <img src="https://cdn.prod.website-files.com/693293123c1384ae5e258a60/693293123c1384ae5e258aef_detail%20small.svg" className="w-6 opacity-40 mb-8 group-hover:opacity-100 transition-opacity" alt="" />
-                <h3 className="text-2xl text-[#F5F0E8] mb-4 font-light">{card.title}</h3>
-                <p className="text-sm text-[#D4A574] uppercase tracking-widest leading-relaxed">{card.desc}</p>
-              </div>
-            ))}
+          {/* Card 2 */}
+          <div
+            className="flex flex-col justify-between items-start gap-y-[1.88em] h-[16.13em] p-[1.25em] rounded-[.4em] max-[479px]:flex-none max-[479px]:w-[22em] max-[479px]:relative max-[479px]:top-[2em]"
+            style={{
+              background: 'rgba(245, 240, 232, 0.07)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '1px solid rgba(212, 165, 116, 0.20)',
+            }}
+          >
+            <div className="flex flex-col gap-y-[.75em] w-[19em] max-[479px]:w-full">
+              <img
+                src="https://cdn.prod.website-files.com/693293123c1384ae5e258a60/693293123c1384ae5e258aef_detail%20small.svg"
+                alt=""
+                className="w-[2.25em] h-[2.25em] max-[479px]:w-[1.6em] max-[479px]:h-[1.6em]"
+              />
+              <h3 className="m-0 font-[Aeonik,Arial,sans-serif] text-[1.69em] font-normal leading-[110%] tracking-[-0.01em] text-[#D4A574] max-[479px]:w-[70%] max-[479px]:text-[1.5em] max-[479px]:font-medium max-[479px]:leading-[100%]">
+                Ultra MD — FDA
+              </h3>
+            </div>
+            <div className="font-[Aeonik,Arial,sans-serif] text-[1em] leading-[130%] uppercase text-[#F5F0E8] mb-0">
+              Único certificado internacional de eficácia. Exclusividade Sticker em MG. Sem efeito rebote.
+            </div>
           </div>
 
-          {/* Steps de Processo (Grid 2x2) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 border-t border-[#D4A574]/15">
-            {[
-              { t: 'Sem equipamentos novos', d: 'Nossos protocolos se integram à sua rotina. Sem internação, sem pós-operatório longo.' },
-              { t: 'Zero efeito rebote', d: 'Tecnologias que cortam o problema na origem — sem mascarar sintomas.' },
-              { t: 'Resultados em 48h', d: 'Crioexposição 360° com resultados visíveis a partir de 48 horas da primeira sessão.' },
-              { t: 'Acompanhamento total', d: 'Nutricional incluso nos principais procedimentos. Cuidado completo do início ao resultado.' }
-            ].map((step, i) => (
-              <div key={i} className={`p-10 md:p-14 border-b border-[#D4A574]/15 ${i % 2 === 0 ? 'md:border-r' : ''}`}>
-                <h3 className="text-3xl text-[#F5F0E8] mb-4 font-light">{step.t}</h3>
-                <p className="text-[#F5F0E8]/50 uppercase text-sm tracking-widest leading-relaxed">{step.d}</p>
-              </div>
-            ))}
+          {/* Card 3 */}
+          <div
+            className="flex flex-col justify-between items-start gap-y-[1.88em] h-[16.13em] p-[1.25em] rounded-[.4em] max-[479px]:flex-none max-[479px]:w-[22em] max-[479px]:relative max-[479px]:top-[4em]"
+            style={{
+              background: 'rgba(245, 240, 232, 0.07)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '1px solid rgba(212, 165, 116, 0.20)',
+            }}
+          >
+            <div className="flex flex-col gap-y-[.75em] w-[21em] max-[479px]:w-full">
+              <img
+                src="https://cdn.prod.website-files.com/693293123c1384ae5e258a60/693293123c1384ae5e258aef_detail%20small.svg"
+                alt=""
+                className="w-[2.25em] h-[2.25em] max-[479px]:w-[1.6em] max-[479px]:h-[1.6em]"
+              />
+              <h3 className="m-0 font-[Aeonik,Arial,sans-serif] text-[1.69em] font-normal leading-[110%] tracking-[-0.01em] text-[#D4A574] max-[479px]:w-[70%] max-[479px]:text-[1.5em] max-[479px]:font-medium max-[479px]:leading-[100%]">
+                Sem efeito rebote
+              </h3>
+            </div>
+            <div className="font-[Aeonik,Arial,sans-serif] text-[1em] leading-[130%] uppercase text-[#F5F0E8] mb-0">
+              Resultados rápidos, indolores e duradouros — sem comprometer sua rotina.
+            </div>
           </div>
-
         </div>
       </div>
     </section>
   )
 }
+

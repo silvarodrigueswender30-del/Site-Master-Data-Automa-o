@@ -7,7 +7,7 @@ export default function Products() {
                 data-w-id="688441f0-da8a-8314-aeea-06fbd64feb48"
                 className="
                     relative w-full
-                    bg-[#0A0A0A]
+                    bg-[#060E1C]
                     pt-[6em] pb-[15em] px-[1.88em]
                     max-[991px]:pb-[10em] max-[991px]:px-0
                     max-[479px]:pt-[4em] max-[479px]:pb-[7em]
@@ -41,7 +41,7 @@ export default function Products() {
                                         font-[Aeonik,Arial,sans-serif]
                                         text-[3.6em] font-medium leading-[93%]
                                         tracking-[-0.03em]
-                                        text-[#D4A574]
+                                        text-[#F0F4FF]
                                         max-[479px]:text-[2.6em]
                                     "
                                 >
@@ -74,13 +74,22 @@ export default function Products() {
                                     product-item product-1
                                     relative flex items-end justify-center
                                     h-[23.88em] p-[1.25em] rounded-[0.4em]
-                                    bg-[rgba(245,240,232,0.07)] backdrop-blur-[20px]
-                                    border border-[rgba(212,165,116,0.20)]
+                                    bg-[#0A1428] backdrop-blur-[20px]
+                                    border border-[#0D1F3C] hover:border-[#0050FF] transition-colors duration-300
                                     no-underline
                                     max-[991px]:flex-none max-[991px]:w-[25em]
                                     max-[479px]:items-start max-[479px]:justify-start max-[479px]:w-[19em]
                                 "
                             >
+                                {/* Data Flow Effect */}
+                                <div 
+                                    className="absolute inset-0 pointer-events-none opacity-10 z-0"
+                                    style={{ 
+                                        background: 'linear-gradient(90deg, transparent 0%, rgba(0, 80, 255, 0.4) 50%, transparent 100%)',
+                                        backgroundSize: '200% 100%',
+                                        animation: 'dataFlow 6s linear infinite'
+                                    }}
+                                />
                                 <img
                                     src="/images/crioendolift.avif"
                                     loading="lazy"
@@ -120,7 +129,7 @@ export default function Products() {
                                                 m-0
                                                 font-[Aeonik,Arial,sans-serif]
                                                 text-[2em] font-normal leading-[100%]
-                                                text-[#F5F0E8]
+                                                text-[#F0F4FF]
                                                 max-[479px]:text-[1.6em] max-[479px]:leading-[99%]
                                             "
                                         >
@@ -131,7 +140,7 @@ export default function Products() {
                                                 font-[Aeonik,Arial,sans-serif]
                                                 text-[1em] leading-[130%]
                                                 uppercase
-                                                text-[#F5F0E8]
+                                                text-[#4A6A9A]
                                                 mb-0
                                             "
                                         >
@@ -145,11 +154,11 @@ export default function Products() {
                                         top-[0.63em] right-[0.63em]
                                         flex items-center justify-center
                                         w-[3.38em] h-[3.38em] rounded-[0.13em]
-                                        bg-[rgba(255,255,255,0.1)]
+                                        bg-[rgba(0,80,255,0.1)]
                                         max-[479px]:w-[3em] max-[479px]:h-[3em]
                                     "
                                 >
-                                    <div className="text-[#F5F0E8] w-[0.75em]">
+                                    <div className="text-[#00D264] w-[0.75em]">
                                         <svg width="100%" height="100%" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M11.7627 11.5605H10.3623V3.25098L1.55762 12.0557L0.567383 11.0654L9.37207 2.26074H1.0625V0.860352H11.7627V11.5605Z" fill="currentColor" />
                                         </svg>
@@ -164,13 +173,22 @@ export default function Products() {
                                     product-item product-2
                                     relative flex items-end justify-center
                                     h-[23.88em] p-[1.25em] rounded-[0.4em]
-                                    bg-[rgba(245,240,232,0.07)] backdrop-blur-[20px]
-                                    border border-[rgba(212,165,116,0.20)]
+                                    bg-[#0A1428] backdrop-blur-[20px]
+                                    border border-[#0D1F3C] hover:border-[#0050FF] transition-colors duration-300
                                     no-underline
                                     max-[991px]:flex-none max-[991px]:w-[25em]
                                     max-[479px]:items-start max-[479px]:justify-start max-[479px]:w-[19em]
                                 "
                             >
+                                {/* Data Flow Effect */}
+                                <div 
+                                    className="absolute inset-0 pointer-events-none opacity-10 z-0"
+                                    style={{ 
+                                        background: 'linear-gradient(90deg, transparent 0%, rgba(0, 80, 255, 0.4) 50%, transparent 100%)',
+                                        backgroundSize: '200% 100%',
+                                        animation: 'dataFlow 6s linear infinite'
+                                    }}
+                                />
                                 <img
                                     src="/images/ultra-md.avif"
                                     loading="lazy"
@@ -209,7 +227,7 @@ export default function Products() {
                                                 m-0
                                                 font-[Aeonik,Arial,sans-serif]
                                                 text-[2em] font-normal leading-[100%]
-                                                text-[#F5F0E8]
+                                                text-[#F0F4FF]
                                                 max-[479px]:text-[1.6em] max-[479px]:leading-[99%]
                                             "
                                         >
@@ -222,7 +240,7 @@ export default function Products() {
                                                 font-[Aeonik,Arial,sans-serif]
                                                 text-[1em] leading-[130%]
                                                 uppercase
-                                                text-[#F5F0E8]
+                                                text-[#4A6A9A]
                                                 mb-0
                                             "
                                         >
@@ -236,11 +254,11 @@ export default function Products() {
                                         top-[0.63em] right-[0.63em]
                                         flex items-center justify-center
                                         w-[3.38em] h-[3.38em] rounded-[0.13em]
-                                        bg-[rgba(255,255,255,0.1)]
+                                        bg-[rgba(0,80,255,0.1)]
                                         max-[479px]:w-[3em] max-[479px]:h-[3em]
                                     "
                                 >
-                                    <div className="text-[#F5F0E8] w-[0.75em]">
+                                    <div className="text-[#00D264] w-[0.75em]">
                                         <svg width="100%" height="100%" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M11.7627 11.5605H10.3623V3.25098L1.55762 12.0557L0.567383 11.0654L9.37207 2.26074H1.0625V0.860352H11.7627V11.5605Z" fill="currentColor" />
                                         </svg>
@@ -255,13 +273,22 @@ export default function Products() {
                                     product-item product-3
                                     relative flex items-end justify-center
                                     h-[23.88em] p-[1.25em] rounded-[0.4em]
-                                    bg-[rgba(245,240,232,0.07)] backdrop-blur-[20px]
-                                    border border-[rgba(212,165,116,0.20)]
+                                    bg-[#0A1428] backdrop-blur-[20px]
+                                    border border-[#0D1F3C] hover:border-[#0050FF] transition-colors duration-300
                                     no-underline overflow-hidden
                                     max-[991px]:flex-none max-[991px]:w-[25em]
                                     max-[479px]:items-start max-[479px]:justify-start max-[479px]:w-[19em]
                                 "
                             >
+                                {/* Data Flow Effect */}
+                                <div 
+                                    className="absolute inset-0 pointer-events-none opacity-10 z-0"
+                                    style={{ 
+                                        background: 'linear-gradient(90deg, transparent 0%, rgba(0, 80, 255, 0.4) 50%, transparent 100%)',
+                                        backgroundSize: '200% 100%',
+                                        animation: 'dataFlow 6s linear infinite'
+                                    }}
+                                />
                                 <img
                                     src="/images/hidrolipo.avif"
                                     loading="lazy"
@@ -284,7 +311,7 @@ export default function Products() {
                                                 m-0
                                                 font-[Aeonik,Arial,sans-serif]
                                                 text-[2em] font-normal leading-[100%]
-                                                text-[#F5F0E8]
+                                                text-[#F0F4FF]
                                                 max-[479px]:text-[1.6em] max-[479px]:leading-[99%]
                                             "
                                         >
@@ -297,7 +324,7 @@ export default function Products() {
                                                 font-[Aeonik,Arial,sans-serif]
                                                 text-[1em] leading-[130%]
                                                 uppercase
-                                                text-[#F5F0E8]
+                                                text-[#4A6A9A]
                                                 mb-0
                                             "
                                         >
@@ -311,11 +338,11 @@ export default function Products() {
                                         top-[0.63em] right-[0.63em]
                                         flex items-center justify-center
                                         w-[3.38em] h-[3.38em] rounded-[0.13em]
-                                        bg-[rgba(255,255,255,0.1)]
+                                        bg-[rgba(0,80,255,0.1)]
                                         max-[479px]:w-[3em] max-[479px]:h-[3em]
                                     "
                                 >
-                                    <div className="text-[#F5F0E8] w-[0.75em]">
+                                    <div className="text-[#00D264] w-[0.75em]">
                                         <svg width="100%" height="100%" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M11.7627 11.5605H10.3623V3.25098L1.55762 12.0557L0.567383 11.0654L9.37207 2.26074H1.0625V0.860352H11.7627V11.5605Z" fill="currentColor" />
                                         </svg>
@@ -328,6 +355,10 @@ export default function Products() {
                         {/* scrollbar hide */}
                         <style>{`
                             .prodcuts-wrap .product-description { width: 100%; }
+                            @keyframes dataFlow {
+                                0% { background-position: 200% 0%; }
+                                100% { background-position: -200% 0%; }
+                            }
                         `}</style>
                     </div>
                 </section>
