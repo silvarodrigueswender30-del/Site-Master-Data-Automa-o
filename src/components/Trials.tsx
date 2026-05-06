@@ -398,10 +398,18 @@ export default function Trials() {
               {/* .capsusta-img — imagem de fundo */}
               <img
                 ref={ctaImgRef}
-                src="/images/trial01.avif"
+                src="/images/trial02.avif"
                 loading="lazy"
                 alt="Suporte Técnico Master Data"
                 className="absolute inset-0 z-0 w-full h-full object-cover object-[25%_50%] trials-anim"
+              />
+
+              {/* Camada de Gradiente para legibilidade (Profundidade Master Data) */}
+              <div 
+                className="absolute inset-0 z-[0] pointer-events-none" 
+                style={{ 
+                  background: 'linear-gradient(45deg, rgba(3, 6, 15, 0.85) 0%, rgba(6, 14, 28, 0.15) 50%, transparent 100%)' 
+                }} 
               />
 
               {/*
@@ -451,7 +459,7 @@ export default function Trials() {
               {/* .field-trials-cta_text */}
               <div ref={ctaTextRef} className="relative z-[1] flex flex-col justify-between items-start gap-[1.25em] trials-anim">
                 <div className="w-[34em] max-md:w-full">
-                  <h2 className="block text-[#060E1C] tracking-[-0.03em] font-medium text-[2.63em] leading-[100%] m-0 max-md:text-[2em]">
+                  <h2 className="block text-[#F0F4FF] tracking-[-0.03em] font-medium text-[2.63em] leading-[100%] m-0 max-md:text-[2em]">
                     Regularize seu posto<br />e assuma o controle<br />total agora.
                   </h2>
                 </div>

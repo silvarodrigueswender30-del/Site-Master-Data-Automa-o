@@ -105,9 +105,9 @@ export default function Numbers() {
                 max-md:text-[2em] max-md:leading-[100%]
               "
             >
-              Resultados que aparecem na conta bancária,
+              Autoridade em Automação de Postos no Triângulo Mineiro
               <br />
-              não só no relatório.
+              Resultados que Impulsionam sua Conta Bancária.
             </h2>
 
             <div
@@ -139,7 +139,7 @@ export default function Numbers() {
                   numberstext=""
                   className="text-master-slate font-jetbrains font-medium text-[1em] leading-[130%] mb-0"
                 >
-                  postos atendidos em MG
+                  Postos Automatizados no Triângulo Mineiro e MG.
                 </div>
                 <div
                   className="green-line absolute bottom-0 left-0 right-0 h-px w-full opacity-50 origin-left bg-master-ice"
@@ -169,7 +169,7 @@ export default function Numbers() {
                   numberstext=""
                   className="text-master-slate font-jetbrains font-medium text-[1em] leading-[130%] mb-0"
                 >
-                  redução em desvios operacionais
+                  Redução em Desvios de Combustível e Erros Operacionais.
                 </div>
                 <div
                   className="green-line absolute bottom-0 left-0 right-0 h-px w-full opacity-50 origin-left bg-master-orange"
@@ -199,7 +199,7 @@ export default function Numbers() {
                   numberstext=""
                   className="text-master-slate font-jetbrains font-medium text-[1em] leading-[130%] mb-0"
                 >
-                  tempo médio de atendimento técnico
+                  Tempo de Resposta Técnica em Uberlândia e Região.
                 </div>
                 <div
                   className="green-line absolute bottom-0 left-0 right-0 h-px w-full opacity-50 origin-left bg-master-ice"
@@ -229,7 +229,7 @@ export default function Numbers() {
                   numberstext=""
                   className="text-master-slate font-jetbrains font-medium text-[1em] leading-[130%] mb-0"
                 >
-                  anos de experiência no segmento
+                  Anos Liderando o Mercado de Automação Industrial.
                 </div>
                 <div
                   className="green-line absolute bottom-0 left-0 right-0 h-px w-full opacity-50 origin-left bg-master-orange"
@@ -249,7 +249,7 @@ export default function Numbers() {
                     text-[12px] leading-[120%] flex-none
                   "
                 >
-                  *Dados baseados em auditorias técnicas e performance operacional histórica.
+                  *Metodologia baseada em auditorias técnicas de campo e métricas de performance histórica de nossos parceiros.
                 </div>
               </div>
 

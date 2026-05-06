@@ -195,26 +195,22 @@ export default function CTABlock() {
             max-[991px]:absolute max-[991px]:-top-[0.8em] max-[991px]:right-0 max-[991px]:w-[36em]
             max-[479px]:top-auto max-[479px]:bottom-[2%] max-[479px]:w-full
           ">
-            <img src="/images/cta-1.avif" loading="lazy"
-              sizes="(max-width: 767px) 100vw, (max-width: 991px) 728px, 940px, 100vw"
-              srcSet="/images/cta-1-p-500.avif 500w, /images/cta-1.avif 1000w" alt=""
+            <img src="/images/CTABlock/Foto1-central.avif" loading="lazy" alt="Master Data Eficiência"
               className="absolute bottom-[6.1em] left-[13.8em] block w-[20.3em] border-[2px] border-solid border-[#0050FF] max-[991px]:bottom-[7.1em] max-[991px]:w-[17em] max-[479px]:left-[8.6em] max-[479px]:w-[12.94em]"
             />
-            <img src="/images/cta-3.avif" loading="lazy" alt=""
+            <img src="/images/CTABlock/Foto2—Superior Esquerda (150px).avif" loading="lazy" alt=""
               className="absolute bottom-[26.4em] -left-[0.2em] block w-[9.5em] border-[2px] border-solid border-[#0050FF] max-[991px]:bottom-[27.3em] max-[991px]:left-[8.2em] max-[991px]:w-[8em] max-[479px]:bottom-[18em] max-[479px]:left-0 max-[479px]:w-[5.88em]"
             />
-            <img src="/images/cta-6.avif" loading="lazy" alt=""
+            <img src="/images/CTABlock/Foto3—Inferior Esquerda (80px).avif" loading="lazy" alt=""
               className="absolute bottom-[1.1em] left-[8.7em] block w-[5em] border-[2px] border-solid border-[#0050FF] max-[991px]:bottom-[2.1em] max-[991px]:left-[9.7em] max-[991px]:w-[4em] max-[479px]:bottom-[3.6em] max-[479px]:left-[5.2em] max-[479px]:w-[3.38em]"
             />
-            <img src="/images/cta-4.avif" loading="lazy" alt=""
+            <img src="/images/CTABlock/Foto4-Superior-Topo(80px).avif" loading="lazy" alt=""
               className="absolute bottom-[35.8em] left-[9.3em] block w-[5em] border-[2px] border-solid border-[#0050FF] max-[991px]:bottom-[35.3em] max-[991px]:left-[16.1em] max-[991px]:w-[4em] max-[479px]:bottom-[23.8em] max-[479px]:left-[5.8em] max-[479px]:w-[3em]"
             />
-            <img src="/images/cta-5.avif" loading="lazy" alt=""
+            <img src="/images/CTABlock/Foto5—Lateral-Direita(175px).avif" loading="lazy" alt=""
               className="absolute -right-[3.3em] bottom-0 block w-[10.9em] border-[2px] border-solid border-[#0050FF] max-[991px]:hidden"
             />
-            <img src="/images/cta-2.avif" loading="lazy"
-              sizes="(max-width: 767px) 100vw, (max-width: 991px) 728px, 940px, 100vw"
-              srcSet="/images/cta-2-p-500.avif 500w, /images/cta-2.avif 1000w" alt=""
+            <img src="/images/CTABlock/Foto6—Superior-Direita(168px).avif" loading="lazy" alt=""
               className="absolute bottom-[26.4em] left-[34.2em] block w-[10.5em] border-[2px] border-solid border-[#0050FF] max-[991px]:bottom-[24em] max-[991px]:left-[30.9em] max-[991px]:w-[8em] max-[479px]:left-[18.2em] max-[479px]:w-[6.56em]"
             />
           </div>
