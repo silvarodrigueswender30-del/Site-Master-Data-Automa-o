@@ -5,30 +5,30 @@ const TEST_IMG = '/images/teste2.jpeg'
 const slides = [
   {
     id: 1,
-    href: '/resultados/crioendolift',
-    title: 'Antes e Depois Real',
+    href: '/resultados/lucratividade',
+    title: 'Lucratividade Sob Controle',
     description:
-      'Veja como o CrioEndolift transformou a silhueta de pacientes reais da Sticker em Uberlândia.',
-    src: TEST_IMG,
-    alt: 'Resultado CrioEndolift — Sticker Clínica Uberlândia',
+      'Elimine furos de estoque e divergências de caixa com monitoramento em tempo real. Tenha a visão clara de cada gota que entra e sai do seu posto.',
+    src: '/images/Community/Card1.avif',
+    alt: 'Monitoramento de Estoque Master Data',
   },
   {
     id: 2,
-    href: '/resultados/ultra-md',
-    title: 'Ultra MD na Prática',
+    href: '/resultados/blindagem',
+    title: 'Blindagem Regulatória',
     description:
-      'Como a tecnologia FDA elimina manchas sem efeito rebote — veja os resultados documentados.',
-    src: TEST_IMG,
-    alt: 'Ultra MD FDA — Sticker Clínica',
+      'Evite multas pesadas e interdições com sistemas 100% adequados às exigências da ANP e INMETRO. Suporte técnico local para garantir sua operação 24/7.',
+    src: '/images/Community/Card2.avif',
+    alt: 'Conformidade ANP e INMETRO Master Data',
   },
   {
     id: 3,
-    href: '/resultados/hidrolipo',
-    title: 'Hidrolipo Sem Cirurgia',
+    href: '/resultados/automacao',
+    title: 'Automação Inteligente',
     description:
-      'Remodelação corporal real, sem internação. Acompanhe o processo de perto.',
-    src: TEST_IMG,
-    alt: 'Hidrolipo Não Aspirativa — Sticker Clínica',
+      'Integre bombas, tanques e conveniência em uma única interface intuitiva. Transforme dados operacionais em decisões estratégicas para escalar seu negócio.',
+    src: '/images/Community/Card3.avif',
+    alt: 'Automação Inteligente de Postos',
   },
 ]
 
@@ -57,18 +57,20 @@ export default function Community() {
 
       <section
         className="relative h-[57em] max-[479px]:h-[48em] bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/teste2.jpeg')" }}
+        style={{
+          backgroundImage: "url('/images/Community/fundo.avif')",
+          transform: 'scaleX(-1)' // Espelhando a foto para o posto mudar de lado
+        }}
       >
-        <div className="block w-full">
+        {/* Container interno espelhado de volta para o texto não ficar invertido */}
+        <div className="block w-full h-full" style={{ transform: 'scaleX(-1)' }}>
           <div className="pt-[5.31em] pr-0 pl-[1.88em] max-[479px]:pt-[4.63em] max-[479px]:pl-[1em] max-[479px]:pr-[1em]">
 
             <h2
               text-split=""
-              className="m-0 font-serif text-[#F0F4FF] text-[3.6em] font-medium leading-[93%] tracking-[-0.01em] max-[991px]:text-[3em] max-[479px]:text-[1.9em] max-[479px]:leading-[100%]"
+              className="m-0 text-[#F0F4FF] text-[3.6em] font-medium leading-[93%] tracking-[-0.03em] max-[991px]:text-[3em] max-[479px]:text-[1.9em] max-[479px]:leading-[100%]"
             >
-              Últimas da
-              <br />
-              Comunidade
+              Ecossistema <br /> Master Data
             </h2>
 
             <div className="mt-[2.19em] flex">

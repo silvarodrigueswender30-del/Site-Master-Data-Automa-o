@@ -112,7 +112,7 @@ export default function CTABlock() {
                   max-[991px]:text-[3em]
                   max-[479px]:text-[1.9em] max-[479px]:leading-[100%]
                 ">
-                  Veja a Diferença<br />com Seus Próprios Olhos
+                  Veja a Eficiência<br />Em Cada Detalhe
                 </h2>
               </div>
 
@@ -132,9 +132,7 @@ export default function CTABlock() {
                     max-[479px]:text-[0.8em]
                   "
                 >
-                  Descubra o que os protocolos Sticker podem fazer por você.
-                  Analisamos cada caso individualmente para garantir que nossas
-                  tecnologias entreguem o máximo de resultado para seu perfil.
+                  Entenda como a tecnologia de ponta e o suporte especializado da Master Data transformam a operação do seu posto. Analisamos cada infraestrutura individualmente para garantir que nossos sistemas entreguem o máximo de controle, segurança e lucratividade para o seu negócio na região de Uberlândia.
                 </div>
               </div>
 
@@ -162,7 +160,7 @@ export default function CTABlock() {
                 <div className="relative z-[1] flex items-center justify-between gap-[0.63em]">
                   <span className="block flex-none w-[0.25em] h-[0.25em] rounded-full bg-[#F0F4FF]" />
                   <div className="flex-none font-[Aeonik,Arial,sans-serif] text-[0.9em] leading-[120%] uppercase text-[#F0F4FF] max-[479px]:text-[0.85em]">
-                    Agendar Avaliação Gratuita
+                    SOLICITAR DIAGNÓSTICO
                   </div>
                   <span className="block flex-none w-[0.25em] h-[0.25em] rounded-full bg-[#F0F4FF]" />
                 </div>
@@ -177,7 +175,7 @@ export default function CTABlock() {
                 <div className="relative z-[1] flex items-center justify-between gap-[0.63em]">
                   <span className="block flex-none w-[0.25em] h-[0.25em] rounded-full bg-[#0050FF]" />
                   <div className="font-[Aeonik,Arial,sans-serif] text-[0.9em] leading-[120%] uppercase text-[#0050FF] max-[479px]:text-[0.85em]">
-                    Falar com a Equipe
+                    CONSULTAR ESPECIALISTA
                   </div>
                   <span className="block flex-none w-[0.25em] h-[0.25em] rounded-full bg-[#0050FF]" />
                 </div>

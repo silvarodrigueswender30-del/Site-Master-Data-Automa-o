@@ -1,21 +1,25 @@
 import { useState, useEffect, useRef } from 'react'
 
 const locations = [
-  { id: 'uberlandia', className: 'usa', city: 'Uberlândia', state: 'MG', info: 'Protocolos exclusivos e centro de treinamento.' },
-  { id: 'sp', className: 'bolivia', city: 'São Paulo', state: 'SP', info: 'Unidade conceito e certificação Ultra MD.' },
-  { id: 'bh', className: 'uk', city: 'Belo Horizonte', state: 'MG', info: 'Referência em CrioEndolift no estado.' },
-  { id: 'brasilia', className: 'ireland-new', city: 'Brasília', state: 'DF', info: 'Unidade premium com atendimento VIP.' },
-  { id: 'rj', className: 'spain', city: 'Rio de Janeiro', state: 'RJ', info: 'Especialistas em remodelação corporal.' },
-  { id: 'goiania', className: 'serbia', city: 'Goiânia', state: 'GO', info: 'Pioneirismo em tecnologias não invasivas.' },
+  { id: 'uberlandia', className: 'usa', city: 'Uberlândia', state: 'MG', info: 'Sede e Centro de Operações Master Data.' },
+  { id: 'araguari', className: 'uk', city: 'Araguari', state: 'MG', info: 'Atendimento ágil e proximidade regional.' },
+  { id: 'uberaba', className: 'bolivia', city: 'Uberaba', state: 'MG', info: 'Hub logístico estratégico do Triângulo.' },
+  { id: 'ituiutaba', className: 'spain', city: 'Ituiutaba', state: 'MG', info: 'Extremo oeste e controle de tanques.' },
+  { id: 'patos-de-minas', className: 'ireland-new', city: 'Patos de Minas', state: 'MG', info: 'Expansão e conformidade INMETRO.' },
+  { id: 'araxa', className: 'araxa', city: 'Araxá', state: 'MG', info: 'Ponto estratégico de suporte técnico.' },
+  { id: 'patrocinio', className: 'patrocinio', city: 'Patrocínio', state: 'MG', info: 'Manutenção e suporte especializado local.' },
+  { id: 'frutal', className: 'frutal', city: 'Frutal', state: 'MG', info: 'Limite sul de atendimento presencial.' },
 ]
 
 const locationPositions: Record<string, string> = {
-  usa: 'top-[32%] left-[9%]          max-lg:top-[33.5%] max-lg:left-[15.5%] max-md:top-[25%] max-md:left-[1%]',
-  bolivia: 'bottom-[32.5%] left-[19.5%]  max-lg:bottom-[33.5%] max-lg:left-[24.5%] max-md:bottom-[27%] max-md:left-[16.5%]',
-  uk: 'top-[22%] left-[44%]          max-lg:top-[24.5%] max-lg:left-[45%] max-md:top-[13%] max-md:left-[53%]',
-  'ireland-new': 'top-[25%] left-[41%]          max-lg:top-[26%] max-lg:left-[42.5%] max-md:top-[17%] max-md:left-[49%]',
-  spain: 'top-[31.5%] left-[42%]        max-lg:top-[32.5%] max-lg:left-[43.5%] max-md:top-[26%] max-md:left-[51%]',
-  serbia: 'top-[28.5%] left-[51.5%]      max-lg:top-[29%] max-lg:left-[51%] max-md:top-[21%] max-md:right-[32%] max-md:left-auto',
+  usa: 'top-[45%] left-[18%]          max-md:top-[45%] max-md:left-[18%]',
+  uk: 'top-[40%] left-[19%]           max-md:top-[40%] max-md:left-[19%]',
+  bolivia: 'top-[52%] left-[20%]      max-md:top-[52%] max-md:left-[20%]',
+  spain: 'top-[47%] left-[10%]        max-md:top-[47%] max-md:left-[10%]',
+  'ireland-new': 'top-[41%] left-[30%] max-md:top-[41%] max-md:left-[30%]',
+  araxa: 'top-[49%] left-[27%]        max-md:top-[49%] max-md:left-[27%]',
+  patrocinio: 'top-[44%] left-[26%]   max-md:top-[44%] max-md:left-[26%]',
+  frutal: 'top-[58%] left-[15%]       max-md:top-[58%] max-md:left-[15%]',
 }
 
 export default function Trials() {
@@ -138,20 +142,20 @@ export default function Trials() {
             left: 0%;
             width: 50vw;
             height: 11.38em;
-            background: rgba(0, 80, 255, 0.1) !important;
-            backdrop-filter: none !important;
-            border: 1px solid #C8D8F0 !important;
+            background: rgba(2, 4, 9, 0.9) !important;
+            backdrop-filter: blur(20px) !important;
+            border: 1px solid #1A3060 !important;
           }
           .fiels-trial-box-info.second {
-            top: -11.38em;
+            top: 10%; /* Posicionado dentro do container para não embolar com o topo */
             right: 0%;
             bottom: auto;
             left: auto;
             width: 50vw;
             height: 11.38em;
-            background: rgba(0, 80, 255, 0.1) !important;
-            backdrop-filter: none !important;
-            border: 1px solid #C8D8F0 !important;
+            background: rgba(2, 4, 9, 0.9) !important;
+            backdrop-filter: blur(20px) !important;
+            border: 1px solid #1A3060 !important;
           }
         }
 
@@ -186,7 +190,7 @@ export default function Trials() {
          * @479px L12842: display:none (esconde no mobile — mostra o mobile version)
          */
         .text-27-regular {
-          color: #0050FF;
+          color: #F0F4FF;
           font-size: 1.69em;
           font-weight: 500;
           line-height: 120%;
@@ -210,7 +214,7 @@ export default function Trials() {
          */
         .text-27-regular-mobile {
           display: none;
-          color: #0050FF;
+          color: #F0F4FF;
           font-size: 1.3em;
           font-weight: 500;
           line-height: 105%;
@@ -240,7 +244,6 @@ export default function Trials() {
            */}
           <div className="
             grid grid-cols-2 gap-0
-            border-t border-[#1A3060]
             max-lg:flex max-lg:flex-col
             max-md:border-t-0
           ">
@@ -278,12 +281,12 @@ export default function Trials() {
                     text-split=""
                     className="block text-[#F0F4FF] tracking-[-0.03em] font-medium text-[3.6em] leading-[93%] mt-0 mb-0 max-md:text-[2em] max-md:leading-[100%]"
                   >
-                    Unidades Sticker em Atividade
+                    Presença Local. Suporte Imediato.
                   </h2>
                 </div>
 
                 <div ref={subtitleRef} className="text-[#8AAAD0] uppercase text-[1em] leading-[130%] mb-0 trials-anim">
-                  Estamos expandindo nossos protocolos exclusivos para os principais centros de estética do Brasil. Atualmente presentes em Minas Gerais, São Paulo, Rio de Janeiro, Distrito Federal e Goiás.
+                  COM SEDE EM UBERLÂNDIA - MG, A MASTER DATA AUTOMAÇÃO É A PARCEIRA ESTRATÉGICA DOS POSTOS NO TRIÂNGULO MINEIRO. GARANTIMOS ATENDIMENTO TÉCNICO PRESENCIAL RÁPIDO PARA QUE SUA OPERAÇÃO NUNCA FIQUE DESAMPARADA.
                 </div>
               </div>
 
@@ -302,11 +305,10 @@ export default function Trials() {
                    * @479px L12823: object-fit:cover | object-position:35% 50% | height:22em
                    */}
                   <img
-                    src="/images/mapa-brasil.svg"
+                    src="/images/map.svg"
                     loading="lazy"
-                    alt=""
+                    alt="Mapa de Atuação Master Data"
                     className="flex-none w-[61.75em] max-w-none max-lg:w-full max-md:object-cover max-md:object-[35%_50%] max-md:h-[22em]"
-                    style={{ filter: 'invert(100%) hue-rotate(180deg) brightness(0.6) contrast(1.2)' }}
                   />
 
                   {locations.map((loc) => (
@@ -387,21 +389,19 @@ export default function Trials() {
               data-w-id="9903e210-d82a-41ac-ea03-a62e28cb4a56"
               className="
                 relative flex justify-start items-end overflow-hidden
-                h-[57.5em] pb-[3.75em] pl-[3.75em]
+                h-full pb-[3.75em] pl-[3.75em]
                 max-lg:pl-[1.88em] max-lg:border-t max-lg:border-[#C8D8F0]
-                max-md:h-[32.81em] max-md:pl-[1em] max-md:pr-[1em] max-md:overflow-visible
+                max-md:h-[48em] max-md:pl-[1em] max-md:pr-[1em] max-md:overflow-visible
               "
             >
 
               {/* .capsusta-img — imagem de fundo */}
               <img
                 ref={ctaImgRef}
-                src="/images/resultado-cta.avif"
+                src="/images/trial01.avif"
                 loading="lazy"
-                sizes="(max-width: 767px) 100vw, (max-width: 991px) 728px, 940px, 100vw"
-                srcSet="/images/resultado-cta-p-500.avif 500w, /images/resultado-cta-p-800.avif 800w, /images/resultado-cta-p-1080.avif 1080w, /images/resultado-cta.avif 2313w"
-                alt=""
-                className="absolute inset-0 z-0 w-full h-full object-cover trials-anim"
+                alt="Suporte Técnico Master Data"
+                className="absolute inset-0 z-0 w-full h-full object-cover object-[25%_50%] trials-anim"
               />
 
               {/*
@@ -413,15 +413,15 @@ export default function Trials() {
               <div
                 ref={boxFirstRef}
                 data-w-id="ac7801f1-7ed1-25ee-c7b3-7205520c690c"
-                className="fiels-trial-box-info first trials-anim bg-[rgba(255,255,255,0.7)] backdrop-blur-[20px] border border-[#C8D8F0]"
+                className="fiels-trial-box-info first trials-anim bg-[rgba(2,4,9,0.85)] backdrop-blur-[20px]"
               >
                 <div className="fiels-trial-box-info--inside">
                   <div className="max-[479px]:w-[6em]">
-                    <h3 className="text-27-regular-mobile">Próxima Avaliação</h3>
-                    <h3 className="text-27-regular">Próxima Avaliação</h3>
+                    <h3 className="text-27-regular-mobile">Suporte 24h</h3>
+                    <h3 className="text-27-regular">Suporte 24h</h3>
                   </div>
-                  <div className="text-[#4A6A9A] uppercase text-[0.9em] leading-[120%]">
-                    junho 2025 — novos horários disponíveis.
+                  <div className="text-[#8AAAD0] uppercase text-[0.9em] leading-[120%]">
+                    DISPONÍVEL PARA CLIENTES COM PLANO DE MANUTENÇÃO ATIVO.
                   </div>
                 </div>
               </div>
@@ -435,15 +435,15 @@ export default function Trials() {
               <div
                 ref={boxSecondRef}
                 data-w-id="6b2ee82d-b3a5-6581-754e-cfad6c04cf04"
-                className="fiels-trial-box-info second trials-anim bg-[rgba(255,255,255,0.7)] backdrop-blur-[20px] border border-[#C8D8F0]"
+                className="fiels-trial-box-info second trials-anim bg-[rgba(2,4,9,0.85)] backdrop-blur-[20px]"
               >
                 <div className="fiels-trial-box-info--inside">
                   <div className="max-[479px]:w-[6em]">
-                    <h3 className="text-27-regular-mobile">Por que compartilhamos</h3>
-                    <h3 className="text-27-regular h-100">Por que compartilhamos</h3>
+                    <h3 className="text-27-regular-mobile">Por que Local?</h3>
+                    <h3 className="text-27-regular h-100">Por que Local?</h3>
                   </div>
-                  <div className="text-[#4A6A9A] uppercase text-[0.9em] leading-[120%]">
-                    Resultados reais superam promessas de marketing.
+                  <div className="text-[#8AAAD0] uppercase text-[0.9em] leading-[120%]">
+                    PORQUE CADA MINUTO DE POSTO PARADO É PREJUÍZO REAL. ESTAMOS PERTO PARA AGIR RÁPIDO.
                   </div>
                 </div>
               </div>
@@ -451,11 +451,8 @@ export default function Trials() {
               {/* .field-trials-cta_text */}
               <div ref={ctaTextRef} className="relative z-[1] flex flex-col justify-between items-start gap-[1.25em] trials-anim">
                 <div className="w-[34em] max-md:w-full">
-                  <h2
-                    text-split=""
-                    className="text-[#F0F4FF] tracking-[-0.01em] font-medium text-[3.6em] leading-[93%] mt-0 mb-0 max-md:text-[2em]"
-                  >
-                    Seja a primeira a experimentar o CrioEndolift. Vagas abertas para junho.
+                  <h2 className="block text-[#060E1C] tracking-[-0.03em] font-medium text-[2.63em] leading-[100%] m-0 max-md:text-[2em]">
+                    Regularize seu posto<br />e assuma o controle<br />total agora.
                   </h2>
                 </div>
                 <a
@@ -465,7 +462,7 @@ export default function Trials() {
                 >
                   <div className="relative z-[1] flex justify-between items-center gap-[0.63em]">
                     <div className="rounded-full w-[0.25em] h-[0.25em] bg-[#F0F4FF]" />
-                    <div className="text-[#F0F4FF] uppercase text-[1em] leading-[130%]">Agendar agora</div>
+                    <div className="text-[#F0F4FF] uppercase text-[1em] leading-[130%]">SOLICITAR ORÇAMENTO</div>
                     <div className="rounded-full w-[0.25em] h-[0.25em] bg-[#F0F4FF]" />
                   </div>
                   <div className="absolute inset-0 rounded-[0.25em] bg-[#0050FF] hover:bg-[#0040CC] transition-colors duration-300" style={{ zIndex: 0 }} />

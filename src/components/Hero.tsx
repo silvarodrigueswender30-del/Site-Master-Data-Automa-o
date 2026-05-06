@@ -1,679 +1,618 @@
-'use client'
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
 
-/**
- * Hero.tsx v6 — Método Sticker
- * ─────────────────────────────────────────────────────────────────
- * CORREÇÃO PRINCIPAL v6: ZERO RE-RENDER POR TICK DE SCROLL
- *
- *  PROBLEMA v5:
- *    setScrollProgress(p) era chamado a cada pixel de scroll.
- *    Em telas 144Hz isso são ~144 re-renders/segundo do componente
- *    Hero inteiro → JS thread ocupado → mouse lag → jitter.
- *
- *  SOLUÇÃO v6:
- *    1. scrollProgress STATE removido completamente.
- *    2. ScrollProgressDots agora lê uma CSS Variable (--hero-progress)
- *       que é atualizada via gsap.set() — zero React, zero re-render.
- *    3. O indicador "Scroll" some via CSS opacity transition na var.
- *    4. setActiveCardIds e setActiveTextIds continuam existindo mas
- *       só disparam quando há mudança real (hysteresis garante isso).
- *
- *  RESULTADO:
- *    Durante o scroll normal: 0 re-renders do Hero.
- *    Na transição de card: 1 re-render cirúrgico.
- *    Mouse lag: eliminado.
- *
- * ─────────────────────────────────────────────────────────────────
- */
+// Âmbar para os números das métricas
+const AMBER = "#F59E0B";
 
-import { useEffect, useRef, useState, useCallback } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
-
-// ─────────────────────────────────────────────
-// CONSTANTES
-// ─────────────────────────────────────────────
-const TOTAL_FRAMES = 138
-const SCROLL_HEIGHT = '1000vh'
-
-const FRAME_SRC = (i: number) =>
-  `/videos/pasta-hero/frames/frame_${String(i).padStart(4, '0')}.webp`
-
-// ─────────────────────────────────────────────
-// HELPERS
-// ─────────────────────────────────────────────
-const progressToFrame = (p: number): number =>
-  Math.min(Math.round(p * (TOTAL_FRAMES - 1)), TOTAL_FRAMES - 1)
-
-// ─────────────────────────────────────────────
-// TIPOS
-// ─────────────────────────────────────────────
-interface CardConfig {
-  id: number
-  title: string
-  body: string
-  enterAt: number
-  leaveAt: number
-  side: 'left' | 'right'
-  topClamp: string
-}
-
-interface TextConfig {
-  id: number
-  label: string
-  line1: string
-  line2?: string
-  enterAt: number
-  leaveAt: number
-  align: 'left' | 'right'
-  sizeClamp: string
-  topClamp: string
-}
-
-// ─────────────────────────────────────────────
-// JANELAS DE SCROLL — 4 × 25%
-// ─────────────────────────────────────────────
-const W1_IN = 0.01; const W1_OUT = 0.24
-const W2_IN = 0.26; const W2_OUT = 0.49
-const W3_IN = 0.51; const W3_OUT = 0.74
-const W4_IN = 0.76; const W4_OUT = 0.99
-
-// ─────────────────────────────────────────────
-// TEXTOS EDITORIAIS
-// ─────────────────────────────────────────────
-const EDITORIAL_TEXTS: TextConfig[] = [
-  {
-    id: 10, label: '— Tecnologia',
-    line1: 'Escaneamento', line2: 'mineral de precisão',
-    enterAt: W1_IN, leaveAt: W1_OUT, align: 'right',
-    sizeClamp: 'clamp(30px, 4.8vw, 72px)',
-    topClamp: 'clamp(110px, 18vh, 175px)',
-  },
-  {
-    id: 11, label: '— Ativo',
-    line1: 'Areia dourada', line2: 'em movimento',
-    enterAt: W2_IN, leaveAt: W2_OUT, align: 'left',
-    sizeClamp: 'clamp(28px, 4.5vw, 68px)',
-    topClamp: 'clamp(110px, 18vh, 170px)',
-  },
-  {
-    id: 12, label: '— Protocolo',
-    line1: 'Doze etapas', line2: 'certificadas',
-    enterAt: W3_IN, leaveAt: W3_OUT, align: 'right',
-    sizeClamp: 'clamp(30px, 4.8vw, 72px)',
-    topClamp: 'clamp(115px, 19vh, 180px)',
-  },
-  {
-    id: 13, label: '— Resultado',
-    line1: 'Uma sessão.', line2: 'Transformação real.',
-    enterAt: W4_IN, leaveAt: W4_OUT, align: 'left',
-    sizeClamp: 'clamp(28px, 4.5vw, 68px)',
-    topClamp: 'clamp(110px, 18vh, 172px)',
-  },
-]
-
-// ─────────────────────────────────────────────
-// GLASS CARDS
-// ─────────────────────────────────────────────
-const CARDS: CardConfig[] = [
-  {
-    id: 1, title: 'Diagnóstico Preciso',
-    body: 'Análise tridimensional da pele com imageamento de alta resolução.',
-    enterAt: W1_IN, leaveAt: W1_OUT, side: 'left',
-    topClamp: 'clamp(280px, 52vh, 440px)',
-  },
-  {
-    id: 2, title: 'Ativo Mineral Dourado',
-    body: 'Partículas de areia ativadas por micro-ondas terapêuticas.',
-    enterAt: W2_IN, leaveAt: W2_OUT, side: 'right',
-    topClamp: 'clamp(280px, 52vh, 430px)',
-  },
-  {
-    id: 3, title: 'Protocolo Exclusivo',
-    body: 'Sequência de 12 etapas em laboratório suíço certificado.',
-    enterAt: W3_IN, leaveAt: W3_OUT, side: 'left',
-    topClamp: 'clamp(285px, 53vh, 445px)',
-  },
-  {
-    id: 4, title: 'Resultado em 75 min',
-    body: 'Firmeza, luminosidade e uniformidade em uma única sessão.',
-    enterAt: W4_IN, leaveAt: W4_OUT, side: 'right',
-    topClamp: 'clamp(280px, 52vh, 435px)',
-  },
-]
-
-// ─────────────────────────────────────────────
-// PRÉ-CARREGAMENTO
-// ─────────────────────────────────────────────
-function preloadFrames(
-  onProgress: (n: number) => void,
-  onComplete: (imgs: HTMLImageElement[]) => void,
-) {
-  const images: HTMLImageElement[] = new Array(TOTAL_FRAMES)
-  let done = 0
-  for (let i = 0; i < TOTAL_FRAMES; i++) {
-    const img = new Image()
-    img.decoding = 'async'
-    img.src = FRAME_SRC(i + 1)
-    const finish = () => {
-      done++
-      onProgress(done)
-      if (done === TOTAL_FRAMES) onComplete(images)
-    }
-    img.onload = finish
-    img.onerror = finish
-    images[i] = img
-  }
-}
-
-// ─────────────────────────────────────────────
-// HERO COMPONENT
-// ─────────────────────────────────────────────
 export default function Hero() {
-  const sectionRef = useRef<HTMLDivElement>(null)
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const framesRef = useRef<HTMLImageElement[]>([])
-  const frameIdxRef = useRef(0)
-  const rafRef = useRef<number | null>(null)
+  const sectionRef = useRef<HTMLElement>(null);
 
-  // Refs para hysteresis — evita re-renders desnecessários
-  const activeCardsRef = useRef<Set<number>>(new Set())
-  const activeTextsRef = useRef<Set<number>>(new Set())
-
-  const [loadPct, setLoadPct] = useState(0)
-  const [ready, setReady] = useState(false)
-  const [activeCardIds, setActiveCardIds] = useState<Set<number>>(new Set())
-  const [activeTextIds, setActiveTextIds] = useState<Set<number>>(new Set())
-
-  // ── Cover-fit draw ─────────────────────────
-  const drawFrame = useCallback((idx: number) => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-    const img = framesRef.current[idx]
-    if (!img?.complete || !img.naturalWidth) return
-
-    const cw = canvas.width, ch = canvas.height
-    const iw = img.naturalWidth, ih = img.naturalHeight
-    const scale = Math.max(cw / iw, ch / ih)
-    const sw = iw * scale, sh = ih * scale
-    const sx = (cw - sw) / 2, sy = (ch - sh) / 2
-
-    ctx.clearRect(0, 0, cw, ch)
-    ctx.drawImage(img, sx, sy, sw, sh)
-  }, [])
-
-  const resizeCanvas = useCallback(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
-    drawFrame(frameIdxRef.current)
-  }, [drawFrame])
-
-  // ── 1. Preload ──────────────────────────────
   useEffect(() => {
-    preloadFrames(
-      (n) => setLoadPct(Math.round((n / TOTAL_FRAMES) * 100)),
-      (imgs) => { framesRef.current = imgs; setReady(true) },
-    )
-  }, [])
-
-  // ── 2. ScrollTrigger ────────────────────────
-  useEffect(() => {
-    if (!ready) return
-    const section = sectionRef.current
-    const canvas = canvasRef.current
-    if (!section || !canvas) return
-
-    resizeCanvas()
-    drawFrame(0)
-    window.addEventListener('resize', resizeCanvas)
-
     const ctx = gsap.context(() => {
-      ScrollTrigger.create({
-        trigger: section,
-        start: 'top top',
-        end: `+=${SCROLL_HEIGHT}`,
-        pin: true,
-        pinSpacing: true,
+      gsap.from(".anim-h1 > span", {
+        y: 50, opacity: 0, duration: 1.05, ease: "power3.out",
+        stagger: 0.1, delay: 0.25,
+      });
+      gsap.from(".anim-sub", {
+        y: 18, opacity: 0, duration: 0.85, ease: "power3.out", delay: 0.7,
+      });
+      gsap.from(".anim-ctas", {
+        y: 16, opacity: 0, duration: 0.8, ease: "power3.out", delay: 0.88,
+      });
+      gsap.from(".anim-metric", {
+        y: 20, opacity: 0, duration: 0.7, ease: "power3.out",
+        stagger: 0.07, delay: 1.05,
+      });
+      gsap.from(".anim-card-top", {
+        x: 32, opacity: 0, duration: 0.95, ease: "power3.out", delay: 0.45,
+      });
+      gsap.from(".anim-social", {
+        opacity: 0, duration: 0.6, ease: "power3.out", delay: 1.35,
+      });
+      gsap.from(".anim-about", {
+        opacity: 0, duration: 0.6, ease: "power3.out", delay: 1.4,
+      });
+      gsap.from(".anim-bottom-text", {
+        y: 20, opacity: 0, duration: 0.95, ease: "power3.out", delay: 1.2,
+      });
+    }, sectionRef);
+    return () => ctx.revert();
+  }, []);
 
-        /**
-         * scrub: 3
-         * Canvas "persegue" o scroll com ~300ms de inércia.
-         * Cria a sensação de peso/luxo e faz os cards parecerem
-         * parados enquanto o fundo anima devagar.
-         */
-        scrub: 3,
-
-        onUpdate(self) {
-          const p = self.progress
-
-          // ── 1. Frame canvas (zero React) ─────────────
-          const targetIdx = progressToFrame(p)
-          if (targetIdx !== frameIdxRef.current) {
-            frameIdxRef.current = targetIdx
-            if (rafRef.current) cancelAnimationFrame(rafRef.current)
-            rafRef.current = requestAnimationFrame(() => drawFrame(targetIdx))
-          }
-
-          // ── 2. CSS Variable para dots (zero React) ───
-          // gsap.set injeta a var direto no DOM — sem setState,
-          // sem re-render, sem impacto no mouse.
-          // O componente ScrollProgressDots lê via CSS.
-          section.style.setProperty('--hero-progress', String(p))
-
-          // ── 3. Scroll indicator some (zero React) ────
-          // Lido pelo CSS do elemento via opacity condicional
-          section.style.setProperty(
-            '--hero-scroll-hint-opacity',
-            p > 0.03 ? '0' : '1',
-          )
-
-          // ── 4. Cards: re-render APENAS se mudou ──────
-          const cleanCards = new Set<number>()
-          CARDS.forEach((c) => {
-            if (p >= c.enterAt && p <= c.leaveAt) cleanCards.add(c.id)
-          })
-          const cardsChanged =
-            cleanCards.size !== activeCardsRef.current.size ||
-            [...cleanCards].some((id) => !activeCardsRef.current.has(id))
-
-          if (cardsChanged) {
-            activeCardsRef.current = cleanCards
-            setActiveCardIds(new Set(cleanCards))
-          }
-
-          // ── 5. Textos: re-render APENAS se mudou ─────
-          const cleanTexts = new Set<number>()
-          EDITORIAL_TEXTS.forEach((t) => {
-            if (p >= t.enterAt && p <= t.leaveAt) cleanTexts.add(t.id)
-          })
-          const textsChanged =
-            cleanTexts.size !== activeTextsRef.current.size ||
-            [...cleanTexts].some((id) => !activeTextsRef.current.has(id))
-
-          if (textsChanged) {
-            activeTextsRef.current = cleanTexts
-            setActiveTextIds(new Set(cleanTexts))
-          }
-        },
-      })
-
-      ScrollTrigger.refresh()
-    }, section)
-
-    return () => {
-      ctx.revert()
-      window.removeEventListener('resize', resizeCanvas)
-      if (rafRef.current) cancelAnimationFrame(rafRef.current)
-    }
-  }, [ready, drawFrame, resizeCanvas])
-
-  // ─────────────────────────────────────────
-  // RENDER
-  // ─────────────────────────────────────────
   return (
     <section
       ref={sectionRef}
-      className="hero-section"
-      style={{
-        position: 'relative',
-        width: '100%',
-        height: '100svh',
-        overflow: 'hidden',
-        background: '#0A0A0A',
-        contain: 'paint',
-        // CSS vars iniciais — lidas pelos subcomponentes via style inline
-        ['--hero-progress' as string]: '0',
-        ['--hero-scroll-hint-opacity' as string]: '1',
-      }}
+      className="relative w-full overflow-hidden bg-[#03060F]"
+      style={{ minHeight: "100svh" }}
     >
-      {/* ── CANVAS ────────────────────────── */}
-      <canvas
-        ref={canvasRef}
-        style={{
-          position: 'absolute', inset: 0, zIndex: 0,
-          display: 'block', width: '100%', height: '100%',
-        }}
-      />
-
-      {/* ── VIGNETTES ───────────────────────── */}
-      <div aria-hidden style={{
-        position: 'absolute', inset: 0, zIndex: 10, pointerEvents: 'none',
-        background: 'radial-gradient(ellipse 80% 85% at 52% 48%, transparent 38%, rgba(10,10,10,0.60) 100%)',
-      }} />
-      <div aria-hidden style={{
-        position: 'absolute', top: 0, left: 0, right: 0,
-        height: '22%', zIndex: 11, pointerEvents: 'none',
-        background: 'linear-gradient(to bottom, rgba(10,10,10,0.60) 0%, transparent 100%)',
-      }} />
-      <div aria-hidden style={{
-        position: 'absolute', bottom: 0, left: 0, right: 0,
-        height: '30%', zIndex: 11, pointerEvents: 'none',
-        background: 'linear-gradient(to top, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.30) 55%, transparent 100%)',
-      }} />
-      <div aria-hidden style={{
-        position: 'absolute', inset: 0, zIndex: 12, pointerEvents: 'none',
-        opacity: 0.016,
-        backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(245,240,232,1) 2px, rgba(245,240,232,1) 3px)',
-        backgroundSize: '100% 3px',
-      }} />
-      <div aria-hidden style={{
-        position: 'absolute', top: 0, left: 0, bottom: 0,
-        width: '32%', zIndex: 13, pointerEvents: 'none',
-        background: 'linear-gradient(to right, rgba(10,10,10,0.45) 0%, transparent 100%)',
-      }} />
-      <div aria-hidden style={{
-        position: 'absolute', top: 0, right: 0, bottom: 0,
-        width: '28%', zIndex: 13, pointerEvents: 'none',
-        background: 'linear-gradient(to left, rgba(10,10,10,0.40) 0%, transparent 100%)',
-      }} />
-
-      {/* ── SVG WATERMARK ─────────────────── */}
-      <div aria-hidden style={{
-        position: 'absolute', bottom: 0, left: 0, right: 0,
-        zIndex: 20, pointerEvents: 'none',
-        height: 'clamp(52px,12vh,115px)',
-        display: 'flex', alignItems: 'flex-end',
-        overflow: 'hidden', paddingBottom: '6px',
-      }}>
-        <img src="/assets/METODO-STICKER.svg" alt="" style={{
-          width: '100%', height: '100%',
-          objectFit: 'contain', objectPosition: 'center bottom',
-          opacity: 0.06, filter: 'brightness(0) invert(1)',
+      {/* ── VÍDEO DE FUNDO ── */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <video
+          autoPlay muted loop playsInline
+          className="w-full h-full object-cover"
+          style={{ transform: "scale(1.04)" }}
+        >
+          <source src="/videos/pasta-hero/VIDEO-PRINCIPAL-HERO.webm" type="video/webm" />
+        </video>
+        {/* Lateral: texto legível esquerda, vídeo aparece direita */}
+        <div className="absolute inset-0" style={{
+          background: "linear-gradient(to right, rgba(3,6,15,0.97) 0%, rgba(3,6,15,0.86) 35%, rgba(3,6,15,0.55) 60%, rgba(3,6,15,0.25) 100%)"
+        }} />
+        {/* Vertical: topo e rodapé escuros */}
+        <div className="absolute inset-0" style={{
+          background: "linear-gradient(to bottom, rgba(3,6,15,0.82) 0%, rgba(3,6,15,0.0) 25%, rgba(3,6,15,0.0) 65%, rgba(3,6,15,0.97) 100%)"
+        }} />
+        {/* Vinheta radial de luxo */}
+        <div className="absolute inset-0" style={{
+          background: "radial-gradient(ellipse at 58% 50%, rgba(3,6,15,0) 18%, rgba(3,6,15,0.65) 100%)"
         }} />
       </div>
 
-      {/* ── PROGRESS DOTS (lê CSS var, zero re-render) ── */}
-      <ScrollProgressDots />
-
-      {/* ── TEXTOS EDITORIAIS ─────────────── */}
-      {EDITORIAL_TEXTS.map((txt) => (
-        <EditorialText
-          key={txt.id}
-          txt={txt}
-          active={activeTextIds.has(txt.id)}
-        />
-      ))}
-
-      {/* ── GLASS CARDS ───────────────────── */}
-      {CARDS.map((card) => (
-        <GlassCard
-          key={card.id}
-          card={card}
-          active={activeCardIds.has(card.id)}
-        />
-      ))}
-
-      {/* ── SCROLL INDICATOR (lê CSS var) ─── */}
+      {/* ── CORPO PRINCIPAL ── */}
+      {/*
+        paddingTop:
+        - Mobile: 5rem (80px) = altura típica da navbar mobile (56-64px) + folga
+        - Desktop: centraliza verticalmente com flex items-center + paddingTop menor
+      */}
       <div
-        aria-hidden
+        className="relative z-10 w-full flex items-center"
+        style={{ minHeight: "100svh" }}
+      >
+        <div
+          className="w-full flex items-center justify-between"
+          style={{
+            padding: "clamp(5.5rem,12vh,7rem) clamp(1.5rem,5vw,4.5rem) clamp(3.5rem,8vh,5rem)",
+            gap: "clamp(1rem,2.5vw,2.5rem)",
+          }}
+        >
+
+          {/* ══ COLUNA ESQUERDA ══ */}
+          <div
+            className="flex flex-col"
+            style={{
+              // Em desktop ocupa ~50% da largura total.
+              // Em mobile ocupa 100% (cards direita ficam hidden)
+              maxWidth: "clamp(280px, 50%, 560px)",
+              width: "100%",
+              flexShrink: 0,
+            }}
+          >
+
+            {/* H1 — tamanho reduzido conforme solicitado */}
+            <h1
+              className="anim-h1 flex flex-col"
+              style={{
+                fontFamily: "'Space Grotesk', sans-serif",
+                fontWeight: 700,
+                /*
+                  clamp(min, preferred, max)
+                  min  = 1.7rem  → mobile pequeno (320px)
+                  pref = 3.6vw   → escala suavemente (em 1440px = ~52px)
+                  max  = 3.4rem  → desktop grande (≈54px) — menor que antes (5rem)
+                */
+                fontSize: "clamp(1.7rem,3.6vw,3.4rem)",
+                lineHeight: 1.05,
+                letterSpacing: "-0.03em",
+                color: "#fff",
+                gap: 0,
+                margin: 0,
+              }}
+            >
+              <span>
+                Controle{" "}
+                <span style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontStyle: "italic",
+                  fontWeight: 600,
+                  background: "linear-gradient(90deg, #00D9A3 0%, #00B8D4 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}>
+                  total.
+                </span>
+              </span>
+              <span>
+                Gestão{" "}
+                <span style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontStyle: "italic",
+                  fontWeight: 600,
+                  background: "linear-gradient(90deg, #00D9A3 0%, #00B8D4 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}>
+                  inteligente.
+                </span>
+              </span>
+              <span>
+                Seu posto{" "}
+                <span style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontStyle: "italic",
+                  fontWeight: 600,
+                  background: "linear-gradient(90deg, #00D9A3 0%, #00B8D4 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}>
+                  lucrativo.
+                </span>
+              </span>
+            </h1>
+
+            {/* Subtítulo */}
+            <p
+              className="anim-sub"
+              style={{
+                marginTop: "clamp(0.75rem,1.8vw,1.3rem)",
+                maxWidth: 400,
+                fontFamily: "'Inter', sans-serif",
+                fontWeight: 300,
+                fontSize: "clamp(0.72rem,1.1vw,0.92rem)",
+                lineHeight: 1.65,
+                color: "rgba(255,255,255,0.5)",
+                letterSpacing: "0.01em",
+              }}
+            >
+              Automação completa e suporte especializado em{" "}
+              <span style={{ color: "rgba(255,255,255,0.82)", fontWeight: 500 }}>
+                Uberlândia e região.
+              </span>
+            </p>
+
+            {/* CTAs */}
+            <div
+              className="anim-ctas flex items-center flex-wrap"
+              style={{
+                gap: "clamp(0.5rem,1vw,0.8rem)",
+                marginTop: "clamp(1.1rem,2.5vw,1.85rem)",
+              }}
+            >
+              {/* Primário */}
+              <button
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.42rem",
+                  padding: "clamp(0.52rem,0.95vw,0.76rem) clamp(0.95rem,1.9vw,1.65rem)",
+                  background: "#00D9A3",
+                  borderRadius: "999px",
+                  border: "none",
+                  color: "#03060F",
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontWeight: 700,
+                  fontSize: "clamp(0.68rem,0.95vw,0.84rem)",
+                  letterSpacing: "0.03em",
+                  cursor: "pointer",
+                  transition: "all 0.22s ease",
+                  boxShadow: "0 0 28px rgba(0,217,163,0.25)",
+                  whiteSpace: "nowrap",
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLButtonElement).style.background = "#00C896";
+                  (e.currentTarget as HTMLButtonElement).style.transform = "scale(1.04)";
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLButtonElement).style.background = "#00D9A3";
+                  (e.currentTarget as HTMLButtonElement).style.transform = "scale(1)";
+                }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style={{ width: "1em", height: "1em" }}>
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+                </svg>
+                Falar com especialista
+              </button>
+
+              {/* Secundário ghost */}
+              <button
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.38rem",
+                  padding: "clamp(0.52rem,0.95vw,0.76rem) clamp(0.95rem,1.9vw,1.65rem)",
+                  background: "rgba(255,255,255,0.05)",
+                  borderRadius: "999px",
+                  border: "1px solid rgba(255,255,255,0.18)",
+                  color: "rgba(255,255,255,0.72)",
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontWeight: 500,
+                  fontSize: "clamp(0.68rem,0.95vw,0.84rem)",
+                  letterSpacing: "0.03em",
+                  cursor: "pointer",
+                  backdropFilter: "blur(8px)",
+                  transition: "all 0.22s ease",
+                  whiteSpace: "nowrap",
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(255,255,255,0.36)";
+                  (e.currentTarget as HTMLButtonElement).style.color = "#fff";
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(255,255,255,0.18)";
+                  (e.currentTarget as HTMLButtonElement).style.color = "rgba(255,255,255,0.72)";
+                }}
+              >
+                Ver serviços
+                <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </button>
+            </div>
+
+            {/* ── METRIC CARDS: desktop row — números em ÂMBAR ── */}
+            <div
+              className="hidden md:flex items-stretch"
+              style={{
+                gap: "clamp(0.42rem,0.85vw,0.68rem)",
+                marginTop: "clamp(1.3rem,2.8vw,2.2rem)",
+              }}
+            >
+              {[
+                { label: "Postos atendidos", value: "150+", sub: "e crescendo" },
+                { label: "Satisfação dos clientes", value: "98%", sub: "média geral" },
+                { label: "Cidades cobertas", value: "10+", sub: "Triângulo Mineiro" },
+              ].map((m) => (
+                <div
+                  key={m.label}
+                  className="anim-metric"
+                  style={{
+                    padding: "clamp(0.52rem,0.95vw,0.82rem) clamp(0.65rem,1.1vw,1rem)",
+                    background: "rgba(255,255,255,0.04)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    borderRadius: "clamp(0.6rem,0.95vw,0.85rem)",
+                    backdropFilter: "blur(12px)",
+                    flex: "1 1 0",
+                    minWidth: 0,
+                  }}
+                >
+                  <p style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: "clamp(0.52rem,0.7vw,0.62rem)",
+                    fontWeight: 400,
+                    color: "rgba(255,255,255,0.35)",
+                    letterSpacing: "0.06em",
+                    textTransform: "uppercase",
+                    marginBottom: "clamp(0.22rem,0.45vw,0.38rem)",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}>
+                    {m.label}
+                  </p>
+                  {/* Número em âmbar */}
+                  <p style={{
+                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontSize: "clamp(1.15rem,2vw,1.75rem)",
+                    fontWeight: 700,
+                    color: AMBER,
+                    lineHeight: 1,
+                    letterSpacing: "-0.02em",
+                  }}>
+                    {m.value}
+                  </p>
+                  <p style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: "clamp(0.5rem,0.68vw,0.6rem)",
+                    color: "rgba(255,255,255,0.28)",
+                    marginTop: "0.2rem",
+                    whiteSpace: "nowrap",
+                  }}>
+                    {m.sub}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* ── METRIC CARDS: mobile carrossel ── */}
+            <div
+              className="flex md:hidden items-stretch overflow-x-auto pb-1"
+              style={{
+                gap: "0.5rem",
+                marginTop: "1.25rem",
+                scrollbarWidth: "none",
+              }}
+            >
+              {[
+                { label: "Postos atendidos", value: "150+", sub: "e crescendo" },
+                { label: "Satisfação", value: "98%", sub: "média geral" },
+                { label: "Cidades", value: "10+", sub: "Triângulo Mineiro" },
+              ].map((m) => (
+                <div
+                  key={m.label}
+                  className="anim-metric"
+                  style={{
+                    padding: "0.5rem 0.75rem",
+                    background: "rgba(255,255,255,0.05)",
+                    border: "1px solid rgba(255,255,255,0.09)",
+                    borderRadius: "0.65rem",
+                    backdropFilter: "blur(12px)",
+                    minWidth: "6.5rem",
+                    flexShrink: 0,
+                  }}
+                >
+                  <p style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: "0.52rem",
+                    color: "rgba(255,255,255,0.35)",
+                    letterSpacing: "0.06em",
+                    textTransform: "uppercase",
+                    marginBottom: "0.2rem",
+                  }}>
+                    {m.label}
+                  </p>
+                  <p style={{
+                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontSize: "1.3rem",
+                    fontWeight: 700,
+                    color: AMBER,
+                    lineHeight: 1,
+                    letterSpacing: "-0.02em",
+                  }}>
+                    {m.value}
+                  </p>
+                  <p style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: "0.52rem",
+                    color: "rgba(255,255,255,0.28)",
+                    marginTop: "0.16rem",
+                  }}>
+                    {m.sub}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ══ COLUNA DIREITA: APENAS CARD SUPERIOR (20%) ══ */}
+          {/* hidden em mobile e tablet, visível apenas lg+ */}
+          <div
+            className="hidden lg:flex flex-col"
+            style={{
+              width: "clamp(185px,19vw,230px)",
+              flexShrink: 0,
+            }}
+          >
+            {/* Card único — 20% equiv AgentAI/230+ */}
+            <div
+              className="anim-card-top flex flex-col overflow-hidden"
+              style={{
+                background: "rgba(6,10,20,0.88)",
+                border: "1px solid rgba(255,255,255,0.09)",
+                borderRadius: "clamp(0.8rem,1.2vw,1.05rem)",
+                backdropFilter: "blur(24px)",
+                boxShadow: "0 16px 48px rgba(0,0,0,0.62)",
+              }}
+            >
+              {/* Header do card */}
+              <div style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                padding: "clamp(0.52rem,0.85vw,0.72rem) clamp(0.6rem,0.95vw,0.85rem)",
+                borderBottom: "1px solid rgba(255,255,255,0.06)",
+              }}>
+                <span style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "clamp(0.52rem,0.68vw,0.6rem)",
+                  fontWeight: 500,
+                  color: "rgba(255,255,255,0.42)",
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                }}>
+                  Master Data
+                </span>
+                <span style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "clamp(0.5rem,0.62vw,0.56rem)",
+                  color: "rgba(255,255,255,0.2)",
+                }}>
+                  01/04
+                </span>
+              </div>
+
+              {/* Área placeholder de imagem */}
+              <div style={{
+                width: "100%",
+                aspectRatio: "16/8",
+                background: "linear-gradient(135deg, rgba(0,217,163,0.05) 0%, rgba(0,184,212,0.03) 55%, rgba(6,10,20,0.95) 100%)",
+                borderBottom: "1px solid rgba(255,255,255,0.05)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}>
+                <span style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "0.56rem",
+                  color: "rgba(255,255,255,0.14)",
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                }}>
+                  imagem em breve
+                </span>
+              </div>
+
+              {/* Número 20% + label */}
+              <div style={{
+                padding: "clamp(0.58rem,0.95vw,0.82rem) clamp(0.6rem,0.95vw,0.85rem)",
+              }}>
+                <p style={{
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontSize: "clamp(1.65rem,2.8vw,2.4rem)",
+                  fontWeight: 700,
+                  color: "#fff",
+                  lineHeight: 1,
+                  letterSpacing: "-0.03em",
+                }}>
+                  20<span style={{ color: "#00D9A3" }}>%</span>
+                </p>
+                <p style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "clamp(0.56rem,0.72vw,0.62rem)",
+                  color: "rgba(255,255,255,0.35)",
+                  marginTop: "0.26rem",
+                  lineHeight: 1.45,
+                }}>
+                  de redução média de perdas<br />com automação completa
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      {/* ── SOCIAL ICONS — centro-direita, apenas desktop, sem colidir com cards ── */}
+      {/*
+        Posicionado à esquerda do card (right calculado como: largura do card + gap)
+        hidden em mobile e tablet
+      */}
+      <div
+        className="anim-social hidden lg:flex flex-col items-center gap-2 absolute z-20"
         style={{
-          position: 'absolute',
-          bottom: 'clamp(30px,5vh,50px)',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 40,
-          display: 'flex', flexDirection: 'column',
-          alignItems: 'center', gap: '10px',
-          // Lê a CSS var — zero re-render do React
-          opacity: 'var(--hero-scroll-hint-opacity, 1)' as unknown as number,
-          transition: 'opacity 0.6s',
-          pointerEvents: 'none',
+          right: "clamp(14rem,21vw,27rem)", // fica à esquerda dos cards
+          top: "50%",
+          transform: "translateY(-50%)",
         }}
       >
         <span style={{
-          fontSize: '10px', letterSpacing: '0.32em',
-          textTransform: 'uppercase',
-          color: 'rgba(245,240,232,0.38)', fontWeight: 300,
-        }}>Scroll</span>
-        <ScrollArrow />
-      </div>
-
-      {/* ── LOADING OVERLAY ───────────────── */}
-      {!ready && <LoadingOverlay pct={loadPct} />}
-    </section>
-  )
-}
-
-// ─────────────────────────────────────────────
-// SCROLL PROGRESS DOTS
-// Lê --hero-progress via CSS — zero setState, zero re-render
-// ─────────────────────────────────────────────
-function ScrollProgressDots() {
-  const dotsRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    // Verifica qual janela está ativa comparando a CSS var
-    // usando requestAnimationFrame para não bloquear o main thread
-    let rafId: number
-    let lastActive = 0
-
-    function update() {
-      const section = dotsRef.current?.closest('.hero-section') as HTMLElement | null
-      if (section) {
-        const p = parseFloat(section.style.getPropertyValue('--hero-progress') || '0')
-        const active = p < 0.25 ? 1 : p < 0.50 ? 2 : p < 0.75 ? 3 : 4
-
-        if (active !== lastActive) {
-          lastActive = active
-          const dots = dotsRef.current?.querySelectorAll('[data-dot]')
-          dots?.forEach((dot, i) => {
-            const el = dot as HTMLElement
-            const isActive = i + 1 === active
-            el.style.width = isActive ? '20px' : '6px'
-            el.style.background = isActive
-              ? '#D4A574'
-              : 'rgba(245,240,232,0.25)'
-          })
-        }
-      }
-      rafId = requestAnimationFrame(update)
-    }
-
-    rafId = requestAnimationFrame(update)
-    return () => cancelAnimationFrame(rafId)
-  }, [])
-
-  return (
-    <div
-      ref={dotsRef}
-      style={{
-        position: 'absolute',
-        right: 'clamp(14px,2.5vw,28px)',
-        top: '50%',
-        transform: 'translateY(-50%)',
-        zIndex: 40,
-        display: 'flex', flexDirection: 'column',
-        gap: '10px', pointerEvents: 'none',
-      }}
-    >
-      {[1, 2, 3, 4].map((n) => (
-        <div
-          key={n}
-          data-dot={n}
-          style={{
-            width: '6px', height: '1px',
-            background: 'rgba(245,240,232,0.25)',
-            transition: 'all 0.5s cubic-bezier(0.22,1,0.36,1)',
-          }}
-        />
-      ))}
-    </div>
-  )
-}
-
-// ─────────────────────────────────────────────
-// EDITORIAL TEXT
-// ─────────────────────────────────────────────
-function EditorialText({ txt, active }: { txt: TextConfig; active: boolean }) {
-  const isLeft = txt.align === 'left'
-  return (
-    <div style={{
-      position: 'absolute', zIndex: 25,
-      left: isLeft ? 'clamp(20px,5vw,60px)' : 'auto',
-      right: isLeft ? 'auto' : 'clamp(20px,5vw,60px)',
-      top: txt.topClamp,
-      maxWidth: isLeft ? '38vw' : '40vw',
-      transition: 'opacity 0.70s cubic-bezier(0.22,1,0.36,1), transform 0.70s cubic-bezier(0.22,1,0.36,1)',
-      opacity: active ? 1 : 0,
-      transform: active ? 'translateY(0)' : 'translateY(22px)',
-      pointerEvents: 'none',
-      willChange: 'opacity, transform',
-    }}>
-      <div style={{
-        fontSize: 'clamp(9px,0.85vw,11px)',
-        letterSpacing: '0.28em', textTransform: 'uppercase',
-        color: '#D4A574', fontWeight: 300, marginBottom: '10px',
-        fontFamily: "'Georgia',serif",
-      }}>
-        {txt.label}
-      </div>
-      <div style={{
-        fontSize: txt.sizeClamp,
-        fontFamily: "'Georgia','Times New Roman',serif",
-        fontWeight: 300, lineHeight: 1.05, color: '#F5F0E8',
-        letterSpacing: '-0.02em', textShadow: '0 2px 28px rgba(10,10,10,0.60)',
-      }}>
-        {txt.line1}
-      </div>
-      {txt.line2 && (
-        <div style={{
-          fontSize: txt.sizeClamp,
-          fontFamily: "'Georgia','Times New Roman',serif",
-          fontWeight: 300, lineHeight: 1.05,
-          color: 'rgba(212,165,116,0.80)',
-          letterSpacing: '-0.02em', textShadow: '0 2px 28px rgba(10,10,10,0.60)',
+          fontFamily: "'Inter', sans-serif",
+          fontSize: "0.52rem",
+          color: "rgba(255,255,255,0.16)",
+          letterSpacing: "0.18em",
+          textTransform: "uppercase",
+          writingMode: "vertical-rl",
+          transform: "rotate(180deg)",
+          marginBottom: "0.3rem",
         }}>
-          {txt.line2}
-        </div>
-      )}
-    </div>
-  )
-}
+          Social
+        </span>
+        {[
+          {
+            href: "#",
+            icon: (
+              <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: "0.8em", height: "0.8em" }}>
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+              </svg>
+            ),
+          },
+          {
+            href: "#",
+            icon: (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} style={{ width: "0.78em", height: "0.78em" }}>
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.5" cy="6.5" r="0.7" fill="currentColor" />
+              </svg>
+            ),
+          },
+        ].map((s, i) => (
+          <a
+            key={i}
+            href={s.href}
+            style={{
+              width: "clamp(1.6rem,1.9vw,1.9rem)",
+              height: "clamp(1.6rem,1.9vw,1.9rem)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: "rgba(255,255,255,0.04)",
+              border: "1px solid rgba(255,255,255,0.1)",
+              borderRadius: "50%",
+              color: "rgba(255,255,255,0.32)",
+              transition: "all 0.2s ease",
+            }}
+            onMouseEnter={e => {
+              (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(0,217,163,0.45)";
+              (e.currentTarget as HTMLAnchorElement).style.color = "#00D9A3";
+            }}
+            onMouseLeave={e => {
+              (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(255,255,255,0.1)";
+              (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.32)";
+            }}
+          >
+            {s.icon}
+          </a>
+        ))}
+      </div>
 
-// ─────────────────────────────────────────────
-// GLASS CARD
-// ─────────────────────────────────────────────
-function GlassCard({ card, active }: { card: CardConfig; active: boolean }) {
-  const isLeft = card.side === 'left'
-  return (
-    <div style={{
-      position: 'absolute', zIndex: 30,
-      left: isLeft ? 'clamp(16px,5vw,56px)' : 'auto',
-      right: isLeft ? 'auto' : 'clamp(16px,5vw,56px)',
-      top: card.topClamp,
-      width: 'clamp(185px,21vw,275px)',
-      transition: 'opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1)',
-      opacity: active ? 1 : 0,
-      transform: active ? 'translateX(0)' : isLeft ? 'translateX(-24px)' : 'translateX(24px)',
-      pointerEvents: active ? 'auto' : 'none',
-      willChange: 'opacity, transform',
-    }}>
-      <div style={{
-        background: 'rgba(10,10,10,0.42)',
-        backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
-        border: '1px solid rgba(212,165,116,0.15)',
-        borderRadius: '12px',
-        padding: 'clamp(16px,2.2vw,24px)',
-      }}>
-        <div style={{
-          width: '24px', height: '1px',
-          background: '#D4A574', opacity: 0.70, marginBottom: '10px',
-        }} />
-        <h3 style={{
-          margin: '0 0 6px',
-          fontFamily: "'Georgia','Times New Roman',serif",
-          fontWeight: 300, fontSize: 'clamp(12px,1.3vw,15px)',
-          lineHeight: 1.2, color: '#F5F0E8', letterSpacing: '0.01em',
-        }}>
-          {card.title}
-        </h3>
+      {/* ── TEXTO INFERIOR DIREITO ── */}
+      <div
+        className="anim-bottom-text hidden lg:block absolute z-20"
+        style={{
+          bottom: "clamp(1.6rem,3.2vw,2.8rem)",
+          // alinhado ao card: right = mesmo padding lateral
+          right: "clamp(1.5rem,5vw,4.5rem)",
+          width: "clamp(185px,19vw,230px)", // mesma largura do card
+          textAlign: "right",
+        }}
+      >
         <p style={{
-          margin: 0, fontFamily: "'Georgia',sans-serif",
-          fontWeight: 300, fontSize: 'clamp(10px,1vw,12px)',
-          lineHeight: 1.6, color: 'rgba(245,240,232,0.55)', letterSpacing: '0.01em',
+          fontFamily: "'Space Grotesk', sans-serif",
+          fontWeight: 700,
+          fontSize: "clamp(0.88rem,1.5vw,1.22rem)",
+          lineHeight: 1.28,
+          color: "#fff",
+          letterSpacing: "-0.02em",
         }}>
-          {card.body}
+          Instalamos e{" "}
+          <span style={{ color: "#00D9A3" }}>mantemos</span>{" "}
+          com <span style={{ color: "#00D9A3" }}>excelência</span>{" "}
+          sua automação, do hardware ao software.
         </p>
       </div>
-    </div>
-  )
-}
 
-// ─────────────────────────────────────────────
-// LOADING OVERLAY
-// ─────────────────────────────────────────────
-function LoadingOverlay({ pct }: { pct: number }) {
-  return (
-    <div style={{
-      position: 'absolute', inset: 0, zIndex: 100,
-      background: '#0A0A0A',
-      display: 'flex', flexDirection: 'column',
-      alignItems: 'center', justifyContent: 'center', gap: '28px',
-    }}>
-      <img src="/assets/METODO-STICKER.svg" alt="Carregando"
-        style={{ height: '28px', filter: 'brightness(0) invert(1)', opacity: 0.9 }}
-      />
-      <div style={{
-        width: 'clamp(160px,22vw,210px)', height: '1px',
-        background: 'rgba(212,165,116,0.15)',
-        position: 'relative', overflow: 'hidden',
-      }}>
-        <div style={{
-          position: 'absolute', top: 0, bottom: 0, left: 0,
-          background: '#D4A574', width: `${pct}%`,
-          transition: 'width 0.25s ease-out',
-        }} />
+      {/* ── ABOUT LINK RODAPÉ ESQUERDO ── */}
+      <div
+        className="anim-about absolute z-20"
+        style={{
+          bottom: "clamp(1.2rem,2.5vw,2rem)",
+          left: "clamp(1.5rem,5vw,4.5rem)",
+        }}
+      >
+        <button
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.45rem",
+            background: "none",
+            border: "none",
+            color: "rgba(255,255,255,0.24)",
+            fontFamily: "'Inter', sans-serif",
+            fontSize: "clamp(0.55rem,0.7vw,0.62rem)",
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+            cursor: "pointer",
+            transition: "color 0.2s ease",
+          }}
+          onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = "rgba(255,255,255,0.52)"; }}
+          onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = "rgba(255,255,255,0.24)"; }}
+        >
+          <span style={{ display: "block", width: "1rem", height: "1px", background: "currentColor" }} />
+          Sobre a Master Data
+        </button>
       </div>
-      <span style={{
-        fontSize: '10px', letterSpacing: '0.32em', textTransform: 'uppercase',
-        color: 'rgba(212,165,116,0.50)', fontWeight: 300, marginTop: '-14px',
-      }}>
-        {pct}%
-      </span>
-    </div>
-  )
-}
-
-// ─────────────────────────────────────────────
-// ÍCONES
-// ─────────────────────────────────────────────
-function HamburgerSVG() {
-  return (
-    <svg width="20" height="14" viewBox="0 0 20 14" fill="none" aria-hidden>
-      <line x1="0" y1="1" x2="20" y2="1" stroke="#F5F0E8" strokeWidth="0.85" />
-      <line x1="0" y1="7" x2="14" y2="7" stroke="#D4A574" strokeWidth="0.85" />
-      <line x1="0" y1="13" x2="20" y2="13" stroke="#F5F0E8" strokeWidth="0.85" />
-    </svg>
-  )
-}
-
-function ScrollArrow() {
-  return (
-    <>
-      <style>{`
-        @keyframes heroScrollBounce {
-          0%,100%{transform:translateY(0)}
-          50%{transform:translateY(6px)}
-        }
-        @keyframes heroScrollDot {
-          0%{transform:translateY(0);opacity:1}
-          75%{transform:translateY(9px);opacity:0.1}
-          100%{transform:translateY(0);opacity:1}
-        }
-      `}</style>
-      <svg width="16" height="28" viewBox="0 0 16 28" fill="none" aria-hidden
-        style={{ animation: 'heroScrollBounce 2s ease-in-out infinite' }}>
-        <rect x="6.5" y="0" width="3" height="16" rx="1.5" fill="rgba(212,165,116,0.22)" />
-        <rect x="6.5" y="0" width="3" height="6" rx="1.5" fill="#D4A574"
-          style={{ animation: 'heroScrollDot 2s ease-in-out infinite' }} />
-        <path d="M3 21L8 26L13 21" stroke="rgba(212,165,116,0.38)" strokeWidth="1" fill="none" />
-      </svg>
-    </>
-  )
+    </section>
+  );
 }

@@ -158,7 +158,7 @@ export default function Problem() {
               autoPlay
               className="absolute inset-0 w-full h-full object-cover"
             >
-              <source src="/videos/corn_luxury_optimized.mp4" type="video/mp4" />
+              <source src="/videos/video_problem_clean.mp4" type="video/mp4" />
               Seu navegador não suporta vídeos.
             </video>
 

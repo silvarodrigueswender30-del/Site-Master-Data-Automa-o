@@ -93,7 +93,7 @@ export default function Procedures() {
                   max-[479px]:text-[2.4em]
                 "
               >
-                Mais Resultado — Sem o Custo do Tempo Perdido.
+                Controle Total — Sem Dependência de Planilhas Manuais.
               </h2>
 
               {/*
@@ -134,12 +134,12 @@ export default function Procedures() {
                   max-[991px]:text-[1em]
                   max-[479px]:text-[.86em]
                 ">
-                  A maioria das clínicas trata os sintomas.
+                  DECIDA COM BASE EM DADOS REAIS, NÃO EM SUPOSIÇÕES.
                   <br />
                   <br />
-                  Na Sticker, tratamos a origem — com tecnologia exclusiva,
-                  certificação internacional e protocolos que entregam resultado
-                  real, sem comprometer sua rotina.
+                  NA MASTER DATA, INTEGRAMOS TODA A SUA OPERAÇÃO
+                  DESDE O MONITORAMENTO REMOTO DE TANQUES
+                  ATÉ O FECHAMENTO DE CAIXA AUTOMÁTICO, COLOCANDO A GESTÃO DO SEU POSTO NA PALMA DA SUA MÃO.
                 </div>
 
                 {/*
@@ -173,7 +173,7 @@ export default function Procedures() {
                       text-[1em] leading-[130%] uppercase
                       text-[#0050FF] mb-0
                     ">
-                      conhecer os protocolos
+                      SUPORTE ESPECIALIZADO
                     </span>
                     <span className="rounded-full w-[.25em] h-[.25em] bg-[#0050FF] flex-none" />
                   </div>
@@ -214,11 +214,9 @@ export default function Procedures() {
                * @479px L12733: object-fit:cover | flex:none | height:38em
                */}
               <img
-                src="/images/resultado.avif"
+                src="/images/controle.avif"
                 loading="lazy"
-                sizes="(max-width: 767px) 100vw, (max-width: 991px) 728px, 940px, 100vw"
-                srcSet="/images/resultado-p-500.avif 500w, /images/resultado.avif 1542w"
-                alt=""
+                alt="Controle Master Data"
                 className="
                   object-cover w-full h-[120vh]
                   max-[991px]:h-[120%] max-[991px]:overflow-visible

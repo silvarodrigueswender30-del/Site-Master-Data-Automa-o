@@ -7,7 +7,7 @@ export default function Products() {
                 data-w-id="688441f0-da8a-8314-aeea-06fbd64feb48"
                 className="
                     relative w-full
-                    bg-[#060E1C]
+                    bg-[#020409]
                     pt-[6em] pb-[15em] px-[1.88em]
                     max-[991px]:pb-[10em] max-[991px]:px-0
                     max-[479px]:pt-[4em] max-[479px]:pb-[7em]
@@ -45,9 +45,9 @@ export default function Products() {
                                         max-[479px]:text-[2.6em]
                                     "
                                 >
-                                    Para Sua Pele.
+                                    Para sua Operação.
                                     <br />
-                                    Para Seu Corpo.
+                                    Para seu Lucro.
                                 </h2>
                             </div>
                         </div>
@@ -82,23 +82,21 @@ export default function Products() {
                                 "
                             >
                                 {/* Data Flow Effect */}
-                                <div 
+                                <div
                                     className="absolute inset-0 pointer-events-none opacity-10 z-0"
-                                    style={{ 
+                                    style={{
                                         background: 'linear-gradient(90deg, transparent 0%, rgba(0, 80, 255, 0.4) 50%, transparent 100%)',
                                         backgroundSize: '200% 100%',
                                         animation: 'dataFlow 6s linear infinite'
                                     }}
                                 />
                                 <img
-                                    src="/images/crioendolift.avif"
+                                    src="/images/Products/bombas.webp"
                                     loading="lazy"
-                                    sizes="100vw"
-                                    srcSet="/images/crioendolift-p-500.avif 500w, /images/crioendolift.avif 930w"
-                                    alt="CrioEndolift — Laser de alta potência com retração de pele simultânea."
+                                    alt="Automação de Bombas e Dispensers"
                                     className="
-                                        absolute z-[1] w-[20em] top-[-6em]
-                                        max-[479px]:w-[13.4em] max-[479px]:[inset:auto_0%_1em_3em]
+                                        absolute z-[1] w-[25em] top-[-8.5em] left-1/2 -translate-x-1/2
+                                        max-[479px]:w-[16em] max-[479px]:top-[-5em]
                                     "
                                 />
                                 {/* Lottie hover */}
@@ -133,7 +131,7 @@ export default function Products() {
                                                 max-[479px]:text-[1.6em] max-[479px]:leading-[99%]
                                             "
                                         >
-                                            CrioEndolift
+                                            Automação de Bombas e Dispensers
                                         </h3>
                                         <div
                                             className="
@@ -144,7 +142,7 @@ export default function Products() {
                                                 mb-0
                                             "
                                         >
-                                            Laser de alta potência com retração de pele simultânea. Resultados comparáveis à cirurgia plástica — sem o bisturi.
+                                            INTEGRAÇÃO TOTAL EM TEMPO REAL. CONFORMIDADE COM O INMETRO E CONTROLE ABSOLUTO DE CADA GOTA ABASTECIDA.
                                         </div>
                                     </div>
                                 </div>
@@ -181,23 +179,21 @@ export default function Products() {
                                 "
                             >
                                 {/* Data Flow Effect */}
-                                <div 
+                                <div
                                     className="absolute inset-0 pointer-events-none opacity-10 z-0"
-                                    style={{ 
+                                    style={{
                                         background: 'linear-gradient(90deg, transparent 0%, rgba(0, 80, 255, 0.4) 50%, transparent 100%)',
                                         backgroundSize: '200% 100%',
                                         animation: 'dataFlow 6s linear infinite'
                                     }}
                                 />
                                 <img
-                                    src="/images/ultra-md.avif"
+                                    src="/images/Products/gestao.webp"
                                     loading="lazy"
-                                    sizes="100vw"
-                                    srcSet="/images/ultra-md-p-500.avif 500w, /images/ultra-md.avif 930w"
-                                    alt="Ultra MD — Único certificado internacional de eficácia no segmento."
+                                    alt="Sistema de Gestão Especializado ERP"
                                     className="
-                                        absolute z-[1] w-[20em] top-[-6em]
-                                        max-[479px]:w-[13.4em] max-[479px]:[inset:auto_0%_1em_3em]
+                                        absolute z-[1] w-[25em] top-[-8.5em] left-1/2 -translate-x-1/2
+                                        max-[479px]:w-[16em] max-[479px]:top-[-5em]
                                     "
                                 />
                                 <div
@@ -231,9 +227,9 @@ export default function Products() {
                                                 max-[479px]:text-[1.6em] max-[479px]:leading-[99%]
                                             "
                                         >
-                                            Ultra MD
+                                            Sistema de Gestão
                                             <br />
-                                            Certificação FDA
+                                            Especializado ERP
                                         </h3>
                                         <div
                                             className="
@@ -244,7 +240,7 @@ export default function Products() {
                                                 mb-0
                                             "
                                         >
-                                            Único certificado internacional de eficácia no segmento. Exclusividade em Minas Gerais. Sem efeito rebote.
+                                            O PDV QUE NÃO TRAVA. GESTÃO FINANCEIRA, FISCAL E DE ESTOQUE UNIFICADA PARA UMA TOMADA DE DECISÃO INTELIGENTE.
                                         </div>
                                     </div>
                                 </div>
@@ -275,27 +271,27 @@ export default function Products() {
                                     h-[23.88em] p-[1.25em] rounded-[0.4em]
                                     bg-[#0A1428] backdrop-blur-[20px]
                                     border border-[#0D1F3C] hover:border-[#0050FF] transition-colors duration-300
-                                    no-underline overflow-hidden
+                                    no-underline
                                     max-[991px]:flex-none max-[991px]:w-[25em]
                                     max-[479px]:items-start max-[479px]:justify-start max-[479px]:w-[19em]
                                 "
                             >
                                 {/* Data Flow Effect */}
-                                <div 
+                                <div
                                     className="absolute inset-0 pointer-events-none opacity-10 z-0"
-                                    style={{ 
+                                    style={{
                                         background: 'linear-gradient(90deg, transparent 0%, rgba(0, 80, 255, 0.4) 50%, transparent 100%)',
                                         backgroundSize: '200% 100%',
                                         animation: 'dataFlow 6s linear infinite'
                                     }}
                                 />
                                 <img
-                                    src="/images/hidrolipo.avif"
+                                    src="/images/Products/somda-3d.webp"
                                     loading="lazy"
-                                    alt="Hidrolipo Não Aspirativa — Sticker Clínica"
+                                    alt="Controle de Tanques e Sondas"
                                     className="
-                                        absolute z-[1] w-[20em] top-[-10em]
-                                        max-[479px]:w-[13em] max-[479px]:[inset:auto_0%_-0.7em_2.3em]
+                                        absolute z-[1] w-[25em] top-[-8.5em] left-1/2 -translate-x-1/2
+                                        max-[479px]:w-[16em] max-[479px]:top-[-5em]
                                     "
                                 />
                                 <div className="product-description w-full">
@@ -315,9 +311,7 @@ export default function Products() {
                                                 max-[479px]:text-[1.6em] max-[479px]:leading-[99%]
                                             "
                                         >
-                                            Hidrolipo
-                                            <br />
-                                            Não Aspirativa
+                                            Controle de Tanques e Sondas
                                         </h3>
                                         <div
                                             className="
@@ -328,7 +322,7 @@ export default function Products() {
                                                 mb-0
                                             "
                                         >
-                                            Procedimento minimamente invasivo com acompanhamento nutricional incluso. Sem pós-operatório.
+                                            MONITORAMENTO REMOTO 24H. ALERTAS DE VAZAMENTO E INVENTÁRIO AUTOMÁTICO PARA ELIMINAR PERDAS INVISÍVEIS.
                                         </div>
                                     </div>
                                 </div>
